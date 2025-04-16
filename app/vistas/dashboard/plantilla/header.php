@@ -16,6 +16,12 @@ if (!defined('URL_BASE')) {
         <title>Dashboard - Directorio</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="<?= URL_BASE ?>/css/styles.css" rel="stylesheet">
+        <!-- SweetAlert2 CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+        <!-- SweetAlert2 JS -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -51,16 +57,23 @@ if (!defined('URL_BASE')) {
                                 Dashboard
                             </a>
                             <div class="sb-sidenav-menu-heading">Laboratorio</div>
-                            <a class="nav-link" href="#">
-                                <div class="sb-nav-link-icon"><i class="fas fa-map-marked-alt"></i></div>
+                            <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'hoods' ? 'active' : '' ?>" 
+                                href="/directorio/rutas/rutas.php?page=hoods">
+                                <div class="sb-nav-link-icon"><i class="fas fa-comments"></i></div>
                                 Barrios
+                            </a>
+                            <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'categories' ? 'active' : '' ?>" 
+                                href="/directorio/rutas/rutas.php?page=categories">
+                                <div class="sb-nav-link-icon"><i class="fas fa-comments"></i></div>
+                                Categorías
                             </a>
                             <a class="nav-link" href="#">
                                 <div class="sb-nav-link-icon"><i class="fas fa-comments"></i></div>
                                 Chats
                             </a>
-                            <a class="nav-link" href="#">
-                                <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                            <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'users' ? 'active' : '' ?>" 
+                                href="/directorio/rutas/rutas.php?page=users">
+                                <div class="sb-nav-link-icon"><i class="fas fa-comments"></i></div>
                                 Usuarios
                             </a>
                             <a class="nav-link" href="#">
