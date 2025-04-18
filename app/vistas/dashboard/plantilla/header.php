@@ -67,7 +67,8 @@ if (!defined('URL_BASE')) {
                                 <div class="sb-nav-link-icon"><i class="fas fa-comments"></i></div>
                                 Categorías
                             </a>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'chats' ? 'active' : '' ?>" 
+                                href="/directorio/rutas/rutas.php?page=chats">
                                 <div class="sb-nav-link-icon"><i class="fas fa-comments"></i></div>
                                 Chats
                             </a>

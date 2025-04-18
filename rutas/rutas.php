@@ -12,6 +12,8 @@ $userController = new UserController();
 require_once(__DIR__ . '/../app/controladores/hoodController.php');
 $hoodController = new HoodController();
 
+require_once(__DIR__ . '/../app/controladores/chatController.php');
+$chatController = new ChatController();
 // =========================================================================
 
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
@@ -52,6 +54,18 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                 return;
             }
             $hoodController->updateView($_GET["id"]);
+            break;
+
+        case 'chats':
+            $chatController->index();
+            break;
+
+        case 'updateChat':
+            if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
+                echo "ID Inválido";
+                return;
+            }
+            $chatController->updateView($_GET["id"]);
             break;
 
         default:
@@ -105,5 +119,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (isset($_POST["deleteHood"])) {
         $hoodController->deleteHood();
+    }
+
+    if (isset($_POST["validateChat"])) {
+        $chatController->validateChat();
     }
 }
