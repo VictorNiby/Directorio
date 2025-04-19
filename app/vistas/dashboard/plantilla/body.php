@@ -1,6 +1,6 @@
 <?php 
 define('RUTA_BASE', $_SERVER['DOCUMENT_ROOT'] . '/directorio');
-include_once RUTA_BASE . '/App/vistas/admin/header.php';
+include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
 ?>
 <main>
                     <div class="container-fluid px-4">
@@ -557,5 +557,5 @@ include_once RUTA_BASE . '/App/vistas/admin/header.php';
                     </div>
                 </main>
 <?php 
-include_once RUTA_BASE . '/App/vistas/admin/footer.php';
+include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/footer.php';
 ?>
