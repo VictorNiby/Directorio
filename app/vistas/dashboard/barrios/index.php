@@ -142,7 +142,7 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
 </main>
 
 <script>
-    const filasPorPagina = 5;
+    const filasPorPagina = 8;
     document.addEventListener('DOMContentLoaded', function() {
         const tabla = document.getElementById('tablaBarrios');
         const cuerpo = tabla.querySelector('tbody');

@@ -3,7 +3,24 @@
 define('RUTA_BASE', $_SERVER['DOCUMENT_ROOT'] . '/directorio');
 include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
 ?>
+<style>
+    .bg-admin {
+    background-color: #007bff;
+}
 
+.bg-cliente {
+    background-color: #28a745;
+}
+
+.bg-proveedor {
+    background-color:rgb(255, 143, 7);
+}
+
+.bg-otro {
+    background-color: #6c4f97;
+}
+
+</style>
 <main>
     <div class="container-fluid px-4">
         <div class="card mb-4 mt-4 shadow-sm border-1 rounded-4 overflow-hidden">
@@ -36,6 +53,7 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
                                 <th class="text-center">Num Doc</th>
                                 <th class="text-center">Nacimiento</th>
                                 <th class="text-center">Rol</th>
+                                <th class="text-center">Estado</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
@@ -60,12 +78,12 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
                                         <td class="text-center"><?= $documento ?></td>
                                         <td class="text-center"><?= $nacimiento ?></td>
                                         <td class="text-center">
-                                            <span class="badge <?= $rol === 'admin' ? 'bg-primary' : 'bg-secondary' ?>">
-                                                <?= ucfirst($rol) ?>
-                                            </span>
+                                        <span class="badge <?= $rol === 'admin' ? 'bg-admin' : ($rol === 'cliente' ? 'bg-cliente' : ($rol === 'proveedor' ? 'bg-proveedor' : 'bg-otro')) ?>">
+                                            <?= ucfirst($rol) ?>
+                                        </span>
                                         </td>
                                         <td class="text-center">
-                                            <span class="badge <?= $estado === 'Activo' ? 'bg-success' : 'bg-secondary' ?>">
+                                            <span class="badge <?= $estado === 'Activo' ? 'bg-success' : 'bg-otro' ?>">
                                                 <?= ucfirst($estado) ?>
                                             </span>
                                         </td>
@@ -91,7 +109,7 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <tr>
-                                    <td colspan="6" class="text-center text-muted py-4">
+                                    <td colspan="8" class="text-center text-muted py-4">
                                         <i class="bi bi-exclamation-circle me-2"></i> No hay usuarios registrados
                                     </td>
                                 </tr>
@@ -208,7 +226,7 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
 </main>
 
 <script>
-    const filasPorPagina = 5;
+    const filasPorPagina = 8;
     document.addEventListener('DOMContentLoaded', function() {
         const tabla = document.getElementById('tablaUsuarios');
         const cuerpo = tabla.querySelector('tbody');

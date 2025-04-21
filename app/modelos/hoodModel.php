@@ -11,7 +11,7 @@ class HoodModel extends Mysql {
     }
 
     public function getAllHood() {
-        $query = "SELECT * FROM barrio";
+        $query = "SELECT * FROM barrio ORDER BY nombre ASC";
         $stmt = $this->connection->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

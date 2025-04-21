@@ -1,7 +1,7 @@
 
 <?php 
 define('RUTA_BASE', dirname(__DIR__)); // Obtiene la ruta raíz del proyecto
-include_once RUTA_BASE . '/App/vistas/plantillas/header.php';
+include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
 ?>
 
 
@@ -747,4 +747,4 @@ include_once RUTA_BASE . '/App/vistas/plantillas/header.php';
     <!-- Products End -->
 
 
- <?php include_once RUTA_BASE . '/App/vistas/plantillas/footer.php'; ?>
+ <?php include_once RUTA_BASE . '/app/vistas/landing/plantilla/footer.php'; ?>

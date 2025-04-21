@@ -94,25 +94,13 @@ if (!defined('URL_BASE')) {
                     <h6 class="text-dark m-0"><i class="fa fa-bars mr-2"></i>Categorías</h6>
                     <i class="fa fa-angle-down text-dark"></i>
                 </a>
-                <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
+                <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999; max-height: 400px; overflow-y: auto;">
                     <div class="navbar-nav w-100">
-                        <div class="nav-item dropdown dropright">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Vestimenta <i class="fa fa-angle-right float-right mt-1"></i></a>
-                            <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
-                                <a href="<?= URL_BASE ?>/categorias/hombre.php" class="dropdown-item">Ropa para Hombre</a>
-                                <a href="<?= URL_BASE ?>/categorias/mujer.php" class="dropdown-item">Ropa para Mujer</a>
-                                <a href="<?= URL_BASE ?>/categorias/bebes.php" class="dropdown-item">Ropa para Bebés</a>
-                            </div>
-                        </div>
-                        <a href="<?= URL_BASE ?>/categorias/camisas.php" class="nav-item nav-link">Camisas</a>
-                        <a href="<?= URL_BASE ?>/categorias/jeans.php" class="nav-item nav-link">Jeans</a>
-                        <a href="<?= URL_BASE ?>/categorias/trajes_bano.php" class="nav-item nav-link">Trajes de Baño</a>
-                        <a href="<?= URL_BASE ?>/categorias/dormir.php" class="nav-item nav-link">Ropa de Dormir</a>
-                        <a href="<?= URL_BASE ?>/categorias/deportiva.php" class="nav-item nav-link">Ropa Deportiva</a>
-                        <a href="<?= URL_BASE ?>/categorias/monos.php" class="nav-item nav-link">Monos y Overoles</a>
-                        <a href="<?= URL_BASE ?>/categorias/blazers.php" class="nav-item nav-link">Blazers</a>
-                        <a href="<?= URL_BASE ?>/categorias/chaquetas.php" class="nav-item nav-link">Chaquetas</a>
-                        <a href="<?= URL_BASE ?>/categorias/calzado.php" class="nav-item nav-link">Calzado</a>
+                        <?php foreach ($data as $categoria): ?>
+                            <a href="<?= URL_BASE ?>/categorias/<?= strtolower(str_replace(' ', '_', $categoria['nombre'])) ?>.php" class="nav-item nav-link">
+                                <?= htmlspecialchars($categoria['nombre']) ?>
+                            </a>
+                        <?php endforeach; ?>
                     </div>
                 </nav>
             </div>

@@ -12,14 +12,21 @@ $userController = new UserController();
 require_once(__DIR__ . '/../app/controladores/hoodController.php');
 $hoodController = new HoodController();
 
+// Controladores de Chats - Mensajes
 require_once(__DIR__ . '/../app/controladores/chatController.php');
 $chatController = new ChatController();
+
+// Controladores de Servicios
+require_once(__DIR__ . '/../app/controladores/serviceController.php');
+$serviceController = new ServiceController();
 // =========================================================================
 
+// ========================== GET ==========================
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
-    switch ($_GET["page"]) {
+    $page = $_GET["page"] ?? 'home';
 
+    switch ($page) {
         case 'categories':
             $categoryController->index();
             break;
@@ -47,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         case 'hoods':
             $hoodController->index();
             break;
-    
+
         case 'updateHood':
             if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
                 echo "ID Inválido";
@@ -68,16 +75,29 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             $chatController->updateView($_GET["id"]);
             break;
 
+        case 'services':
+            $serviceController->index();
+            break;
+
+        case 'updateService':
+            if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
+                echo "ID Inválido";
+                return;
+            }
+            $serviceController->updateView($_GET["id"]);
+            break;
+
+        case 'home':
         default:
-            echo "PAGE WASN'T FOUND";
+            $categoryController->indexLanding();
             break;
     }
 }
 
+// ========================== POST ==========================
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (isset($_POST["action"])) {
-
         switch ($_POST["action"]) {
             case 'insert':
                 $categoryController->insertCategory();
@@ -103,6 +123,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $hoodController->UpdateHood();
                 break;
 
+            case 'insertService':
+                $serviceController->insertService();
+                break;
+
+            case 'updateService':
+                $serviceController->UpdateService();
+                break;
+
             default:
                 echo "INVALID METHOD";
                 break;
@@ -123,5 +151,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (isset($_POST["validateChat"])) {
         $chatController->validateChat();
+    }
+
+    if (isset($_POST["deleteService"])) {
+        $serviceController->deleteService();
     }
 }

@@ -12,7 +12,7 @@ class CategoryModel extends Mysql{
     }
 
     public function GetAllCategory(){  
-        $query = "SELECT * FROM categoria";
+        $query = "SELECT * FROM categoria ORDER BY nombre ASC";
         $preparedStmt = $this->connection->prepare($query);
         $preparedStmt->execute();
         $data = $preparedStmt->fetchAll(PDO::FETCH_ASSOC);

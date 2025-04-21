@@ -86,7 +86,8 @@ if (!defined('URL_BASE')) {
                             Usuarios
                         </a>
 
-                        <a class="nav-link" href="#">
+                        <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'services' ? 'active' : '' ?>"
+                            href="/directorio/rutas/rutas.php?page=services">
                             <div class="sb-nav-link-icon"><i class="fas fa-tools"></i></div>
                             Servicios
                         </a>

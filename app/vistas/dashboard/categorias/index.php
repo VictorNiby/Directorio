@@ -159,7 +159,7 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
 </main>
 <script>
     //paginacion
-    const filasPorPagina = 5;
+    const filasPorPagina = 8;
 
     document.addEventListener('DOMContentLoaded', function () {
         const tabla = document.getElementById('tablaCategorias');
