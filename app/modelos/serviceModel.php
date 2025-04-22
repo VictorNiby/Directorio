@@ -85,10 +85,12 @@ class ServiceModel extends Mysql {
             if(!$data) {
                 throw new Exception("Categoría no encontrada");
             }
+            
             $nuevoEstado = ($data['estado'] === 'Activo') ? 'Inactivo' : 'Activo';
             $queryUpdate = "UPDATE servicio SET estado = ? WHERE id_servicio = ?";
             $preparedStmt = $this->connection->prepare($queryUpdate);
             $result = $preparedStmt->execute([$nuevoEstado,$id]);
+
             return $result; 
         } catch (\Throwable $th) {
             return false;

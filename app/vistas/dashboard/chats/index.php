@@ -26,6 +26,9 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
 <main>
     <div class="container-fluid px-4">
         <div class="card mb-4 mt-4 shadow-sm border-1 rounded-4 overflow-hidden">
+        <!--"SELECT chat.id_chat, chat.fecha_creacion, pro.nombre as proovedor, cli.nombre as cliente, chat.estado FROM chat
+        INNER JOIN usuario pro on usuario_id_usuario_pro = pro.id_usuario
+        INNER JOIN usuario cli on usuario_id_usuario_cli = cli.id_usuario" -->
             <!-- Header -->
             <div class="p-4 d-flex justify-content-between align-items-center bg-dark text-white">
                 <h5 class="mb-0 fw-bold d-flex align-items-center gap-2">
@@ -108,7 +111,6 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
     </div>
 
     <!-- MODALES -->
-<!-- Modal Ver Chat -->
 <div class="modal fade" id="modalVerChat" tabindex="-1" aria-labelledby="modalVerChatLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-lg modal-chat">
         <div class="modal-content rounded-4 shadow">
@@ -118,10 +120,9 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
-            <!-- ✅ Le damos un ID al body para controlar el scroll -->
             <div id="modalChatBody" class="modal-body bg-light" style="max-height: 60vh; overflow-y: auto;">
                 <div id="contenedorMensajes" class="d-flex flex-column gap-2">
-                    <!-- Aquí se insertan los mensajes -->
+                    
                 </div>
             </div>
             <div class="modal-footer bg-white">
@@ -179,9 +180,6 @@ function verChat(idChat, mensajes) {
         contenedor.appendChild(div);
     });
 }
-
-
-
 
 //==========================================
 const filasPorPagina = 5;
