@@ -25,6 +25,16 @@ class ServiceModel extends Mysql {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
+    //Pe causa
+    public function getLastId(){
+        $query = "SELECT id_servicio from servicio ORDER by id_servicio DESC LIMIT 1";
+        $preparedStmt = $this->connection->prepare($query);
+        $preparedStmt->execute();
+
+        return $preparedStmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     //AL LIO TIO
 
     public function getAllService() {
@@ -57,6 +67,14 @@ class ServiceModel extends Mysql {
                   VALUES (?,?,?,?,?)";
         $stmt = $this->connection->prepare($query);
         return $stmt->execute([$titulo, $descripcion, $precio, $idUsuario, $idCategoria]);
+    }
+
+    //subimos imagenes de los servicios
+    public function uploadImg(String $servicio_id, String $imagen_url){
+        $query = "INSERT INTO servicio_imagenes(servicio_id, imagen_ref) 
+                  VALUES (?,?)";
+        $preparedStmt = $this->connection->prepare($query);
+        return $preparedStmt->execute([$servicio_id,$imagen_url]);
     }
 
     public function update($titulo,$descripcion,$precio,$id) {

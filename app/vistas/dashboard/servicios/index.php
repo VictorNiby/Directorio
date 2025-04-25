@@ -145,7 +145,7 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
 
                         <div class="mb-3">
                             <label class="form-label">Imagen</label>
-                            <input type="file" accept="image/*" name="producto_imagen" class="form-control" required>
+                            <input type="file" accept="image/*" name="servicio_imagen" class="form-control" required>
                         </div>
 
                     </main>

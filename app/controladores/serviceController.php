@@ -1,8 +1,11 @@
 <?php
 require_once(__DIR__ . '/../modelos/ServiceModel.php');
+//importamos funcion para subir imagenes
+require_once(__DIR__ . '/../controladores/uploadImage.php');
 
 class serviceController {
     private $model;
+
     public function __construct() {
         $this->model = new ServiceModel;
     }
@@ -24,7 +27,9 @@ class serviceController {
     }
 
     public function insertService() {
-        if (!isset($_POST["titulo"], $_POST["descripcion"], $_POST["precio"], $_POST["usuario_id"], $_POST["categoria_id"],$_FILES["producto_imagen"])) {
+        if (!isset($_POST["titulo"], $_POST["descripcion"], $_POST["precio"], $_POST["usuario_id"],
+            $_POST["categoria_id"],
+            $_FILES["servicio_imagen"])) {
             echo "Todos los campos son requeridos.";
             return;
         }
@@ -35,29 +40,17 @@ class serviceController {
         $usuarioId = (int) $_POST["usuario_id"];
         $categoriaId = (int) $_POST["categoria_id"];
 
-        $targetRoute = realpath(__DIR__ . '/../../publico/img/servicios/');
-        $dateNow = date("h:i:s");
-
-        $targetFile = $targetRoute . basename($_FILES["producto_imagen"]["name"]);
-
-        $customName = $dateNow . pathinfo($_FILES["producto_imagen"]["name"],PATHINFO_EXTENSION);
-        $imageExt = strtolower(pathinfo($targetFile,PATHINFO_EXTENSION));
-        
-        $allowedExt = ["jpg","png","jpeg"];
-        if (!in_array($imageExt,$allowedExt)) {
-            echo "Extensión de imagen no permitida (solo jpg, png, jpeg)";
-            die();
-        }
-
-        if (!move_uploaded_file($_FILES["producto_imagen"]["tmp_name"],$targetFile . $customName)) {
-            echo "No se subió la imágen.";
-            die();
-        }
-
-        die();
-
         if (!$this->model->insert($titulo, $descripcion, $precio, $usuarioId, $categoriaId)) {
             echo "El servicio no pudo ser creado.";
+            return;
+        }
+
+        //lo necesario para subir las imagenes
+        $lastService = $this->model->getLastId();
+        $imagenRef = uploadImage("servicio_imagen");
+
+        if (!$this->model->uploadImg($lastService["id_servicio"],$imagenRef)) {
+            echo "No se pudo subir la imágen.";
             return;
         }
 
