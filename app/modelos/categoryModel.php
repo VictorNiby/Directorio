@@ -72,4 +72,30 @@ class CategoryModel extends Mysql{
             return false;
         }
     }
+
+    //LANDING
+public function GetAllCategoryLanding(){  
+    $query = "SELECT c.nombre AS categoria, COUNT(s.id_servicio) AS cantidad_servicios
+    FROM categoria c
+    LEFT JOIN servicio s ON c.id_categoria = s.categoria_id_categoria
+    GROUP BY c.id_categoria
+    ORDER BY c.nombre ASC;";
+    $preparedStmt = $this->connection->prepare($query);
+    $preparedStmt->execute();
+    $info = $preparedStmt->fetchAll(PDO::FETCH_ASSOC);
+    return $info;
+}
+
+public function GetFeaturesServices(){
+    $query = "SELECT s.id_servicio, s.titulo, s.precio, COUNT(su.id) AS total_solicitudes
+FROM servicio s
+JOIN servicio_usuario su ON s.id_servicio = su.servicio_id
+GROUP BY s.id_servicio
+ORDER BY total_solicitudes DESC
+LIMIT 8;";
+    $preparedStmt = $this->connection->prepare($query);
+    $preparedStmt->execute();
+    $feature = $preparedStmt->fetchAll(PDO::FETCH_ASSOC);
+    return $feature;
+}
 }

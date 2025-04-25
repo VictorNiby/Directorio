@@ -10,7 +10,9 @@ class CategoryController extends CategoryModel{
     // LANDING PAGE
     public function indexLanding(){
         $data = $this->model->GetAllCategory();
-        include_once(__DIR__ . '../../../publico/index.php');
+        $info = $this->model->GetAllCategoryLanding();
+        $feature = $this->model->GetFeaturesServices();
+        include_once(__DIR__ . '/../vistas/landing/index.php');
     }
     // LANDING PAGE
 

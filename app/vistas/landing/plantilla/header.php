@@ -2,6 +2,7 @@
 if (!defined('URL_BASE')) {
     $protocolo = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
     define('URL_BASE', $protocolo . "://" . $_SERVER['HTTP_HOST'] . "/directorio/publico");
+    define('URL_BASE_TIENDA', $protocolo . "://" . $_SERVER['HTTP_HOST'] . "/directorio/app/vistas/landing");
 }
 ?>
 <!DOCTYPE html>
@@ -19,6 +20,8 @@ if (!defined('URL_BASE')) {
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -111,24 +114,24 @@ if (!defined('URL_BASE')) {
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="<?= URL_BASE ?>/index.php" class="nav-item nav-link active">Inicio</a>
-                            <a href="<?= URL_BASE ?>/shop.php" class="nav-item nav-link">Tienda</a>
-                            <a href="<?= URL_BASE ?>/detail.php" class="nav-item nav-link">Detalle del Producto</a>
+                            <a href="<?= URL_BASE_TIENDA ?>/index.php" class="nav-item nav-link active">Inicio</a>
+                            <a href="<?= URL_BASE_TIENDA ?>/shop.php" class="nav-item nav-link">Tienda</a>
+                            <a href="<?= URL_BASE_TIENDA ?>/detail.php" class="nav-item nav-link">Detalle del Producto</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Páginas <i class="fa fa-angle-down mt-1"></i></a>
                                 <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-                                    <a href="<?= URL_BASE ?>/cart.php" class="dropdown-item">Carrito de Compras</a>
-                                    <a href="<?= URL_BASE ?>/checkout.php" class="dropdown-item">Realizar Compra</a>
+                                    <a href="<?= URL_BASE_TIENDA ?>/cart.php" class="dropdown-item">Carrito de Compras</a>
+                                    <a href="<?= URL_BASE_TIENDA ?>/checkout.php" class="dropdown-item">Realizar Compra</a>
                                 </div>
                             </div>
-                            <a href="<?= URL_BASE ?>/contact.php" class="nav-item nav-link">Contacto</a>
+                            <a href="<?= URL_BASE_TIENDA ?>/contact.php" class="nav-item nav-link">Contacto</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-                            <a href="<?= URL_BASE ?>/wishlist.php" class="btn px-0">
+                            <a href="<?= URL_BASE_TIENDA ?>/wishlist.php" class="btn px-0">
                                 <i class="fas fa-heart text-primary"></i>
                                 <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
                             </a>
-                            <a href="<?= URL_BASE ?>/cart.php" class="btn px-0 ml-3">
+                            <a href="<?= URL_BASE_TIENDA ?>/cart.php" class="btn px-0 ml-3">
                                 <i class="fas fa-shopping-cart text-primary"></i>
                                 <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
                             </a>

@@ -1,6 +1,6 @@
 <?php 
 define('RUTA_BASE', $_SERVER['DOCUMENT_ROOT'] . '/directorio');
-include_once RUTA_BASE . '/App/vistas/plantillas/header.php';
+include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
 ?>
 <body>
     <!-- Breadcrumb Start -->
@@ -23,45 +23,45 @@ include_once RUTA_BASE . '/App/vistas/plantillas/header.php';
             <!-- Shop Sidebar Start -->
             <div class="col-lg-3 col-md-4">
                 <!-- Price Start -->
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by price</span></h5>
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filtrar por precio</span></h5>
                 <div class="bg-light p-4 mb-30">
                     <form>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                             <input type="checkbox" class="custom-control-input" checked id="price-all">
-                            <label class="custom-control-label" for="price-all">All Price</label>
-                            <span class="badge border font-weight-normal">1000</span>
+                            <label class="custom-control-label" for="price-all">Cualquier precio</label>
+                            <span class="badge border font-weight-normal">0</span>
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                             <input type="checkbox" class="custom-control-input" id="price-1">
-                            <label class="custom-control-label" for="price-1">$0 - $100</label>
-                            <span class="badge border font-weight-normal">150</span>
+                            <label class="custom-control-label" for="price-1">$0 - $1000</label>
+                            <span class="badge border font-weight-normal">0</span>
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                             <input type="checkbox" class="custom-control-input" id="price-2">
-                            <label class="custom-control-label" for="price-2">$100 - $200</label>
-                            <span class="badge border font-weight-normal">295</span>
+                            <label class="custom-control-label" for="price-2">$1000 - $5000</label>
+                            <span class="badge border font-weight-normal">0</span>
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                             <input type="checkbox" class="custom-control-input" id="price-3">
-                            <label class="custom-control-label" for="price-3">$200 - $300</label>
-                            <span class="badge border font-weight-normal">246</span>
+                            <label class="custom-control-label" for="price-3">$5000 - $10000</label>
+                            <span class="badge border font-weight-normal">0</span>
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                             <input type="checkbox" class="custom-control-input" id="price-4">
-                            <label class="custom-control-label" for="price-4">$300 - $400</label>
-                            <span class="badge border font-weight-normal">145</span>
+                            <label class="custom-control-label" for="price-4">$10000 - $20000</label>
+                            <span class="badge border font-weight-normal">0</span>
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
                             <input type="checkbox" class="custom-control-input" id="price-5">
-                            <label class="custom-control-label" for="price-5">$400 - $500</label>
-                            <span class="badge border font-weight-normal">168</span>
+                            <label class="custom-control-label" for="price-5">$20000 - $50000</label>
+                            <span class="badge border font-weight-normal">0</span>
                         </div>
                     </form>
                 </div>
                 <!-- Price End -->
                 
                 <!-- Color Start -->
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by color</span></h5>
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filtro por categoria</span></h5>
                 <div class="bg-light p-4 mb-30">
                     <form>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
@@ -428,4 +428,4 @@ include_once RUTA_BASE . '/App/vistas/plantillas/header.php';
         </div>
     </div>
     <!-- Shop End -->
-    <?php include_once RUTA_BASE . '/App/vistas/plantillas/footer.php'; ?>
+    <?php include_once RUTA_BASE . '/app/vistas/landing/plantilla/footer.php'; ?>
