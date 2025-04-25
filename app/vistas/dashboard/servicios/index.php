@@ -108,7 +108,7 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
     <div class="modal fade" id="modalNuevoServicio" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <form action="rutas.php?page=services" method="POST">
+                <form action="rutas.php?page=services" method="POST" enctype="multipart/form-data">
                     <header class="modal-header bg-dark text-white">
                         <h5 class="modal-title"><i class="fas fa-concierge-bell me-2"></i> Nuevo Servicio</h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
@@ -142,6 +142,12 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
                                 <?php endforeach; ?>
                             </select>
                         </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Imagen</label>
+                            <input type="file" accept="image/*" name="producto_imagen" class="form-control" required>
+                        </div>
+
                     </main>
 
                     <footer class="modal-footer">
