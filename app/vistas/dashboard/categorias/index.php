@@ -6,7 +6,6 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
     <div class="container-fluid px-4">
         <div class="card mb-4 mt-4 shadow-sm border-1 rounded-4 overflow-hidden">
 
-            <!-- Header gris claro -->
             <div class="p-4 d-flex justify-content-between align-items-center" style="background-color:rgb(48, 48, 48); color: #343a40;">
                 <h5 class="mb-0 fw-bold d-flex align-items-center gap-2 text-white">
                     <i class="fas fa-table me-2 fs-5 text-white"></i> Gestión de Categorias
@@ -22,7 +21,6 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
                 </button>
             </div>
 
-            <!-- Cuerpo blanco -->
             <div class="card-body p-4 bg-white">
                 <div class="table-responsive">
                     <table id="tablaCategorias" class="table table-hover table-striped table-bordered align-middle mb-0">
@@ -37,7 +35,6 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
                         <tbody>
                             <?php if (!empty($data) && is_array($data)): ?>
                                 <?php foreach ($data as $index => $categoria):
-                                    // Validación y saneamiento de datos
                                     $numero = $index + 1;
                                     $id = filter_var($categoria['id_categoria'] ?? '', FILTER_VALIDATE_INT);
                                     $nombre = htmlspecialchars($categoria['nombre'] ?? '', ENT_QUOTES, 'UTF-8');
@@ -91,7 +88,6 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
         </div>
     </div>
 
-    <!-- MODAL PARA CREAR Y EDITAR -->
     <!-- Modal para Nueva Categoría -->
     <div class="modal fade" id="modalNuevaCategoria" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
@@ -200,8 +196,6 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
     });
 
     //MODALS
-    // * Vaciar
-    // * Cargar datos en la modal
     document.getElementById('modalNuevaCategoria').addEventListener('hidden.bs.modal', function() {
         this.querySelector('form').reset();
     });
