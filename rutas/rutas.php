@@ -19,6 +19,10 @@ $chatController = new ChatController();
 // Controladores de Servicios
 require_once(__DIR__ . '/../app/controladores/serviceController.php');
 $serviceController = new ServiceController();
+
+// COntrolaldores del Menu Principal Dashboard
+require_once(__DIR__ . '/../app/controladores/dashboardController.php');
+$dashController = new DashboardController();
 // =========================================================================
 
 // ========================== GET ==========================
@@ -85,6 +89,9 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                 return;
             }
             $serviceController->updateView($_GET["id"]);
+            break;
+        case 'dashboard':
+            $dashController->index();
             break;
 
         case 'home':
