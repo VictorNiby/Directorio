@@ -62,11 +62,11 @@ class ServiceModel extends Mysql {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function insert($titulo, $descripcion, $precio, $idUsuario, $idCategoria) {
-        $query = "INSERT INTO servicio (titulo, descripcion, precio, usuario_id_usuario, categoria_id_categoria) 
-                  VALUES (?,?,?,?,?)";
+    public function insert($titulo, $descripcion, $precio, $idUsuario, $idCategoria,$barrio_id,$direccion) {
+        $query = "INSERT INTO servicio (titulo, descripcion, precio, usuario_id_usuario, categoria_id_categoria,barrio_id,direccion) 
+                  VALUES (?,?,?,?,?,?,?)";
         $stmt = $this->connection->prepare($query);
-        return $stmt->execute([$titulo, $descripcion, $precio, $idUsuario, $idCategoria]);
+        return $stmt->execute([$titulo, $descripcion, $precio, $idUsuario, $idCategoria,$barrio_id,$direccion]);
     }
 
     //subimos imagenes de los servicios

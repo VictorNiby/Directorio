@@ -40,7 +40,8 @@ if (!defined('URL_BASE')) {
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-
+                    <li><a class="dropdown-item">VictorNiby</a></li>
+                    <br>
                     <li><a class="dropdown-item" href="#!">Salir</a></li>
 
                 </ul>
@@ -54,8 +55,8 @@ if (!defined('URL_BASE')) {
 
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Inicio</div>
-                        <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'home' ? 'active' : '' ?>"
-                            href="/directorio/rutas/rutas.php?page=home">
+                        <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'dashboard' ? 'active' : '' ?>"
+                            href="/directorio/rutas/rutas.php?page=dashboard">
                             <div class="sb-nav-link-icon"><i class="fas fa-house"></i></div>
                             Inicio
                         </a>
@@ -91,14 +92,6 @@ if (!defined('URL_BASE')) {
                             <div class="sb-nav-link-icon"><i class="fas fa-tools"></i></div>
                             Servicios
                         </a>
-
-                        <div class="sb-sidenav-menu-heading">Estadísticas</div>
-
-                        <a class="nav-link" href="#">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-bar"></i></div>
-                            Gráficas
-                        </a>
-
                     </div>
 
                 </div>

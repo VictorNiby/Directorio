@@ -8,7 +8,10 @@ class DashboardController extends DashboardModel{
     }
 
     public function index(){
-        $data = $this->model->GetAllHood();
+        $servicesActive = $this->model->GetAllActiveService();
+        $usersActive = $this->model->GetAllActiveUsers();
+        $moneyEarned = $this->model->GetAllMoneyEarned();
+        $moneyOwnEarned = $this->model->GetAllMoneyEarnedDirectorio();
         include_once(__DIR__ . '/../vistas/dashboard/plantilla/body.php');
     }
 

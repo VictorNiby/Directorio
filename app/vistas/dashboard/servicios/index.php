@@ -2,7 +2,6 @@
 define('RUTA_BASE', $_SERVER['DOCUMENT_ROOT'] . '/directorio');
 include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
 ?>
-
 <main>
     <div class="container-fluid px-4">
         <div class="card mb-4 mt-4 shadow-sm border-1 rounded-4 overflow-hidden">
@@ -30,9 +29,9 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
                             <tr>
                                 <th class="text-center">#</th>
                                 <th class="text-center">Título</th>
-                                <th class="text-center">Descripción</th>
+                                <!-- <th class="text-center">Descripción</th> -->
                                 <th class="text-center">Precio</th>
-                                <th class="text-center">Usuario</th>
+                                <!-- <th class="text-center">Usuario</th> -->
                                 <th class="text-center">Categoría</th>
                                 <th class="text-center">Estado</th>
                                 <th class="text-center">Acciones</th>
@@ -53,9 +52,9 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
                                     <tr>
                                         <td class="text-center"><?= $numero ?></td>
                                         <td class="text-center"><?= $titulo ?></td>
-                                        <td class="text-center"><?= $descripcion ?></td>
+                                        <!-- <td class="text-center limitar-descripcion"><?= $descripcion ?></td> -->
                                         <td class="text-center">$<?= number_format($precio, 0) ?></td>
-                                        <td class="text-center text-capitalize"><?= $usuario ?></td>
+                                        <!-- <td class="text-center text-capitalize"><?= $usuario ?></td> -->
                                         <td class="text-center text-capitalize"><?= $categoria ?></td>
                                         <td class="text-center">
                                             <span class="badge <?= $estado === 'Activo' ? 'bg-success' : 'bg-secondary' ?>">
@@ -63,6 +62,18 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
                                             </span>
                                         </td>
                                         <td class="text-center">
+                                        <button class="btn btn-secondary btn-sm"
+                                                title="Editar servicio"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#modalEditarServicio"
+                                                onclick="cargarDatosEditarServicio(
+                                                    <?= $id ?>, 
+                                                    '<?= addslashes($titulo) ?>', 
+                                                    '<?= addslashes($descripcion) ?>',
+                                                    '<?= addslashes($precio) ?>'
+                                                )">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
                                             <button class="btn btn-warning btn-sm"
                                                 title="Editar servicio"
                                                 data-bs-toggle="modal"
@@ -105,7 +116,7 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
     <!-- MODALES -->
 
     <!-- Nuevo Servicio -->
-    <div class="modal fade" id="modalNuevoServicio" tabindex="-1">
+    <div class="modal fade modal-xl" id="modalNuevoServicio" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <form action="rutas.php?page=services" method="POST" enctype="multipart/form-data">
@@ -123,30 +134,59 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
                             <textarea name="descripcion" class="form-control" rows="3" required></textarea>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Precio</label>
-                            <input type="number" step="0.01" name="precio" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Usuario</label>
-                            <select name="usuario_id" class="form-select" required>
-                                <?php foreach ($users as $user): ?>
-                                    <option value="<?= $user['id_usuario'] ?>"><?= htmlspecialchars($user['nombre']) ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Categoría</label>
-                            <select name="categoria_id" class="form-select" required>
-                                <?php foreach ($categories as $category): ?>
-                                    <option value="<?= $category['id_categoria'] ?>"><?= htmlspecialchars($category['nombre']) ?></option>
-                                <?php endforeach; ?>
-                            </select>
+                            <div class="row">
+                                <div class="col">
+                                    <label class="form-label">Precio</label>
+                                    <input type="number" step="0.01" name="precio" class="form-control" required>
+                                </div>
+                                <div class="col">
+                                    <label class="form-label">Imagen</label>
+                                    <input type="file" accept="image/*" name="servicio_imagen" class="form-control" required>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Imagen</label>
-                            <input type="file" accept="image/*" name="servicio_imagen" class="form-control" required>
+                            <div class="row">
+                                <div class="col">
+                                    <label class="form-label">Usuario</label>
+                                    <select name="usuario_id" class="form-select" required>
+                                        <?php foreach ($users as $user): ?>
+                                            <option value="<?= $user['id_usuario'] ?>"><?= htmlspecialchars($user['nombre']) ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label class="form-label">Categoría</label>
+                                    <select name="categoria_id" class="form-select" required>
+                                        <?php foreach ($categories as $category): ?>
+                                            <option value="<?= $category['id_categoria'] ?>"><?= htmlspecialchars($category['nombre']) ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                            
                         </div>
+
+                        <div class="mb-3">
+                            <div class="row">
+                                <div class="col">
+                                    <label class="form-label">Barrio</label>
+                                    <select name="barrio_id" class="form-select" required>
+                                        <?php foreach ($hoods as $hood): ?>
+                                            <option value="<?= $hood['id_barrio'] ?>"><?= htmlspecialchars($hood['nombre']) ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label class="form-label">Dirección</label>
+                                    <input type="text" name="direccion" class="form-control">
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                        
 
                     </main>
 
