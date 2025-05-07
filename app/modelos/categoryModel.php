@@ -98,4 +98,21 @@ LIMIT 8;";
     $feature = $preparedStmt->fetchAll(PDO::FETCH_ASSOC);
     return $feature;
 }
+
+public function GetUserMonth(){
+    $query = "SELECT 
+    MONTH(u.created_at) AS mes, 
+    YEAR(u.created_at) AS anio, 
+    COUNT(u.id_usuario) AS total
+FROM usuario u 
+WHERE u.estado = 'Activo' 
+  AND u.rol != 'Admin'
+GROUP BY YEAR(u.created_at), MONTH(u.created_at)
+ORDER BY YEAR(u.created_at), MONTH(u.created_at);";
+    $preparedStmt = $this->connection->prepare($query);
+    $preparedStmt->execute();
+    $usersMonth = $preparedStmt->fetchAll(PDO::FETCH_ASSOC);
+    return $usersMonth;
+}
+
 }

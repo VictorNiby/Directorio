@@ -16,6 +16,7 @@ if (!defined('URL_BASE')) {
 
     <!-- Favicon -->
     <link href="<?= URL_BASE ?>/img/favicon.ico" rel="icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">

@@ -149,7 +149,7 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
                         <div class="mb-3">
                             <div class="row">
                                 <div class="col">
-                                    <label class="form-label">Usuario</label>
+                                    <label class="form-label">Dueño</label>
                                     <select name="usuario_id" class="form-select" required>
                                         <?php foreach ($users as $user): ?>
                                             <option value="<?= $user['id_usuario'] ?>"><?= htmlspecialchars($user['nombre']) ?></option>
