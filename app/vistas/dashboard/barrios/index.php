@@ -90,7 +90,7 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
     <!-- MODALES -->
 
     <!-- Nuevo Barrio -->
-    <div class="modal fade" id="modalNuevoBarrio" tabindex="-1">
+    <div class="modal fade modal-lg" id="modalNuevoBarrio" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <form action="rutas.php?page=hoods" method="POST">
@@ -115,7 +115,7 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
     </div>
 
     <!-- Editar Barrio -->
-    <div class="modal fade" id="modalEditarBarrio" tabindex="-1">
+    <div class="modal fade modal-lg" id="modalEditarBarrio" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <form action="rutas.php?page=hoods" method="POST">

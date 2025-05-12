@@ -125,7 +125,7 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
     <!-- MODALES -->
 
     <!-- Nuevo Usuario -->
-    <div class="modal fade" id="modalNuevoUsuario" tabindex="-1">
+    <div class="modal fade modal-lg" id="modalNuevoUsuario" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <form action="rutas.php?page=users" method="POST">
@@ -177,7 +177,7 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
     </div>
 
     <!-- Editar Usuario -->
-    <div class="modal fade" id="modalEditarUsuario" tabindex="-1">
+    <div class="modal fade modal-lg" id="modalEditarUsuario" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <form action="rutas.php?page=users" method="POST">

@@ -81,16 +81,22 @@ if (!defined('URL_BASE')) {
                             Chats
                         </a>
 
+                        <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'services' ? 'active' : '' ?>"
+                            href="/directorio/rutas/rutas.php?page=services">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tools"></i></div>
+                            Servicios
+                        </a>
+
                         <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'users' ? 'active' : '' ?>"
                             href="/directorio/rutas/rutas.php?page=users">
                             <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                             Usuarios
                         </a>
 
-                        <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'services' ? 'active' : '' ?>"
-                            href="/directorio/rutas/rutas.php?page=services">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tools"></i></div>
-                            Servicios
+                        <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'sales' ? 'active' : '' ?>"
+                            href="/directorio/rutas/rutas.php?page=sales">
+                            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                            Ventas
                         </a>
                     </div>
 

@@ -1,14 +1,14 @@
 <?php
 // =========================================================================
-//  Controladores de Categorías
+// Controladores de Categorías
 require_once(__DIR__ . '/../app/controladores/categoryController.php');
 $categoryController = new CategoryController();
 
-//  Controladores de Usuarios
+// Controladores de Usuarios
 require_once(__DIR__ . '/../app/controladores/userController.php');
 $userController = new UserController();
 
-//  Controladores de Barrios
+// Controladores de Barrios
 require_once(__DIR__ . '/../app/controladores/hoodController.php');
 $hoodController = new HoodController();
 
@@ -20,10 +20,16 @@ $chatController = new ChatController();
 require_once(__DIR__ . '/../app/controladores/serviceController.php');
 $serviceController = new ServiceController();
 
-// COntrolaldores del Menu Principal Dashboard
+// Controladores del Menu Principal Dashboard
 require_once(__DIR__ . '/../app/controladores/dashboardController.php');
 $dashController = new DashboardController();
+
+// Controladores de Ventas
+$saleController = "";
+
 // =========================================================================
+
+
 
 // ========================== GET ==========================
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
@@ -91,6 +97,10 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             $serviceController->updateView($_GET["id"]);
             break;
         case 'dashboard':
+            $dashController->index();
+            break;
+
+        case 'sales':
             $dashController->index();
             break;
 

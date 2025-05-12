@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-05-2025 a las 18:16:00
+-- Tiempo de generación: 12-05-2025 a las 14:24:57
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -191,11 +191,45 @@ INSERT INTO `categoria` (`id_categoria`, `nombre`, `estado`) VALUES
 
 CREATE TABLE `chat` (
   `id_chat` int(11) NOT NULL,
-  `fecha_creacion` timestamp NULL DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT current_timestamp(),
   `usuario_id_usuario_pro` int(11) NOT NULL,
   `usuario_id_usuario_cli` int(11) NOT NULL,
-  `estado` varchar(45) NOT NULL DEFAULT 'Activo'
+  `estado` varchar(45) NOT NULL DEFAULT 'Activo',
+  `nombre` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Volcado de datos para la tabla `chat`
+--
+
+INSERT INTO `chat` (`id_chat`, `fecha_creacion`, `usuario_id_usuario_pro`, `usuario_id_usuario_cli`, `estado`, `nombre`) VALUES
+(7, '2025-05-12 06:48:32', 1, 4, 'Activo', 'Chat de Camilo y Diego Alejandro | 32.609');
+
+--
+-- Disparadores `chat`
+--
+DELIMITER $$
+CREATE TRIGGER `set_nombre_chat` BEFORE INSERT ON `chat` FOR EACH ROW BEGIN
+  DECLARE nombre_proveedor VARCHAR(100);
+  DECLARE nombre_cliente VARCHAR(100);
+  DECLARE segundos_actuales VARCHAR(2);
+  DECLARE milisegundos_actuales VARCHAR(3);
+
+  SELECT nombre INTO nombre_proveedor
+  FROM Usuario
+  WHERE id_usuario = NEW.usuario_id_usuario_pro;
+
+  SELECT nombre INTO nombre_cliente
+  FROM Usuario
+  WHERE id_usuario = NEW.usuario_id_usuario_cli;
+
+  SET segundos_actuales = LPAD(SECOND(NOW(3)), 2, '0');
+  SET milisegundos_actuales = LPAD(FLOOR(MICROSECOND(NOW(3)) / 1000), 3, '0');
+
+  SET NEW.nombre = CONCAT('Chat de ', nombre_proveedor, ' y ', nombre_cliente, ' | ', segundos_actuales, '.', milisegundos_actuales);
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -210,6 +244,14 @@ CREATE TABLE `mensaje` (
   `chat_id_chat` int(11) NOT NULL,
   `usuario_id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Volcado de datos para la tabla `mensaje`
+--
+
+INSERT INTO `mensaje` (`id_mensaje`, `mensaje`, `fecha_envio`, `chat_id_chat`, `usuario_id_usuario`) VALUES
+(3, 'Machete con mira', '2025-05-12 11:55:44', 7, 4),
+(4, 'UI', '2025-05-12 11:56:05', 7, 1);
 
 -- --------------------------------------------------------
 
@@ -429,13 +471,13 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `id_chat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_chat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `mensaje`
 --
 ALTER TABLE `mensaje`
-  MODIFY `id_mensaje` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_mensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `reseña`
@@ -489,7 +531,8 @@ ALTER TABLE `chat`
 -- Filtros para la tabla `mensaje`
 --
 ALTER TABLE `mensaje`
-  ADD CONSTRAINT `fk_mensaje_chat1` FOREIGN KEY (`chat_id_chat`) REFERENCES `chat` (`id_chat`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_Mensaje_Chat` FOREIGN KEY (`chat_id_chat`) REFERENCES `chat` (`id_chat`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_Mensaje_Usuario` FOREIGN KEY (`usuario_id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_mensaje_usuario1` FOREIGN KEY (`usuario_id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --

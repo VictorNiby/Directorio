@@ -89,7 +89,7 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
     </div>
 
     <!-- Modal para Nueva Categoría -->
-    <div class="modal fade" id="modalNuevaCategoria" tabindex="-1">
+    <div class="modal fade modal-lg" id="modalNuevaCategoria" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <header class="modal-header bg-dark text-white">
@@ -120,7 +120,7 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
     </div>
 
     <!-- Modal para Editar Categoría -->
-    <div class="modal fade" id="modalEditarCategoria" tabindex="-1">
+    <div class="modal fade modal-lg" id="modalEditarCategoria" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <header class="modal-header bg-dark text-white">
