@@ -52,9 +52,7 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
                                     <tr>
                                         <td class="text-center"><?= $numero ?></td>
                                         <td class="text-center"><?= $titulo ?></td>
-                                        <!-- <td class="text-center limitar-descripcion"><?= $descripcion ?></td> -->
                                         <td class="text-center">$<?= number_format($precio, 0) ?></td>
-                                        <!-- <td class="text-center text-capitalize"><?= $usuario ?></td> -->
                                         <td class="text-center text-capitalize"><?= $categoria ?></td>
                                         <td class="text-center">
                                             <span class="badge <?= $estado === 'Activo' ? 'bg-success' : 'bg-secondary' ?>">
@@ -62,31 +60,27 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
                                             </span>
                                         </td>
                                         <td class="text-center">
-                                        <button class="btn btn-secondary btn-sm"
+                                            <button class="btn btn-secondary btn-sm"
                                                 title="Editar servicio"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#modalEditarServicio"
-                                                onclick="cargarDatosEditarServicio(
-                                                    <?= $id ?>, 
-                                                    '<?= addslashes($titulo) ?>', 
-                                                    '<?= addslashes($descripcion) ?>',
-                                                    '<?= addslashes($precio) ?>'
-                                                )">
+                                            >
                                                 <i class="bi bi-eye"></i>
                                             </button>
+
                                             <button class="btn btn-warning btn-sm"
                                                 title="Editar servicio"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#modalEditarServicio"
-                                                onclick="cargarDatosEditarServicio(
-                                                    <?= $id ?>, 
-                                                    '<?= addslashes($titulo) ?>', 
-                                                    '<?= addslashes($descripcion) ?>',
-                                                    '<?= addslashes($precio) ?>'
-                                                )">
+                                                data-id="<?= $id ?>"
+                                                data-titulo="<?= $titulo ?>"
+                                                data-descripcion="<?= $descripcion ?>"
+                                                data-precio="<?= $precio ?>"
+                                                id="btnEdit"
+                                            >
                                                 <i class="bi bi-pencil"></i>
                                             </button>
-                                            <form action="/directorio/rutas/rutas.php" method="POST" class="d-inline formEliminar">
+                                            <!-- <form action="/directorio/rutas/rutas.php" method="POST" class="d-inline formEliminar">
                                                 <input type="hidden" name="page" value="services">
                                                 <input type="hidden" name="deleteService" value="<?= $id ?>">
                                                 <button type="submit" class="btn btn-danger btn-sm"
@@ -94,7 +88,7 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
                                                     title="Eliminar servicio">
                                                     <i class="bi bi-trash"></i>
                                                 </button>
-                                            </form>
+                                            </form> -->
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -236,21 +230,41 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
 
 <script>
     const filasPorPagina = 5;
-    document.addEventListener('DOMContentLoaded', function() {
-        const tabla = document.getElementById('tablaServicios');
-        const cuerpo = tabla.querySelector('tbody');
-        const filas = Array.from(cuerpo.querySelectorAll('tr'));
-        const paginacion = document.getElementById('paginacionServicios');
+    const btnEdit = document.querySelectorAll('#btnEdit')
 
-        if (filas.length <= filasPorPagina) return;
+    btnEdit.forEach((button)=>{
+        button.addEventListener('click',({target})=>{
+            const btnTarget = target.closest('button')
+
+            const data = {
+                id:btnTarget.dataset.id,
+                titulo:btnTarget.dataset.titulo,
+                descripcion:btnTarget.dataset.descripcion,
+                precio:btnTarget.dataset.precio,
+            }
+            
+            document.getElementById('editServicioId').value = data.id
+            document.getElementById('editServicioTitulo').value = data.titulo
+            document.getElementById('editServicioDescripcion').value = data.descripcion
+            document.getElementById('editServicioPrecio').value = data.precio
+        })
+    })
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabla = document.getElementById('tablaServicios')
+        const cuerpo = tabla.querySelector('tbody')
+        const filas = Array.from(cuerpo.querySelectorAll('tr'))
+        const paginacion = document.getElementById('paginacionServicios')
+
+        if (filas.length <= filasPorPagina) return
 
         let paginaActual = 1;
-        const totalPaginas = Math.ceil(filas.length / filasPorPagina);
+        const totalPaginas = Math.ceil(filas.length / filasPorPagina)
 
         function mostrarPagina(pagina) {
             paginaActual = pagina;
-            const inicio = (pagina - 1) * filasPorPagina;
-            const fin = inicio + filasPorPagina;
+            const inicio = (pagina - 1) * filasPorPagina
+            const fin = inicio + filasPorPagina
 
             filas.forEach((fila, i) => {
                 fila.style.display = (i >= inicio && i < fin) ? '' : 'none';
@@ -260,26 +274,26 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
         }
 
         function actualizarPaginacion() {
-            paginacion.innerHTML = '';
+            paginacion.innerHTML = ''
 
             for (let i = 1; i <= totalPaginas; i++) {
-                const btn = document.createElement('button');
-                btn.className = 'btn btn-sm ' + (i === paginaActual ? 'btn-primary' : 'btn-outline-primary');
-                btn.textContent = i;
-                btn.addEventListener('click', () => mostrarPagina(i));
-                paginacion.appendChild(btn);
+                const btn = document.createElement('button')
+                btn.className = 'btn btn-sm ' + (i === paginaActual ? 'btn-primary' : 'btn-outline-primary')
+                btn.textContent = i
+                btn.addEventListener('click', () => mostrarPagina(i))
+                paginacion.appendChild(btn)
             }
         }
 
-        mostrarPagina(1);
-    });
+        mostrarPagina(1)
+    })
 
-    function cargarDatosEditarServicio(id, titulo, descripcion, precio) {
-        document.getElementById('editServicioId').value = id;
-        document.getElementById('editServicioTitulo').value = titulo;
-        document.getElementById('editServicioDescripcion').value = descripcion;
-        document.getElementById('editServicioPrecio').value = precio;
+    function cargarDatosEditarServicio(e) {
+        
+        // document.getElementById('editServicioId').value = e.target.c.dataset.id;
     }
+
+    
 </script>
 
 <?php include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/footer.php'; ?>
