@@ -1,23 +1,16 @@
+
 <?php
 
 class Mysql{
     public $conect;
-    private $DB_HOST;
-    private $DB_NAME;
-    private $DB_PORT;
-    private $DB_USERNAME;
-    private $DB_PASSWORD;
-    private $DB_CHARSET;
+    private $DB_HOST = 'localhost';
+    private $DB_NAME = 'directorio';
+    private $DB_PORT = '3306';
+    private $DB_USERNAME = 'root';
+    private $DB_PASSWORD = '';
+    private $DB_CHARSET = 'utf8mb4';
     
     public function __construct(){
-
-        $env = parse_ini_file('.env');
-        $this->DB_HOST = $env["DB_HOST"];
-        $this->DB_NAME = $env["DB_NAME"];
-        $this->DB_PORT = $env["DB_PORT"];
-        $this->DB_USERNAME = $env["DB_USERNAME"];
-        $this->DB_PASSWORD = $env["DB_PASSWORD"];
-        $this->DB_CHARSET = $env["DB_CHARSET"];
 
         $connectionString = "mysql:host=".$this->DB_HOST. ";dbname=".$this->DB_NAME.";port=".$this->DB_PORT.";charset=".$this->DB_CHARSET;
 
