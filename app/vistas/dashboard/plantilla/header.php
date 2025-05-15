@@ -95,17 +95,6 @@ if (!defined('URL_BASE')) {
         </a>
       </li>
 
-      <!-- Servicios -->
-      <li class="nav-item">
-        <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'services' ? 'active' : '' ?>" 
-           href="/directorio/rutas/rutas.php?page=services">
-          <div class="icon icon-shape icon-sm bg-gradient-warning shadow-warning text-center border-radius-md d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px;">
-            <i class="material-symbols-rounded text-white pb-2" style="font-size: 18px; line-height: 1;">handyman</i>
-          </div>
-          <span class="nav-link-text ms-1 text-dark">Servicios</span>
-        </a>
-      </li>
-
       <!-- Chats -->
       <li class="nav-item">
         <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'chats' ? 'active' : '' ?>" 
@@ -114,6 +103,17 @@ if (!defined('URL_BASE')) {
             <i class="material-symbols-rounded text-white pb-2" style="font-size: 18px; line-height: 1;">chat</i>
           </div>
           <span class="nav-link-text ms-1 text-dark">Chats</span>
+        </a>
+      </li>
+
+      <!-- Servicios -->
+      <li class="nav-item">
+        <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'services' ? 'active' : '' ?>" 
+           href="/directorio/rutas/rutas.php?page=services">
+          <div class="icon icon-shape icon-sm bg-gradient-warning shadow-warning text-center border-radius-md d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px;">
+            <i class="material-symbols-rounded text-white pb-2" style="font-size: 18px; line-height: 1;">handyman</i>
+          </div>
+          <span class="nav-link-text ms-1 text-dark">Servicios</span>
         </a>
       </li>
 
@@ -187,25 +187,3 @@ if (!defined('URL_BASE')) {
     <!-- End Navbar -->
 
     <!-- Metalo ahi -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

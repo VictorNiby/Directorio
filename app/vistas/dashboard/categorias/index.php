@@ -1,169 +1,168 @@
-<?php
+    <?php
 define('RUTA_BASE', $_SERVER['DOCUMENT_ROOT'] . '/directorio');
-include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
+include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
 ?>
-<main>
-    <div class="container-fluid px-4">
-        <div class="card mb-4 mt-4 shadow-sm border-1 rounded-4 overflow-hidden">
 
-            <div class="p-4 d-flex justify-content-between align-items-center" style="background-color:rgb(48, 48, 48); color: #343a40;">
-                <h5 class="mb-0 fw-bold d-flex align-items-center gap-2 text-white">
-                    <i class="fas fa-table me-2 fs-5 text-white"></i> Gestión de Categorias
-                </h5>
-                <button class="btn btn-outline-secondary btn-sm rounded-circle d-flex align-items-center justify-content-center"
-                    style="width: 36px; height: 36px; transition: transform 0.3s ease;"
-                    onmouseover="this.style.transform='scale(1.15)'"
-                    onmouseout="this.style.transform='scale(1)'"
-                    title="Nuevo"
-                    data-bs-toggle="modal"
-                    data-bs-target="#modalNuevaCategoria">
-                    <i class="fas fa-plus"></i>
-                </button>
-            </div>
+<div class="container-fluid py-2">
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+                <!-- Encabezado de la tarjeta -->
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3 d-flex justify-content-between align-items-center">
+                        <h6 class="text-white text-capitalize ps-3 ms-2">
+                            Gestión de Categorías
+                        </h6>
+                        <button class="btn btn-sm btn-outline-light me-3 rounded-circle d-flex align-items-center justify-content-center"
+                            style="width: 32px; height: 38px;"
+                            title="Nueva categoría"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalNuevaCategoria">
+                            <i class="material-symbols-rounded" style="font-size: 1.2rem;">add</i>
+                        </button>
+                    </div>
+                </div>
 
-            <div class="card-body p-4 bg-white">
-                <div class="table-responsive">
-                    <table id="tablaCategorias" class="table table-hover table-striped table-bordered align-middle mb-0">
-                        <thead>
-                            <tr>
-                                <th class="text-center">#</th>
-                                <th class="text-center">Nombre</th>
-                                <th class="text-center">Estado</th>
-                                <th class="text-center">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if (!empty($data) && is_array($data)): ?>
-                                <?php foreach ($data as $index => $categoria):
-                                    $numero = $index + 1;
-                                    $id = filter_var($categoria['id_categoria'] ?? '', FILTER_VALIDATE_INT);
-                                    $nombre = htmlspecialchars($categoria['nombre'] ?? '', ENT_QUOTES, 'UTF-8');
-                                    $estado = htmlspecialchars($categoria['estado'] ?? '', ENT_QUOTES, 'UTF-8');
-                                ?>
+                <!-- Cuerpo de la tarjeta -->
+                <div class="card-body px-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-dark text-sm font-weight-bolder opacity-10 text-center">#</th>
+                                    <th class="text-uppercase text-dark text-sm font-weight-bolder opacity-10 ps-2">Nombre</th>
+                                    <th class="text-uppercase text-dark text-sm font-weight-bolder opacity-10 text-center">Estado</th>
+                                    <th class="text-uppercase text-dark text-sm font-weight-bolder opacity-10 text-center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php if (!empty($data) && is_array($data)): ?>
+                                    <?php foreach ($data as $index => $categoria):
+                                        $numero = $index + 1;
+                                        $id = (int)($categoria['id_categoria'] ?? 0);
+                                        $nombre = htmlspecialchars($categoria['nombre'] ?? '', ENT_QUOTES, 'UTF-8');
+                                        $estado = htmlspecialchars($categoria['estado'] ?? '', ENT_QUOTES, 'UTF-8');
+                                    ?>
+                                        <tr>
+                                            <td class="align-middle text-center">
+                                                <span class="text-secondary text-sm font-weight-bold"><?= $numero ?></span>
+                                            </td>
+                                            <td class="align-middle">
+                                                <p class="text-sm font-weight-bold mb-0 text-capitalize"><?= $nombre ?></p>
+                                            </td>
+                                            <td class="align-middle text-center text-sm">
+                                                <span class="badge badge-sm <?= $estado === 'Activo' ? 'bg-gradient-success' : 'bg-gradient-secondary' ?>">
+                                                    <?= ucfirst($estado) ?>
+                                                </span>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <button class="btn btn-sm bg-gradient-warning text-white mb-0 px-1 py-1 rounded-circle me-1"
+                                                    style="width: 30px; height: 30px;"
+                                                    title="Editar categoría"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalEditarCategoria"
+                                                    onclick="cargarDatosEditar(<?= $id ?>, '<?= addslashes($nombre) ?>')">
+                                                    <i class="material-symbols-rounded mb-1" style="font-size: 1rem;">edit</i>
+                                                </button>
+                                                <form action="/directorio/rutas/rutas.php" method="POST" class="d-inline formEliminar">
+                                                    <input type="hidden" name="page" value="categories">
+                                                    <input type="hidden" name="delete" value="<?= $id ?>">
+                                                    <button type="submit" class="btn btn-sm bg-gradient-danger text-white mb-0 px-1 py-1 rounded-circle"
+                                                        style="width: 30px; height: 30px;"
+                                                        onclick="return confirm('¿Estás seguro de eliminar esta categoría?')"
+                                                        title="Eliminar categoría">
+                                                        <i class="material-symbols-rounded mb-1" style="font-size: 1rem;">delete</i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
                                     <tr>
-                                        <td class="text-center"><?= $numero ?></td>
-                                        <td class="text-center"><?= $nombre ?></td>
-                                        <td class="text-center">
-                                            <span class="badge <?= $estado == 'Activo' ? 'bg-success' : 'bg-secondary' ?>">
-                                                <?= $estado ?>
+                                        <td colspan="4" class="align-middle text-center py-4">
+                                            <span class="text-sm text-secondary">
+                                                <i class="material-symbols-rounded opacity-10 me-1">info</i>
+                                                No hay categorías registradas
                                             </span>
                                         </td>
-                                        <td class="text-center">
-                                            <!-- Editar con ruta absoluta -->
-                                            <button class="btn btn-warning btn-sm"
-                                                title="Editar categoría"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#modalEditarCategoria"
-                                                onclick="cargarDatosEditar(<?= $id ?>, '<?= addslashes($nombre) ?>')">
-                                                <i class="bi bi-pencil"></i>
-                                            </button>
-
-                                            <!-- Eliminar con confirmación -->
-                                            <form action="/directorio/rutas/rutas.php" method="POST" class="d-inline formEliminar">
-                                                <input type="hidden" name="page" value="deleteCategory">
-                                                <input type="hidden" name="delete" value="<?= $id ?>">
-                                                <button type="submit"
-                                                    class="btn btn-danger btn-sm"
-                                                    onclick="return confirm('¿Estás seguro de eliminar esta categoría?')"
-                                                    title="Eliminar categoría">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </form>
-                                        </td>
                                     </tr>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <tr>
-                                    <td colspan="4" class="text-center text-muted py-4">
-                                        <i class="bi bi-exclamation-circle me-2"></i> No hay categorías registradas
-                                    </td>
-                                </tr>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
-                    <div id="paginacionCategorias" class="mt-3 d-flex justify-content-center gap-2"></div>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                        <div id="paginacionCategorias" class="mt-3 d-flex justify-content-center gap-1 font-weight-bold"></div>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
+</div>
 
-    <!-- Modal para Nueva Categoría -->
-    <div class="modal fade modal-lg" id="modalNuevaCategoria" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <header class="modal-header bg-dark text-white">
-                    <h5 class="modal-title">
-                        <i class="fas fa-plus-circle me-2"></i> Nueva Categoría
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </header>
-                <main class="modal-body">
-                    <form action="rutas.php?page=categories" method="POST" id="formInsertar">
-                        <div class="mb-3">
-                            <label class="form-label" for="nombreCategoria">Nombre</label>
-                            <input type="text" class="form-control" id="nombreCategoria" name="name" required>
-                        </div>
 
-                        <footer class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                <i class="fas fa-times me-1"></i> Cancelar
-                            </button>
-                            <button type="submit" class="btn btn-primary" name="action" value="insert">
-                                <i class="fas fa-save me-1"></i> Guardar
-                            </button>
-                        </footer>
-                    </form>
-                </main>
+<!-- Modal Nuevo Categoría -->
+<div class="modal fade" id="modalNuevaCategoria" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-dark shadow-dark">
+                <h5 class="modal-title text-white">
+                    Nueva Categoría
+                </h5>
+                <button type="button" class="btn-close btn-close-white text-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <form action="rutas.php?page=categories" method="POST">
+                <div class="modal-body">
+                    <div class="input-group input-group-outline mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn bg-gradient-primary" name="action" value="insert">Guardar</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 
-    <!-- Modal para Editar Categoría -->
-    <div class="modal fade modal-lg" id="modalEditarCategoria" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <header class="modal-header bg-dark text-white">
-                    <h5 class="modal-title">
-                        <i class="fas fa-edit me-2"></i> Editar Categoría
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </header>
-                <main class="modal-body">
-                    <form action="rutas.php?page=categories" method="POST" id="formEditar">
-                        <input type="hidden" name="id" id="editId">
-                        <div class="mb-3">
-                            <label class="form-label" for="editNombreCategoria">Nombre</label>
-                            <input type="text" class="form-control" id="editNombreCategoria" name="name" required>
-                        </div>
-
-                        <footer class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                <i class="fas fa-times me-1"></i> Cancelar
-                            </button>
-                            <button type="submit" class="btn btn-primary" name="action" value="update">
-                                <i class="fas fa-save me-1"></i> Guardar cambios
-                            </button>
-                        </footer>
-                    </form>
-                </main>
+<!-- Modal Editar Categoría -->
+<div class="modal fade" id="modalEditarCategoria" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-dark shadow-dark">
+                <h5 class="modal-title text-white">
+                    Editar Categoría
+                </h5>
+                <button type="button" class="btn-close btn-close-white text-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <form action="rutas.php?page=categories" method="POST">
+                <input type="hidden" name="id" id="editId">
+                <div class="modal-body">
+                    <div class="input-group input-group-outline mb-3 is-filled">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" name="name" id="editNombreCategoria" class="form-control" required value="">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn bg-gradient-primary" name="action" value="update">Guardar Cambios</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 
-
-</main>
 <script>
-    //paginacion
-    const filasPorPagina = 8;
-
+    const filasPorPagina = 10;
     document.addEventListener('DOMContentLoaded', function () {
-        const tabla = document.getElementById('tablaCategorias');
-        const cuerpo = tabla.querySelector('tbody');
+        const cuerpo = document.querySelector('.table-responsive tbody');
         const filas = Array.from(cuerpo.querySelectorAll('tr'));
-        const paginacion = document.getElementById('paginacionCategorias');
+        const paginacion = document.getElementById('paginacionCategorias'); // Adaptado a categorías
 
-        if (filas.length <= filasPorPagina) return;
+        // Si hay pocas filas, no mostramos paginación
+        if (filas.length <= filasPorPagina) {
+            paginacion.style.display = 'none';
+            return;
+        }
 
         let paginaActual = 1;
         const totalPaginas = Math.ceil(filas.length / filasPorPagina);
@@ -174,7 +173,7 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
             const fin = inicio + filasPorPagina;
 
             filas.forEach((fila, i) => {
-                fila.style.display = (i >= inicio && i < fin) ? '' : 'none';
+                fila.style.display = (i >= inicio && i < fin) ? 'table-row' : 'none';
             });
 
             actualizarPaginacion();
@@ -182,29 +181,49 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
 
         function actualizarPaginacion() {
             paginacion.innerHTML = '';
+            paginacion.style.display = 'flex';
 
-            for (let i = 1; i <= totalPaginas; i++) {
+            // Botón Anterior
+            if (paginaActual > 1) {
+                const btnAnterior = document.createElement('button');
+                btnAnterior.className = 'btn btn-sm btn-outline-dark';
+                btnAnterior.innerHTML = '&laquo;';
+                btnAnterior.addEventListener('click', () => mostrarPagina(paginaActual - 1));
+                paginacion.appendChild(btnAnterior);
+            }
+
+            // Botones de páginas
+            const inicioPaginas = Math.max(1, paginaActual - 2);
+            const finPaginas = Math.min(totalPaginas, paginaActual + 2);
+
+            for (let i = inicioPaginas; i <= finPaginas; i++) {
                 const btn = document.createElement('button');
-                btn.className = 'btn btn-sm ' + (i === paginaActual ? 'btn-primary' : 'btn-outline-primary');
+                btn.className = 'btn btn-sm ' + (i === paginaActual ? 'btn-dark' : 'btn-outline-dark');
                 btn.textContent = i;
                 btn.addEventListener('click', () => mostrarPagina(i));
                 paginacion.appendChild(btn);
+            }
+
+            // Botón Siguiente
+            if (paginaActual < totalPaginas) {
+                const btnSiguiente = document.createElement('button');
+                btnSiguiente.className = 'btn btn-sm btn-outline-dark';
+                btnSiguiente.innerHTML = '&raquo;';
+                btnSiguiente.addEventListener('click', () => mostrarPagina(paginaActual + 1));
+                paginacion.appendChild(btnSiguiente);
             }
         }
 
         mostrarPagina(1);
     });
 
-    //MODALS
-    document.getElementById('modalNuevaCategoria').addEventListener('hidden.bs.modal', function() {
-        this.querySelector('form').reset();
-    });
-
+    // Función para cargar datos al modal de edición de categorías
     function cargarDatosEditar(id, nombre) {
         document.getElementById('editId').value = id;
         document.getElementById('editNombreCategoria').value = nombre;
     }
 </script>
-<?php
-include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/footer.php';
-?>
+
+
+
+<?php include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/footer.php'; ?>

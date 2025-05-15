@@ -15,7 +15,7 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
                             Gestión de Barrios
                         </h6>
                         <button class="btn btn-sm btn-outline-light me-3 rounded-circle d-flex align-items-center justify-content-center"
-                            style="width: 32px; height: 32px;"
+                            style="width: 32px; height: 38px;"
                             title="Nuevo barrio"
                             data-bs-toggle="modal"
                             data-bs-target="#modalNuevoBarrio">
@@ -30,10 +30,10 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7 text-center">#</th>
-                                    <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7 ps-2">Nombre</th>
-                                    <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7 text-center">Estado</th>
-                                    <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7 text-center">Acciones</th>
+                                    <th class="text-uppercase text-dark text-sm font-weight-bolder opacity-10 text-center">#</th>
+                                    <th class="text-uppercase text-dark text-sm font-weight-bolder opacity-10 ps-2">Nombre</th>
+                                    <th class="text-uppercase text-dark text-sm font-weight-bolder opacity-10 text-center">Estado</th>
+                                    <th class="text-uppercase text-dark text-sm font-weight-bolder opacity-10 text-center">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -63,7 +63,7 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#modalEditarBarrio"
                                                     onclick="cargarDatosEditarBarrio(<?= $id ?>, '<?= addslashes($nombre) ?>', '<?= addslashes($estado) ?>')">
-                                                    <i class="material-symbols-rounded" style="font-size: 1rem;">edit</i>
+                                                    <i class="material-symbols-rounded mb-1" style="font-size: 1rem;">edit</i>
                                                 </button>
                                                 <form action="/directorio/rutas/rutas.php" method="POST" class="d-inline formEliminar">
                                                     <input type="hidden" name="page" value="hoods">
@@ -72,7 +72,7 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
                                                         style="width: 30px; height: 30px;"
                                                         onclick="return confirm('¿Estás seguro de eliminar este barrio?')"
                                                         title="Eliminar barrio">
-                                                        <i class="material-symbols-rounded" style="font-size: 1rem;">delete</i>
+                                                        <i class="material-symbols-rounded mb-1" style="font-size: 1rem;">delete</i>
                                                     </button>
                                                 </form>
                                             </td>
@@ -104,7 +104,7 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
         <div class="modal-content">
             <div class="modal-header bg-gradient-dark shadow-dark">
                 <h5 class="modal-title text-white">
-                    <i class="material-symbols-rounded opacity-10 me-2">add_location</i>
+                    <!-- <i class="material-symbols-rounded opacity-10 me-2">add_location</i> -->
                     Nuevo Barrio
                 </h5>
                 <button type="button" class="btn-close btn-close-white text-white" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -131,7 +131,7 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
         <div class="modal-content">
             <div class="modal-header bg-gradient-dark shadow-dark">
                 <h5 class="modal-title text-white">
-                    <i class="material-symbols-rounded opacity-10 me-2">edit_location</i>
+                    <!-- <i class="material-symbols-rounded opacity-10 me-2">edit_location</i> -->
                     Editar Barrio
                 </h5>
                 <button type="button" class="btn-close btn-close-white text-white" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -156,9 +156,8 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
 </main>
 
 <script>
-    const filasPorPagina = 8 // Puedes cambiar este valor según necesites
+    const filasPorPagina = 10
     document.addEventListener('DOMContentLoaded', function() {
-        // Cambiamos el selector para que encuentre la tabla correcta
         const cuerpo = document.querySelector('.table-responsive tbody');
         const filas = Array.from(cuerpo.querySelectorAll('tr'));
         const paginacion = document.getElementById('paginacionBarrios');
@@ -186,12 +185,12 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
 
         function actualizarPaginacion() {
             paginacion.innerHTML = '';
-            paginacion.style.display = 'flex'; // Aseguramos que sea visible
+            paginacion.style.display = 'flex';
 
             // Botón Anterior
             if (paginaActual > 1) {
                 const btnAnterior = document.createElement('button');
-                btnAnterior.className = 'btn btn-sm btn-outline-secondary';
+                btnAnterior.className = 'btn btn-sm btn-outline-dark';
                 btnAnterior.innerHTML = '&laquo;';
                 btnAnterior.addEventListener('click', () => mostrarPagina(paginaActual - 1));
                 paginacion.appendChild(btnAnterior);
@@ -203,7 +202,7 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
 
             for (let i = inicioPaginas; i <= finPaginas; i++) {
                 const btn = document.createElement('button');
-                btn.className = 'btn btn-sm ' + (i === paginaActual ? 'btn-secondary' : 'btn-outline-secondary');
+                btn.className = 'btn btn-sm ' + (i === paginaActual ? 'btn-dark' : 'btn-outline-dark');
                 btn.textContent = i;
                 btn.addEventListener('click', () => mostrarPagina(i));
                 paginacion.appendChild(btn);
@@ -212,7 +211,7 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
             // Botón Siguiente
             if (paginaActual < totalPaginas) {
                 const btnSiguiente = document.createElement('button');
-                btnSiguiente.className = 'btn btn-sm btn-outline-secondary';
+                btnSiguiente.className = 'btn btn-sm btn-outline-dark';
                 btnSiguiente.innerHTML = '&raquo;';
                 btnSiguiente.addEventListener('click', () => mostrarPagina(paginaActual + 1));
                 paginacion.appendChild(btnSiguiente);
