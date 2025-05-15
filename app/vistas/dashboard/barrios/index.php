@@ -1,155 +1,173 @@
 <?php
-
 define('RUTA_BASE', $_SERVER['DOCUMENT_ROOT'] . '/directorio');
-include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
-
+include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
 ?>
 
-<main>
-    <div class="container-fluid px-4">
-        <div class="card mb-4 mt-4 shadow-sm border-1 rounded-4 overflow-hidden">
-            <!-- Header -->
-            <div class="p-4 d-flex justify-content-between align-items-center bg-dark text-white">
-                <h5 class="mb-0 fw-bold d-flex align-items-center gap-2">
-                    <i class="fas fa-city me-2 fs-5"></i> Gestión de Barrios
-                </h5>
-                <button class="btn btn-outline-light btn-sm rounded-circle d-flex align-items-center justify-content-center"
-                    style="width: 36px; height: 36px; transition: transform 0.3s ease;"
-                    onmouseover="this.style.transform='scale(1.15)'"
-                    onmouseout="this.style.transform='scale(1)'"
-                    title="Nuevo barrio"
-                    data-bs-toggle="modal"
-                    data-bs-target="#modalNuevoBarrio">
-                    <i class="fas fa-plus"></i>
-                </button>
-            </div>
+<div class="container-fluid py-2">
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+                <!-- Encabezado de la tarjeta -->
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3 d-flex justify-content-between align-items-center">
+                        <h6 class="text-white text-capitalize ps-3 ms-2">
+                            <!-- <i class="material-symbols-rounded opacity-10 me-2">location_city</i> -->
+                            Gestión de Barrios
+                        </h6>
+                        <button class="btn btn-sm btn-outline-light me-3 rounded-circle d-flex align-items-center justify-content-center"
+                            style="width: 32px; height: 32px;"
+                            title="Nuevo barrio"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalNuevoBarrio">
+                            <i class="material-symbols-rounded" style="font-size: 1.2rem;">add</i>
+                        </button>
+                    </div>
+                </div>
 
-            <!-- Tabla -->
-            <div class="card-body p-4 bg-white">
-                <div class="table-responsive">
-                    <table id="tablaBarrios" class="table table-hover table-striped table-bordered align-middle mb-0">
-                        <thead>
-                            <tr>
-                                <th class="text-center">#</th>
-                                <th class="text-center">Nombre</th>
-                                <th class="text-center">Estado</th>
-                                <th class="text-center">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if (!empty($data) && is_array($data)): ?>
-                                <?php foreach ($data as $index => $hood):
-                                    $numero = $index + 1;
-                                    $id = (int)($hood['id_barrio'] ?? 0);
-                                    $nombre = htmlspecialchars($hood['nombre'] ?? '', ENT_QUOTES, 'UTF-8');
-                                    $estado = htmlspecialchars($hood['estado'] ?? '', ENT_QUOTES, 'UTF-8');
-                                ?>
+                <!-- Cuerpo de la tarjeta -->
+                <div class="card-body px-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7 text-center">#</th>
+                                    <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7 ps-2">Nombre</th>
+                                    <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7 text-center">Estado</th>
+                                    <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7 text-center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php if (!empty($data) && is_array($data)): ?>
+                                    <?php foreach ($data as $index => $hood):
+                                        $numero = $index + 1;
+                                        $id = (int)($hood['id_barrio'] ?? 0);
+                                        $nombre = htmlspecialchars($hood['nombre'] ?? '', ENT_QUOTES, 'UTF-8');
+                                        $estado = htmlspecialchars($hood['estado'] ?? '', ENT_QUOTES, 'UTF-8');
+                                    ?>
+                                        <tr>
+                                            <td class="align-middle text-center">
+                                                <span class="text-secondary text-sm font-weight-bold"><?= $numero ?></span>
+                                            </td>
+                                            <td class="align-middle">
+                                                <p class="text-sm font-weight-bold mb-0 text-capitalize"><?= $nombre ?></p>
+                                            </td>
+                                            <td class="align-middle text-center text-sm">
+                                                <span class="badge badge-sm <?= $estado === 'Activo' ? 'bg-gradient-success' : 'bg-gradient-secondary' ?>">
+                                                    <?= ucfirst($estado) ?>
+                                                </span>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <button class="btn btn-sm bg-gradient-warning text-white mb-0 px-1 py-1 rounded-circle me-1"
+                                                    style="width: 30px; height: 30px;"
+                                                    title="Editar barrio"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalEditarBarrio"
+                                                    onclick="cargarDatosEditarBarrio(<?= $id ?>, '<?= addslashes($nombre) ?>', '<?= addslashes($estado) ?>')">
+                                                    <i class="material-symbols-rounded" style="font-size: 1rem;">edit</i>
+                                                </button>
+                                                <form action="/directorio/rutas/rutas.php" method="POST" class="d-inline formEliminar">
+                                                    <input type="hidden" name="page" value="hoods">
+                                                    <input type="hidden" name="deleteHood" value="<?= $id ?>">
+                                                    <button type="submit" class="btn btn-sm bg-gradient-danger text-white mb-0 px-1 py-1 rounded-circle"
+                                                        style="width: 30px; height: 30px;"
+                                                        onclick="return confirm('¿Estás seguro de eliminar este barrio?')"
+                                                        title="Eliminar barrio">
+                                                        <i class="material-symbols-rounded" style="font-size: 1rem;">delete</i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
                                     <tr>
-                                        <td class="text-center"><?= $numero ?></td>
-                                        <td class="text-center text-capitalize"><?= $nombre ?></td>
-                                        <td class="text-center">
-                                            <span class="badge <?= $estado === 'Activo' ? 'bg-success' : 'bg-secondary' ?>">
-                                                <?= ucfirst($estado) ?>
+                                        <td colspan="4" class="align-middle text-center py-4">
+                                            <span class="text-sm text-secondary">
+                                                <i class="material-symbols-rounded opacity-10 me-1">info</i>
+                                                No hay barrios registrados
                                             </span>
                                         </td>
-                                        <td class="text-center">
-                                            <button class="btn btn-warning btn-sm"
-                                                title="Editar barrio"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#modalEditarBarrio"
-                                                onclick="cargarDatosEditarBarrio(<?= $id ?>, '<?= addslashes($nombre) ?>', '<?= addslashes($estado) ?>')">
-                                                <i class="bi bi-pencil"></i>
-                                            </button>
-                                            <form action="/directorio/rutas/rutas.php" method="POST" class="d-inline formEliminar">
-                                                <input type="hidden" name="page" value="hoods">
-                                                <input type="hidden" name="deleteHood" value="<?= $id ?>">
-                                                <button type="submit" class="btn btn-danger btn-sm"
-                                                    onclick="return confirm('¿Estás seguro de eliminar este barrio?')"
-                                                    title="Eliminar barrio">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </form>
-                                        </td>
                                     </tr>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <tr>
-                                    <td colspan="4" class="text-center text-muted py-4">
-                                        <i class="bi bi-exclamation-circle me-2"></i> No hay barrios registrados
-                                    </td>
-                                </tr>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
-                    <div id="paginacionBarrios" class="mt-3 d-flex justify-content-center gap-2"></div>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                        <div id="paginacionBarrios" class="mt-3 d-flex justify-content-center gap-1 font-weight-bold"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- MODALES -->
-
-    <!-- Nuevo Barrio -->
-    <div class="modal fade modal-lg" id="modalNuevoBarrio" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <form action="rutas.php?page=hoods" method="POST">
-                    <header class="modal-header bg-dark text-white">
-                        <h5 class="modal-title"><i class="fas fa-city me-2"></i> Nuevo Barrio</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                    </header>
-                    <main class="modal-body">
-                        <div class="mb-3">
-                            <label class="form-label">Nombre</label>
-                            <input type="text" name="name" class="form-control" required>
-                        </div>
-                    </main>
-
-                    <footer class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary" name="action" value="insertHood">Guardar</button>
-                    </footer>
-                </form>
+<!-- Modal Nuevo Barrio -->
+<div class="modal fade" id="modalNuevoBarrio" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-dark shadow-dark">
+                <h5 class="modal-title text-white">
+                    <i class="material-symbols-rounded opacity-10 me-2">add_location</i>
+                    Nuevo Barrio
+                </h5>
+                <button type="button" class="btn-close btn-close-white text-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <form action="rutas.php?page=hoods" method="POST">
+                <div class="modal-body">
+                    <div class="input-group input-group-outline mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn bg-gradient-primary" name="action" value="insertHood">Guardar</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 
-    <!-- Editar Barrio -->
-    <div class="modal fade modal-lg" id="modalEditarBarrio" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <form action="rutas.php?page=hoods" method="POST">
-                    <input type="hidden" name="id" id="editHoodId">
-                    <header class="modal-header bg-dark text-white">
-                        <h5 class="modal-title"><i class="fas fa-edit me-2"></i> Editar Barrio</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                    </header>
-                    <main class="modal-body">
-                        <div class="mb-3">
-                            <label class="form-label">Nombre</label>
-                            <input type="text" name="name" id="editHoodNombre" class="form-control" required>
-                        </div>
-                    </main>
-
-                    <footer class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary" name="action" value="updateHood">Guardar cambios</button>
-                    </footer>
-                </form>
+<!-- Modal Editar Barrio -->
+<div class="modal fade" id="modalEditarBarrio" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-dark shadow-dark">
+                <h5 class="modal-title text-white">
+                    <i class="material-symbols-rounded opacity-10 me-2">edit_location</i>
+                    Editar Barrio
+                </h5>
+                <button type="button" class="btn-close btn-close-white text-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <form action="rutas.php?page=hoods" method="POST">
+                <input type="hidden" name="id" id="editHoodId">
+                <div class="modal-body">
+                    <div class="input-group input-group-outline mb-3 is-filled">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" name="name" id="editHoodNombre" class="form-control" required value="">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn bg-gradient-primary" name="action" value="updateHood">Guardar Cambios</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
+
 </main>
 
 <script>
-    const filasPorPagina = 8;
+    const filasPorPagina = 8 // Puedes cambiar este valor según necesites
     document.addEventListener('DOMContentLoaded', function() {
-        const tabla = document.getElementById('tablaBarrios');
-        const cuerpo = tabla.querySelector('tbody');
+        // Cambiamos el selector para que encuentre la tabla correcta
+        const cuerpo = document.querySelector('.table-responsive tbody');
         const filas = Array.from(cuerpo.querySelectorAll('tr'));
         const paginacion = document.getElementById('paginacionBarrios');
 
-        if (filas.length <= filasPorPagina) return;
+        // Si hay pocas filas, no mostramos paginación
+        if (filas.length <= filasPorPagina) {
+            paginacion.style.display = 'none';
+            return;
+        }
 
         let paginaActual = 1;
         const totalPaginas = Math.ceil(filas.length / filasPorPagina);
@@ -160,7 +178,7 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
             const fin = inicio + filasPorPagina;
 
             filas.forEach((fila, i) => {
-                fila.style.display = (i >= inicio && i < fin) ? '' : 'none';
+                fila.style.display = (i >= inicio && i < fin) ? 'table-row' : 'none';
             });
 
             actualizarPaginacion();
@@ -168,13 +186,36 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
 
         function actualizarPaginacion() {
             paginacion.innerHTML = '';
+            paginacion.style.display = 'flex'; // Aseguramos que sea visible
 
-            for (let i = 1; i <= totalPaginas; i++) {
+            // Botón Anterior
+            if (paginaActual > 1) {
+                const btnAnterior = document.createElement('button');
+                btnAnterior.className = 'btn btn-sm btn-outline-secondary';
+                btnAnterior.innerHTML = '&laquo;';
+                btnAnterior.addEventListener('click', () => mostrarPagina(paginaActual - 1));
+                paginacion.appendChild(btnAnterior);
+            }
+
+            // Botones de páginas
+            const inicioPaginas = Math.max(1, paginaActual - 2);
+            const finPaginas = Math.min(totalPaginas, paginaActual + 2);
+
+            for (let i = inicioPaginas; i <= finPaginas; i++) {
                 const btn = document.createElement('button');
-                btn.className = 'btn btn-sm ' + (i === paginaActual ? 'btn-primary' : 'btn-outline-primary');
+                btn.className = 'btn btn-sm ' + (i === paginaActual ? 'btn-secondary' : 'btn-outline-secondary');
                 btn.textContent = i;
                 btn.addEventListener('click', () => mostrarPagina(i));
                 paginacion.appendChild(btn);
+            }
+
+            // Botón Siguiente
+            if (paginaActual < totalPaginas) {
+                const btnSiguiente = document.createElement('button');
+                btnSiguiente.className = 'btn btn-sm btn-outline-secondary';
+                btnSiguiente.innerHTML = '&raquo;';
+                btnSiguiente.addEventListener('click', () => mostrarPagina(paginaActual + 1));
+                paginacion.appendChild(btnSiguiente);
             }
         }
 
@@ -188,4 +229,4 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
     }
 </script>
 
-<?php include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/footer.php'; ?>
+<?php include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/footer.php'; ?>

@@ -5,107 +5,207 @@ if (!defined('URL_BASE')) {
     define('URL_ADMIN', $protocolo . "://" . $_SERVER['HTTP_HOST'] . "/directorio/app/vistas");
 }
 ?>
+
+<!--
+=========================================================
+* Material Dashboard 3 - v3.2.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-dashboard
+* Copyright 2024 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Dashboard - Directorio</title>
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link href="<?= URL_BASE ?>/css/styles.css" rel="stylesheet">
-    <!-- SweetAlert2 CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-
-    <!-- SweetAlert2 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="<?= URL_BASE ?>/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="<?= URL_BASE ?>/img/favicon.png">
+  <title>
+    Directorio | Dashboard
+  </title>
+  <!-- Fonts and icons -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
+  <!-- Nucleo Icons -->
+  <link href="<?= URL_BASE ?>/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="<?= URL_BASE ?>/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <!-- CSS Files -->
+  <link id="pagestyle" href="<?= URL_BASE ?>/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
 </head>
 
-<body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="index.html">DIRECTORIO</a>
-        <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-        <!-- Navbar Search-->
-        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-        </form>
-        <!-- Navbar-->
-        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item">VictorNiby</a></li>
-                    <br>
-                    <li><a class="dropdown-item" href="#!">Salir</a></li>
+<body class="g-sidenav-show  bg-gray-100">
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2 bg-white my-2" id="sidenav-main">
+  <div class="sidenav-header">
+    <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+    <a class="navbar-brand px-4 py-3 m-0 d-flex align-items-center" href="<?= URL_BASE ?>">
+      <div class="ms-0 d-flex align-items-center">
+        <span class="h4 text-uppercase text-niby bg-title-didi px-2 pe-1">Direc</span>
+        <span class="h4 text-uppercase text-dark bg-title-niby px-2 ps-1">Torio</span>
+      </div>
+    </a>
+  </div>
 
-                </ul>
+  <hr class="horizontal dark mt-0 mb-2">
+
+  <!-- Sidebar Content -->
+  <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
+    <ul class="navbar-nav">
+      
+      <!-- Dashboard -->
+      <li class="nav-item">
+        <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'dashboard' ? 'active' : '' ?>" 
+           href="/directorio/rutas/rutas.php?page=dashboard">
+          <div class="icon icon-shape icon-sm bg-gradient-dark shadow-dark text-center border-radius-md d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px;">
+            <i class="material-symbols-rounded text-white pb-2" style="font-size: 18px; line-height: 1;">dashboard</i>
+          </div>
+          <span class="nav-link-text ms-1 text-dark font-weight-bold">Dashboard</span>
+        </a>
+      </li>
+
+      <!-- Barrios -->
+      <li class="nav-item">
+        <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'hoods' ? 'active' : '' ?>" 
+           href="/directorio/rutas/rutas.php?page=hoods">
+          <div class="icon icon-shape icon-sm bg-gradient-primary shadow-primary text-center border-radius-md d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px;">
+            <i class="material-symbols-rounded text-white pb-2" style="font-size: 18px; line-height: 1;">location_city</i>
+          </div>
+          <span class="nav-link-text ms-1 text-dark">Barrios</span>
+        </a>
+      </li>
+
+      <!-- Categorías -->
+      <li class="nav-item">
+        <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'categories' ? 'active' : '' ?>" 
+           href="/directorio/rutas/rutas.php?page=categories">
+          <div class="icon icon-shape icon-sm bg-gradient-info shadow-info text-center border-radius-md d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px;">
+            <i class="material-symbols-rounded text-white pb-2" style="font-size: 18px; line-height: 1;">category</i>
+          </div>
+          <span class="nav-link-text ms-1 text-dark">Categorías</span>
+        </a>
+      </li>
+
+      <!-- Servicios -->
+      <li class="nav-item">
+        <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'services' ? 'active' : '' ?>" 
+           href="/directorio/rutas/rutas.php?page=services">
+          <div class="icon icon-shape icon-sm bg-gradient-warning shadow-warning text-center border-radius-md d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px;">
+            <i class="material-symbols-rounded text-white pb-2" style="font-size: 18px; line-height: 1;">handyman</i>
+          </div>
+          <span class="nav-link-text ms-1 text-dark">Servicios</span>
+        </a>
+      </li>
+
+      <!-- Chats -->
+      <li class="nav-item">
+        <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'chats' ? 'active' : '' ?>" 
+           href="/directorio/rutas/rutas.php?page=chats">
+          <div class="icon icon-shape icon-sm bg-gradient-success shadow-success text-center border-radius-md d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px;">
+            <i class="material-symbols-rounded text-white pb-2" style="font-size: 18px; line-height: 1;">chat</i>
+          </div>
+          <span class="nav-link-text ms-1 text-dark">Chats</span>
+        </a>
+      </li>
+
+      <!-- Usuarios -->
+      <li class="nav-item">
+        <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'users' ? 'active' : '' ?>" 
+           href="/directorio/rutas/rutas.php?page=users">
+          <div class="icon icon-shape icon-sm bg-gradient-danger shadow-danger text-center border-radius-md d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px;">
+            <i class="material-symbols-rounded text-white pb-2" style="font-size: 18px; line-height: 1;">group</i>
+          </div>
+          <span class="nav-link-text ms-1 text-dark">Usuarios</span>
+        </a>
+      </li>
+
+      <!-- Ventas -->
+      <li class="nav-item">
+        <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'sales' ? 'active' : '' ?>" 
+           href="/directorio/rutas/rutas.php?page=sales">
+          <div class="icon icon-shape icon-sm bg-gradient-secondary shadow-secondary text-center border-radius-md d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px;">
+            <i class="material-symbols-rounded text-white pb-2" style="font-size: 18px; line-height: 1;">point_of_sale</i>
+          </div>
+          <span class="nav-link-text ms-1 text-dark">Ventas</span>
+        </a>
+      </li>
+
+    </ul>
+  </div>
+</aside>
+  
+
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg mt-0">
+            <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Directorio</li>
+            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Dashboard</a></li>
+            
+          </ol>
+        </nav>
+        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+          <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+            <div class="input-group input-group-outline">
+            </div>
+          </div>
+          <ul class="navbar-nav d-flex align-items-center  justify-content-end">
+            <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                <div class="sidenav-toggler-inner">
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                </div>
+              </a>
             </li>
-        </ul>
-    </nav>
-    <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
-
-                    <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Inicio</div>
-                        <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'dashboard' ? 'active' : '' ?>"
-                            href="/directorio/rutas/rutas.php?page=dashboard">
-                            <div class="sb-nav-link-icon"><i class="fas fa-house"></i></div>
-                            Inicio
-                        </a>
-
-                        <div class="sb-sidenav-menu-heading">Laboratorio</div>
-
-                        <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'hoods' ? 'active' : '' ?>"
-                            href="/directorio/rutas/rutas.php?page=hoods">
-                            <div class="sb-nav-link-icon"><i class="fas fa-city"></i></div>
-                            Barrios
-                        </a>
-
-                        <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'categories' ? 'active' : '' ?>"
-                            href="/directorio/rutas/rutas.php?page=categories">
-                            <div class="sb-nav-link-icon"><i class="fas fa-layer-group"></i></div>
-                            Categorías
-                        </a>
-
-                        <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'chats' ? 'active' : '' ?>"
-                            href="/directorio/rutas/rutas.php?page=chats">
-                            <div class="sb-nav-link-icon"><i class="fas fa-comments"></i></div>
-                            Chats
-                        </a>
-
-                        <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'services' ? 'active' : '' ?>"
-                            href="/directorio/rutas/rutas.php?page=services">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tools"></i></div>
-                            Servicios
-                        </a>
-
-                        <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'users' ? 'active' : '' ?>"
-                            href="/directorio/rutas/rutas.php?page=users">
-                            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                            Usuarios
-                        </a>
-
-                        <a class="nav-link <?= isset($_GET['page']) && $_GET['page'] === 'sales' ? 'active' : '' ?>"
-                            href="/directorio/rutas/rutas.php?page=sales">
-                            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                            Ventas
-                        </a>
-                    </div>
-
-                </div>
-                <div class="sb-sidenav-footer">
-                    <div class="small">Conectado como:</div>
-                    VictorNiby
-                </div>
-            </nav>
+            <li class="nav-item px-3 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-body p-0">
+                <i class="material-symbols-rounded fixed-plugin-button-nav">settings</i>
+              </a>
+            </li>
+            <li class="nav-item d-flex align-items-center">
+              <a href="../pages/sign-in.html" class="nav-link text-body font-weight-bold px-0">
+                <i class="material-symbols-rounded">account_circle</i>
+              </a>
+            </li>
+          </ul>
         </div>
-        <div id="layoutSidenav_content">
-            <!-- AQUI VA EL BODY.PHP  -->
+      </div>
+    </nav>
+    <!-- End Navbar -->
+
+    <!-- Metalo ahi -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
