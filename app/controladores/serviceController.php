@@ -22,6 +22,13 @@ class serviceController {
         include_once(__DIR__ . '/../vistas/dashboard/servicios/index.php');
     }
 
+    //Landing page de cada servicio
+    public function servicePage($id) {
+        $service = $this->model->getServiceById($id);
+        $service_imgs = $this->model->getImagesByService($id);
+        include_once(__DIR__ . '/../vistas/landing/detail.php');
+    }
+
     // Mostrar vista de actualización con los datos de un servicio
     public function updateView($serviceId) {
         $service = $this->model->getServiceById($serviceId);

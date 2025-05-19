@@ -7,16 +7,6 @@ class CategoryController extends CategoryModel{
         $this->model = new CategoryModel;
     }
 
-    // LANDING PAGE
-    public function indexLanding(){
-        $data = $this->model->GetAllCategory();
-        $info = $this->model->GetAllCategoryLanding();
-        $feature = $this->model->GetFeaturesServices();
-        include_once(__DIR__ . '/../vistas/landing/index.php');
-    }
-    // LANDING PAGE
-
-
     public function index(){
         $data = $this->model->GetAllCategory();
         include_once(__DIR__ . '/../vistas/dashboard/categorias/index.php');

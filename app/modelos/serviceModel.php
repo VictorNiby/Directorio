@@ -25,7 +25,6 @@ class ServiceModel extends Mysql {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
     //Pe causa
     public function getLastId(){
         $query = "SELECT id_servicio from servicio ORDER by id_servicio DESC LIMIT 1";
@@ -61,6 +60,26 @@ class ServiceModel extends Mysql {
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    //Imagenes de los servicios pues
+    public function getImages() {
+        $query = "SELECT imagen_ref FROM servicio_imagenes
+        INNER JOIN servicio on servicio.id_servicio = servicio_imagenes.servicio_id
+        where servicio.estado = 'Activo'";
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getImagesByService($service_id) {
+        $query = "SELECT imagen_ref FROM servicio_imagenes
+        INNER JOIN servicio on servicio.id_servicio = servicio_imagenes.servicio_id
+        where servicio.estado = 'Activo' AND servicio_id = ?";
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute([$service_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
     public function insert($titulo, $descripcion, $precio, $idUsuario, $idCategoria,$barrio_id,$direccion) {
         $query = "INSERT INTO servicio (titulo, descripcion, precio, usuario_id_usuario, categoria_id_categoria,barrio_id,direccion) 

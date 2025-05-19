@@ -32,7 +32,23 @@ if (!defined('URL_BASE')) {
     <link href="<?= URL_BASE ?>/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="<?= URL_BASE ?>/css/style.css" rel="stylesheet">
+    <link href="<?= URL_BASE ?>/css/style.min.css" rel="stylesheet">
+    
+    <style>
+        .bg-title-niby{
+        background-color: #FFC332;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        }
+        .text-niby{
+        color: #FFC332 !important;
+        }
+        .bg-title-didi{
+        background-color: #1c2833;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        }
+    </style>
 </head>
 
 

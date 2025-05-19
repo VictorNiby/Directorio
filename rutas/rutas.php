@@ -24,6 +24,10 @@ $serviceController = new ServiceController();
 require_once(__DIR__ . '/../app/controladores/dashboardController.php');
 $dashController = new DashboardController();
 
+// Controladores de la landing Page
+require_once(__DIR__ . '/../app/controladores/landingPageController.php');
+$landingPageController = new LandingPageController();
+
 // Controladores de Ventas
 $saleController = "";
 
@@ -104,9 +108,14 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             $dashController->index();
             break;
 
+        //PAGINA PARA CADA SERVICIO
+        case 'service':
+            $serviceController->servicePage($_GET["id"]);
+            break;
+
         case 'home':
         default:
-            $categoryController->indexLanding();
+            $landingPageController->index();
             break;
     }
 }
