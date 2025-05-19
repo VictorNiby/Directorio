@@ -8,26 +8,30 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
         <div class="col-12">
             <div class="card my-4">
                 <!-- Encabezado de la tarjeta -->
-                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                    <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3 d-flex justify-content-between align-items-center">
-                        <h6 class="text-white text-capitalize ps-3 ms-2">
-                            <!-- <i class="material-symbols-rounded opacity-10 me-2">location_city</i> -->
-                            Gestión de Barrios
-                        </h6>
-                        <button class="btn btn-sm btn-outline-light me-3 rounded-circle d-flex align-items-center justify-content-center"
-                            style="width: 32px; height: 38px;"
-                            title="Nuevo barrio"
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalNuevoBarrio">
-                            <i class="material-symbols-rounded" style="font-size: 1.2rem;">add</i>
-                        </button>
-                    </div>
-                </div>
+<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+    <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3 px-3 d-flex justify-content-between align-items-center">
+        <h6 class="text-white text-capitalize mb-0 d-flex align-items-center">
+            <!-- <i class="material-symbols-rounded opacity-10 me-2">location_city</i> -->
+            Gestión de Barrios
+        </h6>
+
+        <button
+            class="btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center shadow-sm"
+            style="width: 40px; height: 40px;"
+            title="Nuevo barrio"
+            aria-label="Agregar nuevo barrio"
+            data-bs-toggle="modal"
+            data-bs-target="#modalNuevoBarrio">
+            <i class="material-symbols-rounded" style="font-size: 20px;">add</i>
+        </button>
+    </div>
+</div>
+
 
                 <!-- Cuerpo de la tarjeta -->
                 <div class="card-body px-0 pb-2">
                     <div class="table-responsive p-0">
-                        <table class="table align-items-center mb-0">
+                        <table id="tablaBarrios" class="table table-striped table-bordered align-items-center mb-0">
                             <thead>
                                 <tr>
                                     <th class="text-uppercase text-dark text-sm font-weight-bolder opacity-10 text-center">#</th>

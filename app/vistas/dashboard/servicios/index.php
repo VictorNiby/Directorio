@@ -25,7 +25,7 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
                 <!-- Cuerpo de la tarjeta -->
                 <div class="card-body px-0 pb-2">
                     <div class="table-responsive p-0">
-                        <table class="table align-items-center mb-0">
+                        <table id="tablaServicios" class="table table-striped table-bordered align-items-center mb-0">
                             <thead>
                                 <tr>
                                     <th class="text-uppercase text-dark text-sm font-weight-bolder opacity-10 text-center">#</th>
@@ -120,6 +120,59 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
 </div>
 
     <!-- MODALES -->
+     <div class="modal fade" id="modalNuevoServicio" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-dark shadow-dark">
+                <h5 class="modal-title text-white">
+                    <!-- <i class="material-symbols-rounded opacity-10 me-2">add_location</i> -->
+                    Nuevo Servicio
+                </h5>
+                <button type="button" class="btn-close btn-close-white text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="rutas.php?page=hoods" method="POST">
+                <div class="modal-body">
+                    <div class="input-group input-group-outline mb-3">
+                        <label class="form-label">Titulo</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+                    <div class="input-group input-group-outline mb-3">
+                        <label class="form-label">Descripcion</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+                    <div class="input-group input-group-outline mb-3">
+                        <label class="form-label">Precio</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+                    <div class="input-group input-group-outline mb-3">
+                        <label class="form-label">Imagen</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+                    <div class="input-group input-group-outline mb-3">
+                        <label class="form-label">Dueños</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+                    <div class="input-group input-group-outline mb-3">
+                        <label class="form-label">Categoria</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+                                        <div class="input-group input-group-outline mb-3">
+                        <label class="form-label">Direccion</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+                    <div class="input-group input-group-outline mb-3">
+                        <label class="form-label">Barrio</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn bg-gradient-primary" name="action" value="insertHood">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
     <!-- Nuevo Servicio -->
     <div class="modal fade modal-xl" id="modalNuevoServicio" tabindex="-1">

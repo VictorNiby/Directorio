@@ -26,7 +26,7 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
                 <!-- Cuerpo de la tarjeta -->
                 <div class="card-body px-0 pb-2">
                     <div class="table-responsive p-0">
-                        <table class="table align-items-center mb-0">
+                        <table id="tablaCategorias" class="table table-striped table-bordered align-items-center mb-0">
                             <thead>
                                 <tr>
                                     <th class="text-uppercase text-dark text-sm font-weight-bolder opacity-10 text-center">#</th>
