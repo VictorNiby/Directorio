@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-05-2025 a las 14:24:57
+-- Tiempo de generación: 20-05-2025 a las 04:43:36
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -256,17 +256,25 @@ INSERT INTO `mensaje` (`id_mensaje`, `mensaje`, `fecha_envio`, `chat_id_chat`, `
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `reseña`
+-- Estructura de tabla para la tabla `reviews`
 --
 
-CREATE TABLE `reseña` (
-  `id_reseña` int(11) NOT NULL,
+CREATE TABLE `reviews` (
+  `id_review` int(11) NOT NULL,
   `calificacion` enum('1','2','3','4','5') NOT NULL,
   `comentario` text NOT NULL,
-  `fecha` timestamp NULL DEFAULT NULL,
-  `servicio_id_servicio` int(11) NOT NULL,
-  `usuario_id_usuario` int(11) NOT NULL
+  `fecha` timestamp NULL DEFAULT current_timestamp(),
+  `servicio_id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Volcado de datos para la tabla `reviews`
+--
+
+INSERT INTO `reviews` (`id_review`, `calificacion`, `comentario`, `fecha`, `servicio_id`, `usuario_id`) VALUES
+(4, '4', 'sisas', '2025-05-19 22:59:16', 6, 4),
+(5, '5', 'Sisas', '2025-05-20 00:17:50', 8, 1);
 
 -- --------------------------------------------------------
 
@@ -295,7 +303,8 @@ INSERT INTO `servicio` (`id_servicio`, `titulo`, `descripcion`, `precio`, `fecha
 (1, '🎨 Arte pixelado a medida — en 64x64 y 128x128', '¿Necesitás sprites, íconos o gráficos estáticos para tu proyecto? Yo me encargo.\r\nTrabajo con formatos 64x64 y 128x128, ideales para juegos, apps, interfaces o prototipos.\r\n\r\n🧑‍🎨 ¿Qué ofrezco?\r\n\r\nGráficos personalizados, sin animar\r\n\r\nEstilo limpio, visualmente claro y fácil de adaptar\r\n\r\nEntregas en PNG con fondo transparente\r\n\r\nComunicación directa y proceso ágil\r\n\r\n💡 Si tenés una idea pero no sabés cómo bajarla a lo visual, te ayudo a convertirla en algo concreto. También puedo trabajar desde', 12000, '2025-04-24 18:26:12', 2, 15, 'Activo', 1, 'Carrera 9 #4-760'),
 (5, 'Lavadora', 'Alquilamos lavadora a los cabrones pobres de mierda, 15 mil pesos minimo', 15000, '2025-04-29 10:44:59', 2, 17, 'Activo', 9, 'Carrera 14 #4-45'),
 (6, 'Sisas proyect', 'Proyecto\r\n sisas', 2000, '2025-04-29 10:51:25', 4, 23, 'Activo', 17, 'No aplica'),
-(7, 'Proyect nonas', 'Proyecto nonas', 1500, '2025-04-29 10:52:10', 2, 17, 'Activo', 1, 'Carrera 18 #4-27');
+(7, 'Proyect nonas', 'Proyecto nonas', 1500, '2025-04-29 10:52:10', 2, 17, 'Activo', 1, 'Carrera 18 #4-27'),
+(8, 'Arreglo de computadoras', 'Arreglamos computadoras porque de algo hay que vivir', 2500, '2025-05-19 19:10:03', 3, 23, 'Activo', 10, 'Por ahi');
 
 -- --------------------------------------------------------
 
@@ -316,7 +325,9 @@ CREATE TABLE `servicio_imagenes` (
 INSERT INTO `servicio_imagenes` (`id`, `imagen_ref`, `servicio_id`) VALUES
 (2, '1745941499-descarga.jpg', 5),
 (3, '1745941885-ChatGPT Image 21 abr 2025, 06_48_36.png', 6),
-(4, '1745941930-descarga.jpg', 7);
+(4, '1745941930-descarga.jpg', 7),
+(5, '1745941499-descarga.jpg', 1),
+(6, '1745941499-descarga.jpg', 8);
 
 -- --------------------------------------------------------
 
@@ -412,12 +423,12 @@ ALTER TABLE `mensaje`
   ADD KEY `fk_mensaje_usuario1_idx` (`usuario_id_usuario`);
 
 --
--- Indices de la tabla `reseña`
+-- Indices de la tabla `reviews`
 --
-ALTER TABLE `reseña`
-  ADD PRIMARY KEY (`id_reseña`),
-  ADD KEY `fk_reseña_servicio1_idx` (`servicio_id_servicio`),
-  ADD KEY `fk_reseña_usuario1_idx` (`usuario_id_usuario`);
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`id_review`),
+  ADD KEY `fk_reseña_servicio1_idx` (`servicio_id`),
+  ADD KEY `fk_reseña_usuario1_idx` (`usuario_id`);
 
 --
 -- Indices de la tabla `servicio`
@@ -480,22 +491,22 @@ ALTER TABLE `mensaje`
   MODIFY `id_mensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de la tabla `reseña`
+-- AUTO_INCREMENT de la tabla `reviews`
 --
-ALTER TABLE `reseña`
-  MODIFY `id_reseña` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `reviews`
+  MODIFY `id_review` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `servicio`
 --
 ALTER TABLE `servicio`
-  MODIFY `id_servicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_servicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `servicio_imagenes`
 --
 ALTER TABLE `servicio_imagenes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `servicio_usuario`
@@ -536,11 +547,11 @@ ALTER TABLE `mensaje`
   ADD CONSTRAINT `fk_mensaje_usuario1` FOREIGN KEY (`usuario_id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `reseña`
+-- Filtros para la tabla `reviews`
 --
-ALTER TABLE `reseña`
-  ADD CONSTRAINT `fk_reseña_servicio1` FOREIGN KEY (`servicio_id_servicio`) REFERENCES `servicio` (`id_servicio`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_reseña_usuario1` FOREIGN KEY (`usuario_id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `reviews`
+  ADD CONSTRAINT `fk_reseña_servicio1` FOREIGN KEY (`servicio_id`) REFERENCES `servicio` (`id_servicio`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_reseña_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `servicio`

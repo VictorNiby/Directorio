@@ -177,31 +177,31 @@ if (!defined('URL_BASE')) {
         <span class="bg-secondary pr-3">Servicios Más Solicitados</span>
     </h2>
     <div class="row px-xl-5">
-        <?php foreach ($feature as $index => $servicio): ?>
+        <?php foreach ($services as $service): ?>
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
                 <div class="product-item bg-light mb-4">
                     <div class="product-img position-relative overflow-hidden" style="height: 200px;">
-                        <img class="img-fluid w-100 h-100 object-fit-cover" src="<?php RUTA_BASE ?>/directorio/publico/img/servicios/<?php echo $imgs[$index]["imagen_ref"];?>" 
-                            alt="<?php echo htmlspecialchars($servicio['titulo']); ?>">
+                        <img class="img-fluid w-100 h-100 object-fit-cover" src="<?php RUTA_BASE ?>/directorio/publico/img/servicios/<?php echo $service["imagen_ref"];?>" 
+                            alt="<?php echo htmlspecialchars($service['titulo']); ?>">
                         <div class="product-action">
                             <a class="btn btn-outline-dark btn-square" 
-                                href="<?php URL_BASE ?>?page=service&id=<?php echo $servicio["id_servicio"] ?>">
+                                href="<?php URL_BASE ?>?page=service&id=<?php echo $service["id_servicio"] ?>">
                                 <i class="fa fa-eye"></i>
                             </a>
                         </div>
                     </div>
                     <div class="text-center py-4">
                         <a class="h6 text-decoration-none text-truncate d-block" style="max-width: 100%;" 
-                            href="#" 
-                            title="<?php echo htmlspecialchars($servicio['titulo']); ?>">
-                            <?php echo htmlspecialchars($servicio['titulo']); ?>
+                            href="<?php URL_BASE ?>?page=service&id=<?php echo $service["id_servicio"] ?>" 
+                            title="<?php echo htmlspecialchars($service['titulo']); ?>">
+                            <?php echo htmlspecialchars($service['titulo']); ?>
                         </a>
 
                         <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$<?php echo number_format($servicio['precio'], 2); ?></h5>
+                            <h5>$<?php echo number_format($service['precio'], 2); ?></h5>
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="text-muted">Solicitudes: <?php echo $servicio['total_solicitudes']; ?></small>
+                            <small class="text-muted">Solicitudes: <?php echo $service['total_solicitudes']; ?></small>
                         </div>
                     </div>
                 </div>

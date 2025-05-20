@@ -110,7 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
         //PAGINA PARA CADA SERVICIO
         case 'service':
-            $serviceController->servicePage($_GET["id"]);
+            $landingPageController->servicePage($_GET["id"]);
             break;
 
         case 'home':

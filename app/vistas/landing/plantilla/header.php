@@ -5,6 +5,7 @@ if (!defined('URL_BASE')) {
     define('URL_BASE_TIENDA', $protocolo . "://" . $_SERVER['HTTP_HOST'] . "/directorio/app/vistas/landing");
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -50,7 +51,6 @@ if (!defined('URL_BASE')) {
         }
     </style>
 </head>
-
 
 <body>
     <!-- Topbar Start -->
