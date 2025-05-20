@@ -80,7 +80,8 @@ if (!defined('URL_BASE')) {
 
     <!-- Template Javascript -->
     <script src="<?= URL_BASE ?>/js/main.js"></script>
-
-
+    
+    <!-- SWIPER JS !-->
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 </body>
 </html>

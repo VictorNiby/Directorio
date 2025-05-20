@@ -9,8 +9,8 @@ if (!defined('URL_IMG')) {
 
 include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
 ?>
-<body>
 
+<body>
     <!-- Breadcrumb Start -->
     <div class="container-fluid">
         <div class="row px-xl-5">
@@ -24,32 +24,34 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
     </div>
     <!-- Breadcrumb End -->
 
-
-    <!-- Shop Detail Start -->
+    <!-- Inicio Detalles del servicio  -->
     <div class="container-fluid pb-5">
         
         <div class="row px-xl-5">
             <div class="col-lg-5 mb-30">
                 <?php if(count($service_imgs) > 1) : ?>
-                <div id="product-carousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner bg-light">
-                        <?php foreach($service_imgs as $img) : ?>
-                            <div class="carousel-item active">
-                                <img class="w-100 h-100" src="<?= URL_BASE ?>/img/servicios/<?php echo $img["imagen_ref"] ?>" alt="Imagen del servicio">
-                            </div>
-                        <?php endforeach ?>
+                    <div class="swiper swiper-services">
+                        <!-- Additional required wrapper -->
+                        <div class="swiper-wrapper">
+                            <?php foreach($service_imgs as $img) : ?>
+                                 <div class="swiper-slide">
+                                    <img class="w-100 h-100" src="<?= URL_BASE ?>/img/servicios/<?php echo $img["imagen_ref"] ?>" alt="Imagen del servicio">
+                                 </div>
+                             <?php endforeach ?>
+                        </div>
+                        <!-- If we need pagination -->
+                        <div class="swiper-pagination"></div>
+
+                        <!-- If we need navigation buttons -->
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
                     </div>
-                    <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
-                        <i class="fa fa-2x fa-angle-left text-dark"></i>
-                    </a>
-                    <a class="carousel-control-next" href="#product-carousel" data-slide="next">
-                        <i class="fa fa-2x fa-angle-right text-dark"></i>
-                    </a>
-                </div>
                 <?php else : ?>
 
                 <?php foreach($service_imgs as $img) : ?>
-                    <img class="w-100 h-100" src="<?= URL_BASE ?>/img/servicios/<?php echo $img["imagen_ref"] ?>" alt="Imagen del servicio">
+                    <div class="card p-3 border-0">
+                        <img class="w-100 h-100 img-fluid" src="<?= URL_BASE ?>/img/servicios/<?php echo $img["imagen_ref"] ?>" alt="Imagen del servicio">
+                    </div>
                 <?php endforeach ?>
 
                 <?php endif ?>
@@ -212,10 +214,10 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
             </div>
         </div>
     </div>
-    <!-- Shop Detail End -->
+    <!-- Fin Detalles del servicio  --> 
 
-    <!-- Products Start -->
-    <?php if(!empty($related_services)) : ?> 
+    <!--  Inicio Servicios Relacionados -->
+    <?php if(!$isEmpty) : ?> 
         <div class="container-fluid py-5">
             <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Puede que también te interesen</span></h2>
             <div class="row px-xl-5">
@@ -224,14 +226,12 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                         <div class="owl-carousel related-carousel">
                             <?php foreach($related_services as $related) : ?>
 
-                            <div class="product-item bg-light">
+                            <div class="product-item bg-light w-25 overflow-hidden">
                                 <div class="product-img position-relative overflow-hidden">
                                     <img class="img-fluid w-100" src="<?= URL_IMG ?>/servicios/<?= $related["servicio_imagen"] ?>" alt="Imágen del servicio recomendado">
                                     <div class="product-action">
                                         <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
                                         <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                        <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                                        <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
                                     </div>
                                 </div>
                                 <div class="text-center py-4">
@@ -256,20 +256,18 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                             <?php endforeach ?>
                         </div>
                     <?php else : ?>
-                        <div class="product-item bg-light">
+                        <div class="product-item bg-light w-25 overflow-hidden">
                                 <div class="product-img position-relative overflow-hidden">
                                     <img class="img-fluid w-100" src="<?= URL_IMG ?>/servicios/<?= $related_services[0]["servicio_imagen"] ?>" 
                                     alt="Imágen del servicio recomendado">
                                     <div class="product-action">
                                         <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
                                         <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                        <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                                        <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
                                     </div>
                                 </div>
 
                             <div class="text-center py-4">
-                                <a class="h6 text-decoration-none text-truncate" href="<?php URL_BASE ?>?page=service&id=<?php echo $service["id_servicio"] ?>">
+                                <a class="h6 text-decoration-none text-truncate" href="<?php URL_BASE ?>?page=service&id=<?php echo $related_services[0]["id_servicio"] ?>">
                                     <?= $related_services[0]["titulo"] ?>
                                 </a>
 
@@ -293,5 +291,28 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
             </div>
         </div>
     <?php endif ?>
-    <!-- Products End -->
-    <?php include_once RUTA_BASE . '/app/vistas/landing/plantilla/footer.php'; ?>
+    <!-- Fin Servicios Relacionados -->
+
+    <!-- SWIPER.JS !-->
+    
+    <script>
+        window.addEventListener('DOMContentLoaded',()=>{
+            const swiper = new Swiper(".swiper-services", {
+                loop: true,
+                pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+                },
+                navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+                },
+                autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+                },
+            })
+        })
+    </script>
+
+<?php include_once RUTA_BASE . '/app/vistas/landing/plantilla/footer.php'; ?>

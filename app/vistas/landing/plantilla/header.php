@@ -34,7 +34,11 @@ if (!defined('URL_BASE')) {
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="<?= URL_BASE ?>/css/style.min.css" rel="stylesheet">
+
+    <!-- SWIPE JS !-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
     
+
     <style>
         .bg-title-niby{
         background-color: #FFC332;

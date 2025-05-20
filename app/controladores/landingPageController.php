@@ -29,8 +29,16 @@ class LandingPageController{
         $service = $this->serviceModel->getServiceById($service_id);
         $service_imgs = $this->serviceModel->getImagesByService($service_id);
         $reviews = $this->reviewsModel->ReviewsByService($service_id);
+        $data = $this->categoryModel->GetAllCategory();
         $total_reviews = $this->reviewsModel->TotalReviewsByService($service_id);
         $related_services = $this->serviceModel->TopRelatedServices($service["id_categoria"],$service_id);
+        $isEmpty = false;
+
+        for ($i=0; $i <count($related_services) ; $i++) { 
+            if (in_array("",$related_services[$i]) || in_array(null,$related_services[$i])) {
+                $isEmpty = true;
+            }
+        }
 
         include_once(__DIR__ . '/../vistas/landing/detail.php');
     }

@@ -92,7 +92,7 @@ class ServiceModel extends Mysql {
     }
 
     public function TopRelatedServices($category_id,$service_id) {
-        if (!is_numeric($category_id)) {
+        if (!is_numeric($category_id) || !is_numeric($service_id)) {
             throw new Exception("Valor inválido");
         }
 
@@ -104,7 +104,7 @@ class ServiceModel extends Mysql {
         INNER JOIN servicio_imagenes on servicio_imagenes.servicio_id = servicio.id_servicio
         where servicio.estado = 'Activo' AND servicio.categoria_id_categoria = ?
         AND servicio.id_servicio != ?
-        ORDER BY AVG(reviews.calificacion) DESC
+        ORDER BY calificacion DESC
         LIMIT 5";
 
         $stmt = $this->connection->prepare($query);
