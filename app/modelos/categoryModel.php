@@ -88,7 +88,7 @@ class CategoryModel extends Mysql{
 
     //LANDING
     public function GetAllCategoryLanding(){  
-        $query = "SELECT c.nombre AS categoria, COUNT(s.id_servicio) AS cantidad_servicios
+        $query = "SELECT c.id_categoria , c.nombre AS categoria, COUNT(s.id_servicio) AS cantidad_servicios
         FROM categoria c
         LEFT JOIN servicio s ON c.id_categoria = s.categoria_id_categoria
         GROUP BY c.id_categoria

@@ -79,33 +79,33 @@ if (!defined('URL_BASE')) {
 
     <!-- Featured Start -->
     <div class="container-fluid pt-5">
-    <div class="row px-xl-5 pb-3">
-        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-            <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-                <h1 class="fa fa-check-circle text-primary m-0 mr-3"></h1>
-                <h5 class="font-weight-semi-bold m-0">Servicios verificados</h5>
+        <div class="row px-xl-5 pb-3">
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-check-circle text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">Servicios verificados</h5>
+                </div>
             </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-            <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-                <h1 class="fa fa-users text-primary m-0 mr-2"></h1>
-                <h5 class="font-weight-semi-bold m-0">Profesionales confiables</h5>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-users text-primary m-0 mr-2"></h1>
+                    <h5 class="font-weight-semi-bold m-0">Profesionales confiables</h5>
+                </div>
             </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-            <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-                <h1 class="fas fa-handshake text-primary m-0 mr-3"></h1>
-                <h5 class="font-weight-semi-bold m-0">Satisfacción garantizada</h5>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                    <h1 class="fas fa-handshake text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">Satisfacción garantizada</h5>
+                </div>
             </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-            <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-                <h1 class="fa fa-headset text-primary m-0 mr-3"></h1>
-                <h5 class="font-weight-semi-bold m-0">Soporte personalizado</h5>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-headset text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">Soporte personalizado</h5>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <!-- Featured End -->
 
@@ -146,12 +146,13 @@ if (!defined('URL_BASE')) {
         ?>
 
         <?php foreach ($info as $categoria): 
+            $id = $categoria["id_categoria"];
             $nombre = $categoria['categoria'];
             $cantidad = $categoria['cantidad_servicios'];
             $icono = $iconos[$nombre] ?? 'fa-folder';
         ?>
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="#">
+                <a class="text-decoration-none" href="<?= URL_BASE ?>/rutas/rutas.php?page=shop&filter=<?= $id ?>">
                     <div class="cat-item img-zoom d-flex align-items-center mb-4">
                     <div class="d-flex justify-content-center align-items-center bg-light" style="width: 100px; height: 100px;">
                         <i class="fa <?= $icono ?> fa-3x text-primary"></i>

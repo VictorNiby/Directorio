@@ -78,6 +78,19 @@ class ServiceModel extends Mysql {
         return $feature;
     }
 
+    public function ServicesWithReviews(){
+        $query = "SELECT s.id_servicio, s.titulo, s.precio,
+        servicio_imagenes.imagen_ref as imagen_servicio
+        FROM servicio s
+        INNER JOIN servicio_imagenes on servicio_imagenes.servicio_id = s.id_servicio
+        ";
+        
+        $preparedStmt = $this->connection->prepare($query);
+        $preparedStmt->execute();
+        $services = $preparedStmt->fetchAll(PDO::FETCH_ASSOC);
+        return $services;
+    }
+
     public function getImagesByService($service_id) {
         if (!is_numeric($service_id)) {
             throw new Exception("ID inválido para buscar servicio");

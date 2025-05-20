@@ -1,7 +1,7 @@
 <?php 
 if (!defined('URL_BASE')) {
     $protocolo = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
-    define('URL_BASE', $protocolo . "://" . $_SERVER['HTTP_HOST'] . "/directorio/publico");
+    define('URL_BASE', $protocolo . "://" . $_SERVER['HTTP_HOST'] . "/directorio");
     define('URL_BASE_TIENDA', $protocolo . "://" . $_SERVER['HTTP_HOST'] . "/directorio/app/vistas/landing");
 }
 ?>
@@ -16,7 +16,7 @@ if (!defined('URL_BASE')) {
     <meta name="description" content="Encuentra servicios y negocios de manera rápida y segura.">
 
     <!-- Favicon -->
-    <link href="<?= URL_BASE ?>/img/favicon.ico" rel="icon">
+    <link href="<?= URL_BASE ?>/publico/img/favicon.ico" rel="icon">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- Google Web Fonts -->
@@ -29,11 +29,11 @@ if (!defined('URL_BASE')) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="<?= URL_BASE ?>/lib/animate/animate.min.css" rel="stylesheet">
-    <link href="<?= URL_BASE ?>/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="<?= URL_BASE ?>/publico/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="<?= URL_BASE ?>/publico/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="<?= URL_BASE ?>/css/style.min.css" rel="stylesheet">
+    <link href="<?= URL_BASE ?>/publico/css/style.min.css" rel="stylesheet">
 
     <!-- SWIPE JS !-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
@@ -75,6 +75,7 @@ if (!defined('URL_BASE')) {
                         </div>
                     </div>
                 </div>
+
                 <div class="d-inline-flex align-items-center d-block d-lg-none">
                     <a href="<?= URL_BASE ?>/wishlist.php" class="btn px-0 ml-2">
                         <i class="fas fa-heart text-dark"></i>
@@ -89,7 +90,7 @@ if (!defined('URL_BASE')) {
         </div>
         <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
             <div class="col-lg-4">
-                <a href="<?= URL_BASE ?>/" class="text-decoration-none">
+                <a href="<?= URL_BASE ?>/rutas/rutas.php?page=home" class="text-decoration-none">
                     <span class="h1 text-uppercase text-primary bg-title-didi px-2">Direc</span>
                     <span class="h1 text-uppercase text-dark bg-title-niby px-2 ml-n1">Torio</span>
                 </a>
@@ -128,6 +129,7 @@ if (!defined('URL_BASE')) {
                     </div>
                 </nav>
             </div>
+
             <div class="col-lg-9">
                 <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -135,24 +137,23 @@ if (!defined('URL_BASE')) {
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="<?= URL_BASE_TIENDA ?>/index.php" class="nav-item nav-link active">Inicio</a>
-                            <a href="<?= URL_BASE_TIENDA ?>/shop.php" class="nav-item nav-link">Tienda</a>
-                            <a href="<?= URL_BASE_TIENDA ?>/detail.php" class="nav-item nav-link">Detalle del Producto</a>
+                            <a href="<?= URL_BASE ?>/rutas/rutas.php?page=home" class="nav-item nav-link active">Inicio</a>
+                            <a href="<?= URL_BASE ?>/rutas/rutas.php?page=shop" class="nav-item nav-link">Tienda</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Páginas <i class="fa fa-angle-down mt-1"></i></a>
                                 <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-                                    <a href="<?= URL_BASE_TIENDA ?>/cart.php" class="dropdown-item">Carrito de Compras</a>
-                                    <a href="<?= URL_BASE_TIENDA ?>/checkout.php" class="dropdown-item">Realizar Compra</a>
+                                    <a href="<?= URL_BASE ?>/rutas/rutas.php?page=cart" class="dropdown-item">Carrito de Compras</a>
+                                    <a href="<?= URL_BASE ?>/rutas/rutas.php?page=checkout" class="dropdown-item">Realizar Compra</a>
                                 </div>
                             </div>
-                            <a href="<?= URL_BASE_TIENDA ?>/contact.php" class="nav-item nav-link">Contacto</a>
+                            <a href="<?= URL_BASE ?>/rutas/rutas.php?page=contact" class="nav-item nav-link">Contacto</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-                            <a href="<?= URL_BASE_TIENDA ?>/wishlist.php" class="btn px-0">
+                            <a href="<?= URL_BASE ?>/rutas/rutas.php?page=favorites" class="btn px-0">
                                 <i class="fas fa-heart text-primary"></i>
                                 <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
                             </a>
-                            <a href="<?= URL_BASE_TIENDA ?>/cart.php" class="btn px-0 ml-3">
+                            <a href="<?= URL_BASE ?>/rutas/rutas.php?page=cart" class="btn px-0 ml-3">
                                 <i class="fas fa-shopping-cart text-primary"></i>
                                 <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
                             </a>

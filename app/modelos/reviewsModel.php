@@ -16,6 +16,16 @@ class ReviewsModel extends Mysql{
         return $data;
     }
 
+    public function AllServicesReviews($service_id){  
+        $query = "SELECT AVG(reviews.calificacion) as calificacion, COUNT(*) as total_reviews
+        FROM reviews 
+        WHERE reviews.servicio_id = ?";
+        $preparedStmt = $this->conn->prepare($query);
+        $preparedStmt->execute([$service_id]);
+        $data = $preparedStmt->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
+
     public function TotalReviewsByService($service_id){  
         $query = "SELECT *,COUNT(*) as total_reviews
         FROM reviews

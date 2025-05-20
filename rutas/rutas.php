@@ -34,7 +34,6 @@ $saleController = "";
 // =========================================================================
 
 
-
 // ========================== GET ==========================
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
@@ -108,6 +107,11 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             $dashController->index();
             break;
 
+        //LANDING PAGE (NO ROBAR POR FAVOR)
+        case 'shop':
+            $landingPageController->ShopPage();
+            break;
+
         //PAGINA PARA CADA SERVICIO
         case 'service':
             $landingPageController->servicePage($_GET["id"]);
@@ -117,6 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         default:
             $landingPageController->index();
             break;
+        //FIN LANDING PAGE
     }
 }
 

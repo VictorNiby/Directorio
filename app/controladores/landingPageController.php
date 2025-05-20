@@ -1,5 +1,4 @@
 <?php
-
 require_once(__DIR__ . '/../modelos/CategoryModel.php');
 require_once(__DIR__ . '/../modelos/serviceModel.php');
 require_once(__DIR__ . '/../modelos/reviewsModel.php');
@@ -15,16 +14,30 @@ class LandingPageController{
         $this->reviewsModel = new ReviewsModel;
     }
 
-    // LANDING PAGE
     public function index(){
         $data = $this->categoryModel->GetAllCategory();
         $info = $this->categoryModel->GetAllCategoryLanding();
         $services = $this->serviceModel->getServicesWithImages();
         include_once(__DIR__ . '/../vistas/landing/index.php');
     }
-    // LANDING PAGE
-    
-    //Landing page de cada servicio
+
+    //PAGINA DE LA TIENDA
+    public function ShopPage(){
+        $data = $this->categoryModel->GetAllCategory();
+        $services = $this->serviceModel->ServicesWithReviews();
+        $reviews = [];
+
+        foreach ($services as $service) {
+            $query = $this->reviewsModel->AllServicesReviews($service["id_servicio"]);
+            $reviews[] = ["calificacion"=>"","total_reviews"=>$query["total_re"]];
+        }
+
+        print_r($reviews);
+
+        include_once(__DIR__ . '/../vistas/landing/shop.php');
+    }
+
+    //PAGE DETAILS SERVICE
     public function servicePage($service_id) {
         $service = $this->serviceModel->getServiceById($service_id);
         $service_imgs = $this->serviceModel->getImagesByService($service_id);
@@ -42,4 +55,10 @@ class LandingPageController{
 
         include_once(__DIR__ . '/../vistas/landing/detail.php');
     }
+
 }
+    
+
+
+    
+    
