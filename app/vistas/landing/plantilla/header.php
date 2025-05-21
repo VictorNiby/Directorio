@@ -137,16 +137,25 @@ if (!defined('URL_BASE')) {
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="<?= URL_BASE ?>/rutas/rutas.php?page=home" class="nav-item nav-link active">Inicio</a>
-                            <a href="<?= URL_BASE ?>/rutas/rutas.php?page=shop" class="nav-item nav-link">Tienda</a>
+                            <a href="<?= URL_BASE ?>/rutas/rutas.php?page=home" class="nav-item nav-link <?= $_GET["page"] === 'home' ? 'active' : '' ?>">
+                                Inicio
+                            </a>
+                            <a href="<?= URL_BASE ?>/rutas/rutas.php?page=shop" class="nav-item nav-link <?= $_GET["page"] === 'shop' ? 'active' : '' ?>">
+                                Tienda
+                            </a>
                             <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Páginas <i class="fa fa-angle-down mt-1"></i></a>
+                                <a href="#" class="nav-link dropdown-toggle <?= $_GET["page"] === 'cart' || $_GET["page"] === 'checkout' ? 'active' : '' ?>" data-toggle="dropdown"> 
+                                    Páginas <i class="fa fa-angle-down mt-1"></i>
+                                </a>
+
                                 <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
                                     <a href="<?= URL_BASE ?>/rutas/rutas.php?page=cart" class="dropdown-item">Carrito de Compras</a>
                                     <a href="<?= URL_BASE ?>/rutas/rutas.php?page=checkout" class="dropdown-item">Realizar Compra</a>
                                 </div>
                             </div>
-                            <a href="<?= URL_BASE ?>/rutas/rutas.php?page=contact" class="nav-item nav-link">Contacto</a>
+                            <a href="<?= URL_BASE ?>/rutas/rutas.php?page=contact" class="nav-item nav-link <?= $_GET["page"] === 'contact' ? 'active' : '' ?>">
+                                Contacto
+                            </a>
                         </div>
                         <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                             <a href="<?= URL_BASE ?>/rutas/rutas.php?page=favorites" class="btn px-0">

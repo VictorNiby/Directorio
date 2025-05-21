@@ -29,10 +29,8 @@ class LandingPageController{
 
         foreach ($services as $service) {
             $query = $this->reviewsModel->AllServicesReviews($service["id_servicio"]);
-            $reviews[] = ["calificacion"=>"","total_reviews"=>$query["total_re"]];
+            $reviews[] = ["calificacion"=>$query[0]["calificacion"],"total_reviews"=>$query[0]["total_reviews"]];
         }
-
-        print_r($reviews);
 
         include_once(__DIR__ . '/../vistas/landing/shop.php');
     }

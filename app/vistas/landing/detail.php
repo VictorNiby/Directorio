@@ -35,7 +35,7 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                         <div class="swiper-wrapper">
                             <?php foreach($service_imgs as $img) : ?>
                                  <div class="swiper-slide">
-                                    <img class="w-100 h-100" src="<?= URL_BASE ?>/img/servicios/<?php echo $img["imagen_ref"] ?>" alt="Imagen del servicio">
+                                    <img class="w-100 h-100" src="<?= URL_IMG ?>/servicios/<?= $img["imagen_ref"] ?>" alt="Imagen del servicio">
                                  </div>
                              <?php endforeach ?>
                         </div>
@@ -50,7 +50,7 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
 
                 <?php foreach($service_imgs as $img) : ?>
                     <div class="card p-3 border-0">
-                        <img class="w-100 h-100 img-fluid" src="<?= URL_BASE ?>/img/servicios/<?php echo $img["imagen_ref"] ?>" alt="Imagen del servicio">
+                        <img class="w-100 h-100 img-fluid" src="<?= URL_IMG ?>/servicios/<?php echo $img["imagen_ref"] ?>" alt="Imagen del servicio">
                     </div>
                 <?php endforeach ?>
 
@@ -176,7 +176,8 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
 
                                     </div>
                                 <?php endif ?>
-                                
+                                <!--FIN RESEÑAS!-->
+
                                 <!--Col para añadir una nueva reseñas!-->
                                 <div class="col-md-<?php echo $total_reviews["total_reviews"] > 0 ? '6' : '12' ?>">
                                     <h4 class="mb-4">Deja una reseña!</h4>
@@ -207,8 +208,10 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                                         </div>
                                     </form>
                                 </div>
+                                <!--FIN AÑADIR RESEÑAS!-->
                             </div>
                         </div>
+                        <!--FIN APARTADO RESEÑAS!-->
                     </div>
                 </div>
             </div>

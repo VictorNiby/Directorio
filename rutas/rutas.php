@@ -36,6 +36,11 @@ $saleController = "";
 
 // ========================== GET ==========================
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
+    
+    if (!isset($_GET["page"])) {
+        header("Location: rutas.php?page=home");
+        die();
+    }
 
     $page = $_GET["page"] ?? 'home';
 
