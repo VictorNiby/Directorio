@@ -24,7 +24,40 @@ class LandingPageController{
     //PAGINA DE LA TIENDA
     public function ShopPage(){
         $data = $this->categoryModel->GetAllCategory();
-        $services = $this->serviceModel->ServicesWithReviews();
+        $services_count = [];
+        $services = [];
+
+        $filter_category = isset($_GET["category"]) ? intval($_GET["category"]) : null ;
+        $min = isset($_GET["min"]) ? intval($_GET["min"]) : null ;
+        $max = isset($_GET["max"]) ? intval($_GET["max"]) : null ;
+        
+        if (isset($filter_category) || (isset($min) && isset($max))) {
+
+            if (isset($filter_category) && !isset($min) ) {
+
+                if(!is_numeric($filter_category) || $filter_category < 1) {
+                    header("Location: rutas.php?page=home"); 
+                    die();
+                }
+                $services = $this->serviceModel->ServicesByCategory($filter_category);
+                
+
+            }else if(isset($min) && !isset($filter_category)){
+                
+                if ($min < 0 || $max <= $min) {
+                    header("Location: rutas.php?page=home"); 
+                    die();
+                }
+
+                $services = $this->serviceModel->ServicesByPrice($min,$max);
+            }else{
+
+            }
+
+        }else {
+            $services = $this->serviceModel->ServicesWithReviews();
+        }
+
         $reviews = [];
 
         foreach ($services as $service) {
@@ -32,8 +65,15 @@ class LandingPageController{
             $reviews[] = ["calificacion"=>$query[0]["calificacion"],"total_reviews"=>$query[0]["total_reviews"]];
         }
 
+        foreach ($data as $category) {
+            $query = $this->serviceModel->CountServiceByCategory($category["id_categoria"]);
+            $services_count[] = ["service_count"=>$query[0]["service_count"]];
+        }
+
         include_once(__DIR__ . '/../vistas/landing/shop.php');
     }
+
+    //FIN PAGINA TIENDA
 
     //PAGE DETAILS SERVICE
     public function servicePage($service_id) {

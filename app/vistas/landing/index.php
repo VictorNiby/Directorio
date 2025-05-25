@@ -152,7 +152,7 @@ if (!defined('URL_BASE')) {
             $icono = $iconos[$nombre] ?? 'fa-folder';
         ?>
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="<?= URL_BASE ?>/rutas/rutas.php?page=shop&filter=service&id=<?= $id ?>">
+                <a class="text-decoration-none" href="<?= URL_BASE ?>/rutas/rutas.php?page=shop&category=<?= $id ?>">
                     <div class="cat-item img-zoom d-flex align-items-center mb-4">
                     <div class="d-flex justify-content-center align-items-center bg-light" style="width: 100px; height: 100px;">
                         <i class="fa <?= $icono ?> fa-3x text-primary"></i>

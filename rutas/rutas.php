@@ -123,8 +123,12 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             break;
 
         case 'home':
-        default:
             $landingPageController->index();
+            break;
+            
+        default:
+            header("Location: rutas.php?page=home");
+            die();
             break;
         //FIN LANDING PAGE
     }

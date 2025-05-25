@@ -62,7 +62,7 @@ if (!defined('URL_BASE')) {
         <div class="row bg-secondary py-1 px-xl-5">
             <div class="col-lg-6 d-none d-lg-block">
                 <div class="d-inline-flex align-items-center h-100">
-                    <a class="text-body mr-3" href="<?= URL_BASE ?>/faqs.php">FAQs</a>
+                    <a class="text-body mr-3" href="<?= URL_BASE ?>/rutas/rutas.php?page=faqs">FAQs</a>
                 </div>
             </div>
             <div class="col-lg-6 text-center text-lg-right">
@@ -77,11 +77,11 @@ if (!defined('URL_BASE')) {
                 </div>
 
                 <div class="d-inline-flex align-items-center d-block d-lg-none">
-                    <a href="<?= URL_BASE ?>/wishlist.php" class="btn px-0 ml-2">
+                    <a href="<?= URL_BASE ?>/rutas/rutas.php?page=favorites" class="btn px-0 ml-2">
                         <i class="fas fa-heart text-dark"></i>
                         <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
                     </a>
-                    <a href="<?= URL_BASE ?>/cart.php" class="btn px-0 ml-2">
+                    <a href="<?= URL_BASE ?>/rutas/rutas.php?page=cart" class="btn px-0 ml-2">
                         <i class="fas fa-shopping-cart text-dark"></i>
                         <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
                     </a>
@@ -122,7 +122,7 @@ if (!defined('URL_BASE')) {
                 <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999; max-height: 400px; overflow-y: auto;">
                     <div class="navbar-nav w-100">
                         <?php foreach ($data as $categoria): ?>
-                            <a href="<?= URL_BASE ?>/categorias/<?= strtolower(str_replace(' ', '_', $categoria['nombre'])) ?>.php" class="nav-item nav-link">
+                            <a href="<?= URL_BASE ?>/rutas/rutas.php?page=shop&category=<?= $categoria["id_categoria"] ?>" class="nav-item nav-link">
                                 <?= htmlspecialchars($categoria['nombre']) ?>
                             </a>
                         <?php endforeach; ?>
