@@ -86,7 +86,7 @@ class CategoryModel extends Mysql{
         }
     }
 
-    //LANDING
+    //INICIO LANDING PAGE
     public function GetAllCategoryLanding(){  
         $query = "SELECT c.id_categoria , c.nombre AS categoria, COUNT(s.id_servicio) AS cantidad_servicios
         FROM categoria c
@@ -114,5 +114,7 @@ class CategoryModel extends Mysql{
         $usersMonth = $preparedStmt->fetchAll(PDO::FETCH_ASSOC);
         return $usersMonth;
     }
+
+    //FIN LANDING PAGE
 
 }

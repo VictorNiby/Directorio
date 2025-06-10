@@ -40,7 +40,13 @@ $saleController = "";
 session_start();
 
 // ========================== GET ==========================
-if ($_SERVER["REQUEST_METHOD"] === "GET") {
+if ($_SERVER["REQUEST_METHOD"] === "GET") 
+    
+    if (!isset($_GET["page"])) {
+        header("Location: rutas.php?page=home");
+        die();
+    }
+
     $page = $_GET["page"] ?? 'home';
 
     if ($page === 'logIn') {
@@ -122,25 +128,16 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                 $landingPageController->ShopPage();
                 break;
 
-            //PAGINA PARA CADA SERVICIO
-            case 'service':
-                $landingPageController->servicePage($_GET["id"]);
-                break;
+        //PAGINA PARA CADA SERVICIO
+        case 'service':
+            $landingPageController->servicePage($_GET["id"]);
+            break;
 
-            //LOG OUT
-            case 'logOut':
-                $loginController->LogOut();
-                break;
-            
-            case 'home':
-            default:
-                $landingPageController->index();
-                break;
-            //FIN LANDING PAGE
-        }
-    }else{
-        header("Location: rutas.php?page=logIn");
-        die();
+        case 'home':
+        default:
+            $landingPageController->index();
+            break;
+        //FIN LANDING PAGE
     }
 }
 // ========================== POST ==========================

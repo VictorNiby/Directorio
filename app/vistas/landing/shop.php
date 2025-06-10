@@ -23,119 +23,71 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
 
             <!-- INICIO SIDEBAR FILTROS -->
             <div class="col-lg-3 col-md-4">
-                <!-- Price Start -->
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filtrar por precio</span></h5>
-                <div class="bg-light p-4 mb-30">
-                    <form>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" checked id="price-all">
-                            <label class="custom-control-label" for="price-all">Cualquier precio</label>
-                            <span class="badge border font-weight-normal">0</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-1">
-                            <label class="custom-control-label" for="price-1">$0 - $1000</label>
-                            <span class="badge border font-weight-normal">0</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-2">
-                            <label class="custom-control-label" for="price-2">$1000 - $5000</label>
-                            <span class="badge border font-weight-normal">0</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-3">
-                            <label class="custom-control-label" for="price-3">$5000 - $10000</label>
-                            <span class="badge border font-weight-normal">0</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-4">
-                            <label class="custom-control-label" for="price-4">$10000 - $20000</label>
-                            <span class="badge border font-weight-normal">0</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                            <input type="checkbox" class="custom-control-input" id="price-5">
-                            <label class="custom-control-label" for="price-5">$20000 - $50000</label>
-                            <span class="badge border font-weight-normal">0</span>
-                        </div>
-                    </form>
-                </div>
-                <!-- Price End -->
-                
-                <!-- Color Start -->
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filtro por categoria</span></h5>
-                <div class="bg-light p-4 mb-30">
-                    <form>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" checked id="color-all">
-                            <label class="custom-control-label" for="price-all">All Color</label>
-                            <span class="badge border font-weight-normal">1000</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="color-1">
-                            <label class="custom-control-label" for="color-1">Black</label>
-                            <span class="badge border font-weight-normal">150</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="color-2">
-                            <label class="custom-control-label" for="color-2">White</label>
-                            <span class="badge border font-weight-normal">295</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="color-3">
-                            <label class="custom-control-label" for="color-3">Red</label>
-                            <span class="badge border font-weight-normal">246</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="color-4">
-                            <label class="custom-control-label" for="color-4">Blue</label>
-                            <span class="badge border font-weight-normal">145</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                            <input type="checkbox" class="custom-control-input" id="color-5">
-                            <label class="custom-control-label" for="color-5">Green</label>
-                            <span class="badge border font-weight-normal">168</span>
-                        </div>
-                    </form>
-                </div>
-                <!-- Color End -->
+                    <!-- INICIO FILTRO PRECIO -->
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filtrar por precio</span></h5>
+                    <div class="bg-light p-4 mb-30">
+                        <form action="rutas.php">
+                                <div class="custom-control d-flex align-items-center justify-content-between mb-3">
+                                    <a href="rutas.php?page=shop"
+                                    class="text-dark">
+                                        Cualquier precio
+                                    </a>
+                                </div>
+                                <div class="custom-control d-flex align-items-center justify-content-between mb-3">
+                                    <a href="rutas.php?page=shop&min0&max=2000"
+                                    class="text-dark">
+                                        0 - 2000
+                                    </a>
+                                </div>
 
-                <!-- Size Start -->
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by size</span></h5>
-                <div class="bg-light p-4 mb-30">
-                    <form>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" checked id="size-all">
-                            <label class="custom-control-label" for="size-all">All Size</label>
-                            <span class="badge border font-weight-normal">1000</span>
+                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="radio" class="custom-control-input" id="price-1">
+                                    <label class="custom-control-label" for="price-1">$0 - $1000</label>
+                                    <span class="badge border font-weight-normal">0</span>
+                                </div>
+                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="radio" class="custom-control-input" id="price-2">
+                                    <label class="custom-control-label" for="price-2">$1000 - $5000</label>
+                                    <span class="badge border font-weight-normal">0</span>
+                                </div>
+                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="radio" class="custom-control-input" id="price-3">
+                                    <label class="custom-control-label" for="price-3">$5000 - $10000</label>
+                                    <span class="badge border font-weight-normal">0</span>
+                                </div>
+                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="radio" class="custom-control-input" id="price-4">
+                                    <label class="custom-control-label" for="price-4">$10000 - $20000</label>
+                                    <span class="badge border font-weight-normal">0</span>
+                                </div>
+                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
+                                    <input type="radio" class="custom-control-input" id="price-5">
+                                    <label class="custom-control-label" for="price-5">$20000 - $50000</label>
+                                    <span class="badge border font-weight-normal">0</span>
+                                </div>
+
+                                <button class="btn btn-primary mt-3">Filtrar</button>
+                        </form>
+                    </div>
+                    <!-- FINAL FILTRO PRECIO  -->
+                    
+                    <!-- INICIO FILTRO CATEGORIAS  -->
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filtro por categoria</span></h5>
+                    <div class="bg-light p-4 mb-30">
+                        <?php foreach ($data as $index => $category) : ?>
+                        <div class="custom-control mb-3 d-flex justify-content-between">
+                            <a href="rutas.php?page=shop&category=<?= $category["id_categoria"]?>"
+                            class="text-dark">
+                                <?= $category["nombre"] ?>
+                            </a>
+
+                            <span class="badge border font-weight-normal p-2">
+                                <?php echo $services_count[$index]["service_count"] ?>
+                            </span>
                         </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="size-1">
-                            <label class="custom-control-label" for="size-1">XS</label>
-                            <span class="badge border font-weight-normal">150</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="size-2">
-                            <label class="custom-control-label" for="size-2">S</label>
-                            <span class="badge border font-weight-normal">295</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="size-3">
-                            <label class="custom-control-label" for="size-3">M</label>
-                            <span class="badge border font-weight-normal">246</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="size-4">
-                            <label class="custom-control-label" for="size-4">L</label>
-                            <span class="badge border font-weight-normal">145</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                            <input type="checkbox" class="custom-control-input" id="size-5">
-                            <label class="custom-control-label" for="size-5">XL</label>
-                            <span class="badge border font-weight-normal">168</span>
-                        </div>
-                    </form>
-                </div>
-                <!-- Size End -->
+                        <?php endforeach ?>
+                    </div>
+                    <!-- FIN FILTRO CATEGORIAS !-->
             </div>
             <!-- FIN FILTROS-->
 
@@ -172,49 +124,62 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                     <!--FIN ORDENAR POR!-->
 
                     <!--INICIO LISTA PRODUCTOS!-->
-                    <?php foreach($services as $service) : ?>
-                    <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
-                        <div class="product-item bg-light mb-4">
-                            <div class="product-img position-relative overflow-hidden">
-                                <img class="img-fluid w-100" src="<?= URL_BASE ?>/publico/img/servicios/<?= $service["imagen_servicio"] ?>" alt="Imagen del servicio">
-                                <div class="product-action">
-                                    <a class="btn btn-outline-dark btn-square" href="<?= URL_BASE ?>/rutas/rutas.php?page=cart"><i class="fa fa-shopping-cart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href="<?= URL_BASE ?>/rutas/rutas.php?page=favorites"><i class="far fa-heart"></i></a>
+                    <?php if (count($services) > 0) : ?>
+                        <?php foreach($services as $index => $service) : ?>
+                            <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+                                <div class="product-item bg-light mb-4">
+                                    <div class="product-img position-relative overflow-hidden">
+                                        <img class="img-fluid w-100" src="<?= URL_BASE ?>/publico/img/servicios/<?= $service["imagen_servicio"] ?>" alt="Imagen del servicio">
+                                        <div class="product-action">
+                                            <a class="btn btn-outline-dark btn-square" href="<?= URL_BASE ?>/rutas/rutas.php?page=cart"><i class="fa fa-shopping-cart"></i></a>
+                                            <a class="btn btn-outline-dark btn-square" href="<?= URL_BASE ?>/rutas/rutas.php?page=favorites"><i class="far fa-heart"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="text-center py-4">
+                                        <a class="h6 text-decoration-none text-truncate" href="<?= URL_BASE ?>/rutas/rutas.php?page=service&id=<?= $service["id_servicio"] ?>">
+                                            <?= $service["titulo"] ?>
+                                        </a>
+                                        <div class="d-flex align-items-center justify-content-center mt-2">
+                                            <h5><?= number_format($service["precio"]) ?></h5>
+                                        </div>
+
+                                        <?php if($reviews[$index]["total_reviews"] > 0) : ?>
+                                        <div class="d-flex align-items-center justify-content-center mb-1">
+                                            <small class="fa fa-star text-primary mr-1"></small>
+                                            <small class="fa fa-star text-primary mr-1"></small>
+                                            <small class="fa fa-star text-primary mr-1"></small>
+                                            <small class="fa fa-star text-primary mr-1"></small>
+                                            <small class="fa fa-star text-primary mr-1"></small>
+                                            <small><?= $reviews[$index]["total_reviews"] ?></small>
+                                        </div>
+                                        <?php endif ?>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="text-center py-4">
-                                <a class="h6 text-decoration-none text-truncate" href="<?= URL_BASE ?>/rutas/rutas.php?page=home">
-                                    <?= $service["titulo"] ?>
-                                </a>
-                                <div class="d-flex align-items-center justify-content-center mt-2">
-                                    <h5><?= number_format($service["precio"]) ?></h5>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-center mb-1">
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small>(99)</small>
-                                </div>
-                            </div>
+                        <?php endforeach ?>
+                    <?php else : ?>
+                        <div class="card w-100 p-3">
+                            <p class="text-center text-black h3">No hay servicios...</p>
                         </div>
-                    </div>
-                    <?php endforeach ?>
+                        
+                    <?php endif ?>
                     <!--FIN LISTA PRODUCTOS!-->
                     
                     <!--INICIO PAGINACIÓN !-->
-                    <div class="col-12">
-                        <nav>
-                          <ul class="pagination justify-content-center">
-                            <li class="page-item disabled"><a class="page-link" href="#">Previous</span></a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                          </ul>
-                        </nav>
-                    </div>
+                    <?php if (count($services) > 0) : ?>
+                        <div class="col-12">
+                            <nav>
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item disabled"><a class="page-link" href="#">Anterior</span></a></li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
+                            </ul>
+                            </nav>
+                        </div>
+                    <?php endif ?>
+
                     <!--FIN PAGINACIÓN !-->
                 </div>
             </main>
@@ -222,4 +187,11 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
         </div>
     </div>
     <!-- FIN CONTENIDO TIENDA  -->
-    <?php include_once RUTA_BASE . '/app/vistas/landing/plantilla/footer.php'; ?>
+
+<script type="module">
+    function FilterByCategory(){
+            
+    }
+</script>
+
+<?php include_once RUTA_BASE . '/app/vistas/landing/plantilla/footer.php'; ?>

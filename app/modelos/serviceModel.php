@@ -84,7 +84,7 @@ class ServiceModel extends Mysql {
         FROM servicio s
         INNER JOIN servicio_imagenes on servicio_imagenes.servicio_id = s.id_servicio
         ";
-        
+
         $preparedStmt = $this->connection->prepare($query);
         $preparedStmt->execute();
         $services = $preparedStmt->fetchAll(PDO::FETCH_ASSOC);
@@ -124,6 +124,44 @@ class ServiceModel extends Mysql {
         $stmt->execute([$category_id,$service_id]);
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function ServicesByCategory($category_id){
+        $query = "SELECT s.id_servicio, s.titulo, s.precio,
+        servicio_imagenes.imagen_ref as imagen_servicio
+        FROM servicio s
+        INNER JOIN servicio_imagenes on servicio_imagenes.servicio_id = s.id_servicio
+        INNER JOIN categoria c on c.id_categoria = s.categoria_id_categoria
+        WHERE c.id_categoria = ?";
+        
+        $preparedStmt = $this->connection->prepare($query);
+        $preparedStmt->execute([$category_id]);
+        $services = $preparedStmt->fetchAll(PDO::FETCH_ASSOC);
+        return $services;
+    }
+
+    public function ServicesByPrice($min,$max){
+        $query = "SELECT s.id_servicio, s.titulo, s.precio,
+        servicio_imagenes.imagen_ref as imagen_servicio
+        FROM servicio s
+        INNER JOIN servicio_imagenes on servicio_imagenes.servicio_id = s.id_servicio
+        WHERE s.precio BETWEEN ? and ?";
+        
+        $preparedStmt = $this->connection->prepare($query);
+        $preparedStmt->execute([$min,$max]);
+        $services = $preparedStmt->fetchAll(PDO::FETCH_ASSOC);
+        return $services;
+    }
+
+    public function CountServiceByCategory($category_id){
+        $query = "SELECT COUNT(s.categoria_id_categoria) AS service_count
+        FROM servicio s
+        WHERE s.categoria_id_categoria = ?";
+        $preparedStmt = $this->connection->prepare($query);
+        $preparedStmt->execute([$category_id]);
+
+        $info = $preparedStmt->fetchAll(PDO::FETCH_ASSOC);
+        return $info;
     }
     //END LANDINDG PAGE
 
