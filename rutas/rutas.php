@@ -1,5 +1,10 @@
 <?php
 // =========================================================================
+
+// Controladores de la landing Page
+require_once(__DIR__ . '/../app/controladores/logInController.php');
+$loginController = new logInController();
+
 // Controladores de Categorías
 require_once(__DIR__ . '/../app/controladores/categoryController.php');
 $categoryController = new CategoryController();
@@ -32,99 +37,112 @@ $landingPageController = new LandingPageController();
 $saleController = "";
 
 // =========================================================================
-
+session_start();
 
 // ========================== GET ==========================
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
-
     $page = $_GET["page"] ?? 'home';
 
-    switch ($page) {
-        case 'categories':
-            $categoryController->index();
-            break;
+    if ($page === 'logIn') {
+        $loginController->index();
+        die();
+    }
+    
+    if ($loginController->IsLoggedIn()) {
+        switch ($page) {
+            case 'categories':
+                $categoryController->index();
+                break;
 
-        case 'update':
-            if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
-                echo "ID Inválido";
-                return;
-            }
-            $categoryController->updateView($_GET["id"]);
-            break;
+            case 'update':
+                if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
+                    echo "ID Inválido";
+                    return;
+                }
+                $categoryController->updateView($_GET["id"]);
+                break;
 
-        case 'users':
-            $userController->index();
-            break;
+            case 'users':
+                $userController->index();
+                break;
 
-        case 'updateUser':
-            if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
-                echo "ID Inválido";
-                return;
-            }
-            $userController->updateView($_GET["id"]);
-            break;
+            case 'updateUser':
+                if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
+                    echo "ID Inválido";
+                    return;
+                }
+                $userController->updateView($_GET["id"]);
+                break;
 
-        case 'hoods':
-            $hoodController->index();
-            break;
+            case 'hoods':
+                $hoodController->index();
+                break;
 
-        case 'updateHood':
-            if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
-                echo "ID Inválido";
-                return;
-            }
-            $hoodController->updateView($_GET["id"]);
-            break;
+            case 'updateHood':
+                if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
+                    echo "ID Inválido";
+                    return;
+                }
+                $hoodController->updateView($_GET["id"]);
+                break;
 
-        case 'chats':
-            $chatController->index();
-            break;
+            case 'chats':
+                $chatController->index();
+                break;
 
-        case 'updateChat':
-            if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
-                echo "ID Inválido";
-                return;
-            }
-            $chatController->updateView($_GET["id"]);
-            break;
+            case 'updateChat':
+                if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
+                    echo "ID Inválido";
+                    return;
+                }
+                $chatController->updateView($_GET["id"]);
+                break;
 
-        case 'services':
-            $serviceController->index();
-            break;
+            case 'services':
+                $serviceController->index();
+                break;
 
-        case 'updateService':
-            if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
-                echo "ID Inválido";
-                return;
-            }
-            $serviceController->updateView($_GET["id"]);
-            break;
-        case 'dashboard':
-            $dashController->index();
-            break;
+            case 'updateService':
+                if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
+                    echo "ID Inválido";
+                    return;
+                }
+                $serviceController->updateView($_GET["id"]);
+                break;
+            case 'dashboard':
+                $dashController->index();
+                break;
 
-        case 'sales':
-            $dashController->index();
-            break;
+            case 'sales':
+                $dashController->index();
+                break;
 
-        //LANDING PAGE (NO ROBAR POR FAVOR)
-        case 'shop':
-            $landingPageController->ShopPage();
-            break;
+            //LANDING PAGE (NO ROBAR POR FAVOR)
+            case 'shop':
+                $landingPageController->ShopPage();
+                break;
 
-        //PAGINA PARA CADA SERVICIO
-        case 'service':
-            $landingPageController->servicePage($_GET["id"]);
-            break;
+            //PAGINA PARA CADA SERVICIO
+            case 'service':
+                $landingPageController->servicePage($_GET["id"]);
+                break;
 
-        case 'home':
-        default:
-            $landingPageController->index();
-            break;
-        //FIN LANDING PAGE
+            //LOG OUT
+            case 'logOut':
+                $loginController->LogOut();
+                break;
+            
+            case 'home':
+            default:
+                $landingPageController->index();
+                break;
+            //FIN LANDING PAGE
+        }
+    }else{
+        header("Location: rutas.php?page=logIn");
+        die();
     }
 }
-
 // ========================== POST ==========================
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
@@ -160,6 +178,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             case 'updateService':
                 $serviceController->UpdateService();
+                break;
+            
+            case 'logIn':
+                $loginController->CreateLogIn();
                 break;
 
             default:

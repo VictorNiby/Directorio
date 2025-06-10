@@ -13,7 +13,7 @@ class LandingPageController{
         $this->serviceModel = new ServiceModel;
         $this->reviewsModel = new ReviewsModel;
     }
-
+    
     public function index(){
         $data = $this->categoryModel->GetAllCategory();
         $info = $this->categoryModel->GetAllCategoryLanding();

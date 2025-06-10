@@ -70,14 +70,31 @@ if (!defined('URL_BASE')) {
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Mi cuenta</button>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <button class="dropdown-item" type="button">Únete ahora</button>
-                            <button class="dropdown-item" type="button">Crea tu cuenta</button>
+                            <?php if(isset($_SESSION["name"])) : ?>
+                                <button class="dropdown-item">
+                                    <?= $_SESSION["name"] ?>
+                                </button>
+
+                                <a class="dropdown-item" href="<?= URL_BASE ?>/rutas/rutas.php?page=logOut">
+                                    Cerrar sesión
+                                </a>
+
+                            <?php else : ?>
+                                <a class="dropdown-item" href="<?= URL_BASE ?>/rutas/rutas.php?page=logIn">
+                                    Inicia sesión aquí!
+                                </a>
+
+                                <a class="dropdown-item" href="<?= URL_BASE ?>/rutas/rutas.php?page=logIn">
+                                    Crea tu cuenta
+                                </a>
+                            <?php endif ?>
+                            
                         </div>
                     </div>
                 </div>
 
                 <div class="d-inline-flex align-items-center d-block d-lg-none">
-                    <a href="<?= URL_BASE ?>/wishlist.php" class="btn px-0 ml-2">
+                    <a href="<?= URL_BASE ?>/favorites.php" class="btn px-0 ml-2">
                         <i class="fas fa-heart text-dark"></i>
                         <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
                     </a>
@@ -142,7 +159,6 @@ if (!defined('URL_BASE')) {
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Páginas <i class="fa fa-angle-down mt-1"></i></a>
                                 <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-                                    <a href="<?= URL_BASE ?>/rutas/rutas.php?page=cart" class="dropdown-item">Carrito de Compras</a>
                                     <a href="<?= URL_BASE ?>/rutas/rutas.php?page=checkout" class="dropdown-item">Realizar Compra</a>
                                 </div>
                             </div>
@@ -151,10 +167,6 @@ if (!defined('URL_BASE')) {
                         <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                             <a href="<?= URL_BASE ?>/rutas/rutas.php?page=favorites" class="btn px-0">
                                 <i class="fas fa-heart text-primary"></i>
-                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
-                            </a>
-                            <a href="<?= URL_BASE ?>/rutas/rutas.php?page=cart" class="btn px-0 ml-3">
-                                <i class="fas fa-shopping-cart text-primary"></i>
                                 <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
                             </a>
                         </div>
