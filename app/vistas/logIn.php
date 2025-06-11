@@ -14,7 +14,7 @@ if (!defined('URL_BASE')) {
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
     <!--JS PERSONALIZADO!-->
-    <script src="<?= URL_BASE ?>/publico/js/login/login.js" type="module"></script>
+    <script src="<?= URL_BASE ?>/publico/js/session/login.js" type="module"></script>
 </head>
 <body>
     <form method="post" enctype="multipart/form-data" id="form">

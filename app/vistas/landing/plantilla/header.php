@@ -38,7 +38,6 @@ if (!defined('URL_BASE')) {
     <!-- SWIPE JS !-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
     
-
     <style>
         .bg-title-niby{
         background-color: #FFC332;
@@ -54,6 +53,8 @@ if (!defined('URL_BASE')) {
         border-bottom-left-radius: 5px;
         }
     </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
 </head>
 
 <body>
@@ -75,10 +76,12 @@ if (!defined('URL_BASE')) {
                                     <?= $_SESSION["name"] ?>
                                 </button>
 
-                                <a class="dropdown-item" href="<?= URL_BASE ?>/rutas/rutas.php?page=logOut">
-                                    Cerrar sesión
-                                </a>
-
+                                <form action="rutas.php" method="post">
+                                    <button class="dropdown-item" type="submit" name="action" value="logOut">
+                                        Cerrar sesión
+                                    </button>
+                                </form>
+                                
                             <?php else : ?>
                                 <a class="dropdown-item" href="<?= URL_BASE ?>/rutas/rutas.php?page=logIn">
                                     Inicia sesión aquí!

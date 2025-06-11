@@ -28,6 +28,13 @@ class UserModel extends Mysql {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function GetUserByEmail($email){
+        $query = "SELECT * FROM usuario WHERE usuario.correo = ?";
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute([$email]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function insert($nombre, $correo, $password, $telefono, $documento, $nacimiento, $rol = 'cliente') {
         $query = "INSERT INTO usuario (nombre, correo, password, telefono, rol, documento, nacimiento, foto) 
                   VALUES (?, ?, ?, ?, ?, ?, ?, '')";

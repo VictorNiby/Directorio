@@ -2,8 +2,8 @@
 // =========================================================================
 
 // Controladores de la landing Page
-require_once(__DIR__ . '/../app/controladores/logInController.php');
-$loginController = new logInController();
+require_once(__DIR__ . '/../app/controladores/sessionController.php');
+$sessionController = new sessionController();
 
 // Controladores de Categorías
 require_once(__DIR__ . '/../app/controladores/categoryController.php');
@@ -40,7 +40,7 @@ $saleController = "";
 session_start();
 
 // ========================== GET ==========================
-if ($_SERVER["REQUEST_METHOD"] === "GET") 
+if ($_SERVER["REQUEST_METHOD"] === "GET"){
     
     if (!isset($_GET["page"])) {
         header("Location: rutas.php?page=home");
@@ -50,11 +50,42 @@ if ($_SERVER["REQUEST_METHOD"] === "GET")
     $page = $_GET["page"] ?? 'home';
 
     if ($page === 'logIn') {
-        $loginController->index();
+        $sessionController->LogInView();
         die();
     }
-    
-    if ($loginController->IsLoggedIn()) {
+
+    //PÁGINAS QUE NO REQUIEREN INICIAR SESIÓN
+    switch ($page) {
+        //LANDING PAGE (NO ROBAR POR FAVOR)
+        case 'shop':
+            $landingPageController->ShopPage();
+            die();
+
+        case 'signUp':
+            $sessionController->SignUpView();
+            die();
+
+        //PAGINA PARA CADA SERVICIO
+        case 'service':
+            if (!$_GET["id"]) {
+                header("Location: rutas.php?page=home");
+                die();
+            }
+            $landingPageController->servicePage($_GET["id"]);
+            die();
+
+        case 'home':
+            $landingPageController->index();
+            die();
+
+        default:
+            header("Location: rutas.php?page=home");
+            die();
+        //FIN LANDING PAGE
+    }
+
+    //PÁGINAS QUE SI LO REQUIEREN
+    if ($sessionController->IsLoggedIn()) {
         switch ($page) {
             case 'categories':
                 $categoryController->index();
@@ -122,24 +153,13 @@ if ($_SERVER["REQUEST_METHOD"] === "GET")
             case 'sales':
                 $dashController->index();
                 break;
-
-            //LANDING PAGE (NO ROBAR POR FAVOR)
-            case 'shop':
-                $landingPageController->ShopPage();
-                break;
-
-        //PAGINA PARA CADA SERVICIO
-        case 'service':
-            $landingPageController->servicePage($_GET["id"]);
-            break;
-
-        case 'home':
-        default:
-            $landingPageController->index();
-            break;
-        //FIN LANDING PAGE
+        }
+    }else{
+        header("Location: rutas.php?page=logIn");
+        die();
     }
 }
+
 // ========================== POST ==========================
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
@@ -176,10 +196,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             case 'updateService':
                 $serviceController->UpdateService();
                 break;
-            
+            //SESSION
             case 'logIn':
-                $loginController->CreateLogIn();
+                $sessionController->CreateSession();
                 break;
+
+            case 'logOut':
+                $sessionController->LogOut();
+                break;
+            //END SESSION
 
             default:
                 echo "INVALID METHOD";
