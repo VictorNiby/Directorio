@@ -38,10 +38,13 @@ if (!defined('URL_BASE')) {
             margin-bottom: 20px;
         }
     </style>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+    <script type="module" src="<?= URL_BASE ?>/publico/js/session/signup.js"></script>
 </head>
 <body>
 
-    <form enctype="multipart/form-data" method="post">
+    <form enctype="multipart/form-data" method="post" id="form">
         <div class="form-column">
 
             <div class="form-row">
@@ -56,12 +59,14 @@ if (!defined('URL_BASE')) {
 
             <div class="form-row">
                 <label for="correo">Correo Electrónico</label>
-                <input type="email" name="correo" required>
+                <input type="email" name="correo" required
+                autocomplete="email">
             </div>
             
             <div class="form-row">
                 <label for="password">Contraseña</label>
-                <input type="password" name="password" minlength="6" required>
+                <input type="password" name="password" minlength="6" required
+                autocomplete="current-password">
             </div>
             
             <div class="form-row">

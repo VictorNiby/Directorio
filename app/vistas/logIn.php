@@ -10,8 +10,6 @@ if (!defined('URL_BASE')) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Directorio</title>
-
-    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
     <!--JS PERSONALIZADO!-->
     <script src="<?= URL_BASE ?>/publico/js/session/login.js" type="module"></script>
@@ -22,5 +20,7 @@ if (!defined('URL_BASE')) {
         <input type="password" name="password" required>
         <button type="submit">Enviar</button>
     </form>
+
+    <a href="<?= URL_BASE ?>/rutas/rutas.php?page=signUp">¿No tienes una cuenta? Creala aquí!</a>
 </body>
 </html>

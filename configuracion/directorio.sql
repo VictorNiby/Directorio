@@ -21,120 +21,123 @@ SET time_zone = "+00:00";
 -- Base de datos: `directorio`
 --
 
+CREATE DATABASE IF NOT EXISTS directorio;
+USE directorio;
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `barrio`
 --
-
+DROP TABLE IF EXISTS barrio;
 CREATE TABLE `barrio` (
   `id_barrio` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `estado` varchar(45) NOT NULL DEFAULT 'Activo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
---
--- Volcado de datos para la tabla `barrio`
---
+-- --
+-- -- Volcado de datos para la tabla `barrio`
+-- --
 
 INSERT INTO `barrio` (`id_barrio`, `nombre`, `estado`) VALUES
-(1, 'Agrario', 'Activo'),
-(2, 'Alameda', 'Activo'),
-(3, 'Antonio Nariño', 'Activo'),
-(4, 'Balcones de las Colinas', 'Activo'),
-(5, 'Bellavista', 'Activo'),
-(6, 'Berlín', 'Activo'),
-(7, 'Bolívar', 'Activo'),
-(8, 'Botero Obirne', 'Activo'),
-(9, 'Brisas del Río', 'Activo'),
-(10, 'Bulevar de las Palmas', 'Activo'),
-(11, 'Bulevar de las Villas', 'Activo'),
-(12, 'Buenos Aires', 'Activo'),
-(13, 'Camellón del Quindío', 'Activo'),
-(14, 'Camilo Torres', 'Activo'),
-(15, 'Caracolí', 'Activo'),
-(16, 'Carlos H. Trujillo', 'Activo'),
-(17, 'Casierra', 'Activo'),
-(18, 'Ciudad Jardín', 'Activo'),
-(19, 'Ciudadela Comfandi', 'Activo'),
-(20, 'Ciudadela Paz', 'Activo'),
-(21, 'Collarejo', 'Activo'),
-(22, 'Cooperativo', 'Activo'),
-(23, 'Divino Niño', 'Activo'),
-(24, 'El Guabal', 'Activo'),
-(25, 'El Guadual', 'Activo'),
-(26, 'El Jardín', 'Activo'),
-(27, 'El Libertador', 'Activo'),
-(28, 'El Palatino', 'Activo'),
-(29, 'El Paraíso', 'Activo'),
-(30, 'El Polo', 'Activo'),
-(31, 'El Porvenir', 'Activo'),
-(32, 'El Samán', 'Activo'),
-(33, 'Empresas Municipales', 'Activo'),
-(34, 'Fabio Salazar', 'Activo'),
-(35, 'Flor de Damas', 'Activo'),
-(36, 'Horizonte', 'Activo'),
-(37, 'Jorge Eliécer Gaitán', 'Activo'),
-(38, 'Juan XXIII', 'Activo'),
-(39, 'Koralyn', 'Activo'),
-(40, 'La Arenera', 'Activo'),
-(41, 'La Cascada', 'Activo'),
-(42, 'La Castellana', 'Activo'),
-(43, 'La Cristina', 'Activo'),
-(44, 'La Esperanza', 'Activo'),
-(45, 'La Floresta', 'Activo'),
-(46, 'La Fresneda I Etapa', 'Activo'),
-(47, 'La Guaca', 'Activo'),
-(48, 'La Libertad', 'Activo'),
-(49, 'La Milagrosa', 'Activo'),
-(50, 'La Playa', 'Activo'),
-(51, 'La Platanera', 'Activo'),
-(52, 'La Trinidad', 'Activo'),
-(53, 'La Viña', 'Activo'),
-(54, 'Las Colinas', 'Activo'),
-(55, 'Las Veraneras', 'Activo'),
-(56, 'Los Alpez', 'Activo'),
-(57, 'Los Chorros', 'Activo'),
-(58, 'Los Conquistadores', 'Activo'),
-(59, 'Los Naranjos', 'Activo'),
-(60, 'Los Pinos', 'Activo'),
-(61, 'Los Samanes', 'Activo'),
-(62, 'Los Sauces', 'Activo'),
-(63, 'Melquisedec Quintero', 'Activo'),
-(64, 'Nuestra Señora de la Pobreza', 'Activo'),
-(65, 'Ortez', 'Activo'),
-(66, 'Pampa Linda', 'Activo'),
-(67, 'Portal de Torre La Vega', 'Activo'),
-(68, 'Pueblito Paisa', 'Activo'),
-(69, 'Quintas de Navarra', 'Activo'),
-(70, 'República de Francia', 'Activo'),
-(71, 'Rincón de la Loma', 'Activo'),
-(72, 'Rincón del Samán', 'Activo'),
-(73, 'San Fernando', 'Activo'),
-(74, 'San Francisco', 'Activo'),
-(75, 'San José', 'Activo'),
-(76, 'San Nicolás', 'Activo'),
-(77, 'San Vicente', 'Activo'),
-(78, 'Suizo', 'Activo'),
-(79, 'Torrelavega', 'Activo'),
-(80, 'UDETRASPCAR', 'Activo'),
-(81, 'Veracruz', 'Activo'),
-(82, 'Verona', 'Activo'),
-(83, 'Villa del Mar', 'Activo'),
-(84, 'Villa Esperanza', 'Activo'),
-(85, 'Villa Hermosa', 'Activo'),
-(86, 'Villa Luciana', 'Activo'),
-(87, 'Villa Marcela', 'Activo'),
-(88, 'Villa Mónica', 'Activo'),
-(89, 'Villas del Samán', 'Activo'),
-(90, 'La Estación', 'Activo');
+  (1, 'Agrario', 'Activo'),
+  (2, 'Alameda', 'Activo'),
+  (3, 'Antonio Nariño', 'Activo'),
+  (4, 'Balcones de las Colinas', 'Activo'),
+  (5, 'Bellavista', 'Activo'),
+  (6, 'Berlín', 'Activo'),
+  (7, 'Bolívar', 'Activo'),
+  (8, 'Botero Obirne', 'Activo'),
+  (9, 'Brisas del Río', 'Activo'),
+  (10, 'Bulevar de las Palmas', 'Activo'),
+  (11, 'Bulevar de las Villas', 'Activo'),
+  (12, 'Buenos Aires', 'Activo'),
+  (13, 'Camellón del Quindío', 'Activo'),
+  (14, 'Camilo Torres', 'Activo'),
+  (15, 'Caracolí', 'Activo'),
+  (16, 'Carlos H. Trujillo', 'Activo'),
+  (17, 'Casierra', 'Activo'),
+  (18, 'Ciudad Jardín', 'Activo'),
+  (19, 'Ciudadela Comfandi', 'Activo'),
+  (20, 'Ciudadela Paz', 'Activo'),
+  (21, 'Collarejo', 'Activo'),
+  (22, 'Cooperativo', 'Activo'),
+  (23, 'Divino Niño', 'Activo'),
+  (24, 'El Guabal', 'Activo'),
+  (25, 'El Guadual', 'Activo'),
+  (26, 'El Jardín', 'Activo'),
+  (27, 'El Libertador', 'Activo'),
+  (28, 'El Palatino', 'Activo'),
+  (29, 'El Paraíso', 'Activo'),
+  (30, 'El Polo', 'Activo'),
+  (31, 'El Porvenir', 'Activo'),
+  (32, 'El Samán', 'Activo'),
+  (33, 'Empresas Municipales', 'Activo'),
+  (34, 'Fabio Salazar', 'Activo'),
+  (35, 'Flor de Damas', 'Activo'),
+  (36, 'Horizonte', 'Activo'),
+  (37, 'Jorge Eliécer Gaitán', 'Activo'),
+  (38, 'Juan XXIII', 'Activo'),
+  (39, 'Koralyn', 'Activo'),
+  (40, 'La Arenera', 'Activo'),
+  (41, 'La Cascada', 'Activo'),
+  (42, 'La Castellana', 'Activo'),
+  (43, 'La Cristina', 'Activo'),
+  (44, 'La Esperanza', 'Activo'),
+  (45, 'La Floresta', 'Activo'),
+  (46, 'La Fresneda I Etapa', 'Activo'),
+  (47, 'La Guaca', 'Activo'),
+  (48, 'La Libertad', 'Activo'),
+  (49, 'La Milagrosa', 'Activo'),
+  (50, 'La Playa', 'Activo'),
+  (51, 'La Platanera', 'Activo'),
+  (52, 'La Trinidad', 'Activo'),
+  (53, 'La Viña', 'Activo'),
+  (54, 'Las Colinas', 'Activo'),
+  (55, 'Las Veraneras', 'Activo'),
+  (56, 'Los Alpez', 'Activo'),
+  (57, 'Los Chorros', 'Activo'),
+  (58, 'Los Conquistadores', 'Activo'),
+  (59, 'Los Naranjos', 'Activo'),
+  (60, 'Los Pinos', 'Activo'),
+  (61, 'Los Samanes', 'Activo'),
+  (62, 'Los Sauces', 'Activo'),
+  (63, 'Melquisedec Quintero', 'Activo'),
+  (64, 'Nuestra Señora de la Pobreza', 'Activo'),
+  (65, 'Ortez', 'Activo'),
+  (66, 'Pampa Linda', 'Activo'),
+  (67, 'Portal de Torre La Vega', 'Activo'),
+  (68, 'Pueblito Paisa', 'Activo'),
+  (69, 'Quintas de Navarra', 'Activo'),
+  (70, 'República de Francia', 'Activo'),
+  (71, 'Rincón de la Loma', 'Activo'),
+  (72, 'Rincón del Samán', 'Activo'),
+  (73, 'San Fernando', 'Activo'),
+  (74, 'San Francisco', 'Activo'),
+  (75, 'San José', 'Activo'),
+  (76, 'San Nicolás', 'Activo'),
+  (77, 'San Vicente', 'Activo'),
+  (78, 'Suizo', 'Activo'),
+  (79, 'Torrelavega', 'Activo'),
+  (80, 'UDETRASPCAR', 'Activo'),
+  (81, 'Veracruz', 'Activo'),
+  (82, 'Verona', 'Activo'),
+  (83, 'Villa del Mar', 'Activo'),
+  (84, 'Villa Esperanza', 'Activo'),
+  (85, 'Villa Hermosa', 'Activo'),
+  (86, 'Villa Luciana', 'Activo'),
+  (87, 'Villa Marcela', 'Activo'),
+  (88, 'Villa Mónica', 'Activo'),
+  (89, 'Villas del Samán', 'Activo'),
+  (90, 'La Estación', 'Activo');
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `barrio_has_servicio`
 --
-
+DROP TABLE IF EXISTS barrio_has_servicio;
 CREATE TABLE `barrio_has_servicio` (
   `barrio_id_barrio` int(11) NOT NULL,
   `servicio_id_servicio` int(11) NOT NULL
@@ -145,7 +148,7 @@ CREATE TABLE `barrio_has_servicio` (
 --
 -- Estructura de tabla para la tabla `categoria`
 --
-
+DROP TABLE IF EXISTS categoria;
 CREATE TABLE `categoria` (
   `id_categoria` int(11) NOT NULL,
   `nombre` varchar(80) NOT NULL,
@@ -157,38 +160,38 @@ CREATE TABLE `categoria` (
 --
 
 INSERT INTO `categoria` (`id_categoria`, `nombre`, `estado`) VALUES
-(1, 'Electricista', 'Activo'),
-(2, 'Mecánico', 'Activo'),
-(3, 'Carpintero', 'Activo'),
-(4, 'Pintor', 'Activo'),
-(5, 'Plomero', 'Activo'),
-(6, 'Jardinero', 'Activo'),
-(7, 'Albañil', 'Activo'),
-(8, 'Abogado', 'Activo'),
-(9, 'Contador', 'Activo'),
-(10, 'Gimnasio', 'Activo'),
-(11, 'Estilista', 'Activo'),
-(12, 'Masajista', 'Activo'),
-(13, 'Arquitecto', 'Activo'),
-(14, 'Psicólogo', 'Activo'),
-(15, 'Diseñador Gráfico', 'Activo'),
-(16, 'Transporte', 'Activo'),
-(17, 'Servicio de Limpieza', 'Activo'),
-(18, 'Veterinario', 'Activo'),
-(19, 'Fotógrafo', 'Activo'),
-(20, 'Cocinero', 'Activo'),
-(21, 'Diseño Web', 'Activo'),
-(22, 'Desarrollador de Software', 'Activo'),
-(23, 'Mantenimiento de Computadoras', 'Activo'),
-(24, 'Técnico en Electrónica', 'Activo'),
-(25, 'Otro', 'Activo');
+  (1, 'Electricista', 'Activo'),
+  (2, 'Mecánico', 'Activo'),
+  (3, 'Carpintero', 'Activo'),
+  (4, 'Pintor', 'Activo'),
+  (5, 'Plomero', 'Activo'),
+  (6, 'Jardinero', 'Activo'),
+  (7, 'Albañil', 'Activo'),
+  (8, 'Abogado', 'Activo'),
+  (9, 'Contador', 'Activo'),
+  (10, 'Gimnasio', 'Activo'),
+  (11, 'Estilista', 'Activo'),
+  (12, 'Masajista', 'Activo'),
+  (13, 'Arquitecto', 'Activo'),
+  (14, 'Psicólogo', 'Activo'),
+  (15, 'Diseñador Gráfico', 'Activo'),
+  (16, 'Transporte', 'Activo'),
+  (17, 'Servicio de Limpieza', 'Activo'),
+  (18, 'Veterinario', 'Activo'),
+  (19, 'Fotógrafo', 'Activo'),
+  (20, 'Cocinero', 'Activo'),
+  (21, 'Diseño Web', 'Activo'),
+  (22, 'Desarrollador de Software', 'Activo'),
+  (23, 'Mantenimiento de Computadoras', 'Activo'),
+  (24, 'Técnico en Electrónica', 'Activo'),
+  (25, 'Otro', 'Activo');
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `chat`
 --
-
+DROP TABLE IF EXISTS chat;
 CREATE TABLE `chat` (
   `id_chat` int(11) NOT NULL,
   `fecha_creacion` datetime DEFAULT current_timestamp(),
@@ -236,7 +239,7 @@ DELIMITER ;
 --
 -- Estructura de tabla para la tabla `mensaje`
 --
-
+DROP TABLE IF EXISTS mensaje;
 CREATE TABLE `mensaje` (
   `id_mensaje` int(11) NOT NULL,
   `mensaje` text NOT NULL,
@@ -258,7 +261,7 @@ INSERT INTO `mensaje` (`id_mensaje`, `mensaje`, `fecha_envio`, `chat_id_chat`, `
 --
 -- Estructura de tabla para la tabla `reviews`
 --
-
+DROP TABLE IF EXISTS reviews;
 CREATE TABLE `reviews` (
   `id_review` int(11) NOT NULL,
   `calificacion` enum('1','2','3','4','5') NOT NULL,
@@ -281,7 +284,7 @@ INSERT INTO `reviews` (`id_review`, `calificacion`, `comentario`, `fecha`, `serv
 --
 -- Estructura de tabla para la tabla `servicio`
 --
-
+DROP TABLE IF EXISTS servicio;
 CREATE TABLE `servicio` (
   `id_servicio` int(11) NOT NULL,
   `titulo` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -311,7 +314,7 @@ INSERT INTO `servicio` (`id_servicio`, `titulo`, `descripcion`, `precio`, `fecha
 --
 -- Estructura de tabla para la tabla `servicio_imagenes`
 --
-
+DROP TABLE IF EXISTS servicio_imagenes;
 CREATE TABLE `servicio_imagenes` (
   `id` int(11) NOT NULL,
   `imagen_ref` varchar(200) NOT NULL,
@@ -323,18 +326,18 @@ CREATE TABLE `servicio_imagenes` (
 --
 
 INSERT INTO `servicio_imagenes` (`id`, `imagen_ref`, `servicio_id`) VALUES
-(2, '1745941499-descarga.jpg', 5),
-(3, '1745941885-ChatGPT Image 21 abr 2025, 06_48_36.png', 6),
-(4, '1745941930-descarga.jpg', 7),
-(5, '1745941499-descarga.jpg', 1),
-(6, '1745941499-descarga.jpg', 8);
+  (2, '1745941499-descarga.jpg', 5),
+  (3, '1745941885-ChatGPT Image 21 abr 2025, 06_48_36.png', 6),
+  (4, '1745941930-descarga.jpg', 7),
+  (5, '1745941499-descarga.jpg', 1),
+  (6, '1745941499-descarga.jpg', 8);
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `servicio_usuario`
 --
-
+DROP TABLE IF EXISTS servicio_usuario;
 CREATE TABLE `servicio_usuario` (
   `id` int(11) NOT NULL,
   `servicio_id` int(11) NOT NULL,
@@ -348,16 +351,16 @@ CREATE TABLE `servicio_usuario` (
 --
 
 INSERT INTO `servicio_usuario` (`id`, `servicio_id`, `usuario_id`, `fecha`, `estado`) VALUES
-(1, 1, 3, '2025-04-24 20:04:43', 'Pagado'),
-(2, 6, 2, '2025-05-07 08:20:34', 'Pagado'),
-(3, 6, 3, '2025-05-07 09:24:15', 'Pagado');
+  (1, 1, 3, '2025-04-24 20:04:43', 'Pagado'),
+  (2, 6, 2, '2025-05-07 08:20:34', 'Pagado'),
+  (3, 6, 3, '2025-05-07 09:24:15', 'Pagado');
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `usuario`
 --
-
+DROP TABLE IF EXISTS usuario;
 CREATE TABLE `usuario` (
   `id_usuario` int(11) NOT NULL,
   `nombre` varchar(150) NOT NULL,

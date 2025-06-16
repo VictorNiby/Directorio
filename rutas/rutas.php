@@ -41,122 +41,118 @@ session_start();
 
 // ========================== GET ==========================
 if ($_SERVER["REQUEST_METHOD"] === "GET"){
-    
+    //SI NO HAY SE ENCUENTRA EL PARAMETRO 'page' SE REDIRECCIONA AL HOME DEL LANDING
     if (!isset($_GET["page"])) {
         header("Location: rutas.php?page=home");
         die();
     }
 
     $page = $_GET["page"] ?? 'home';
+    //HAS LOGGED IN?
+    $isLoggedIn = $sessionController->IsLoggedIn();
 
-    if ($page === 'logIn') {
-        $sessionController->LogInView();
-        die();
-    }
-
-    //PÁGINAS QUE NO REQUIEREN INICIAR SESIÓN
+    //ALL PAGES
     switch ($page) {
-        //LANDING PAGE (NO ROBAR POR FAVOR)
-        case 'shop':
-            $landingPageController->ShopPage();
-            die();
+        // ============================= LANDING ===========================================
+        case 'home':
+            $landingPageController->index();
+            break;
+
+        //SESSION
+        case 'logIn':
+            $sessionController->LogInView();
+            break;
 
         case 'signUp':
             $sessionController->SignUpView();
-            die();
+            break;
+
+        case 'shop':
+            $landingPageController->ShopPage();
+            break;
 
         //PAGINA PARA CADA SERVICIO
         case 'service':
             if (!$_GET["id"]) {
                 header("Location: rutas.php?page=home");
-                die();
+                break;
             }
             $landingPageController->servicePage($_GET["id"]);
-            die();
+            break;
+        
+        case 'favorites':
+            $landingPageController->FavoritesPage();
+            break;
 
-        case 'home':
-            $landingPageController->index();
-            die();
+        // ============================= DASHBOARD ===========================================
+        case 'categories':
+            $isLoggedIn ? $categoryController->index() : header("Location: rutas.php?page=logIn");
+            break;
+
+        case 'update':
+            if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
+                echo "ID Inválido";
+                return;
+            }
+            $isLoggedIn ? $categoryController->updateView($_GET["id"]) : header("Location: rutas.php?page=logIn");
+            break;
+
+        case 'users':
+            $isLoggedIn ? $userController->index() : header("Location: rutas.php?page=logIn");
+            break;
+
+        case 'updateUser':
+            if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
+                echo "ID Inválido";
+                return;
+            }
+            $isLoggedIn ? $userController->updateView($_GET["id"]) : header("Location: rutas.php?page=logIn");
+            break;
+
+        case 'hoods':
+            $isLoggedIn ? $hoodController->index() : header("Location: rutas.php?page=logIn");
+            break;
+
+        case 'updateHood':
+            if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
+                echo "ID Inválido";
+                return;
+            }
+            $isLoggedIn ? $hoodController->updateView($_GET["id"]) : header("Location: rutas.php?page=logIn");
+            break;
+
+        case 'chats':
+            $isLoggedIn ? $chatController->index(): header("Location: rutas.php?page=logIn");
+            break;
+
+        case 'updateChat':
+            if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
+                echo "ID Inválido";
+                return;
+            }
+            $isLoggedIn ? $chatController->updateView($_GET["id"]) : header("Location: rutas.php?page=logIn");
+            break;
+
+        case 'services':
+            $isLoggedIn ? $serviceController->index() : header("Location: rutas.php?page=logIn");
+            break;
+
+        case 'updateService':
+            if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
+                echo "ID Inválido";
+                return;
+            }
+            $isLoggedIn ? $serviceController->updateView($_GET["id"]) : header("Location: rutas.php?page=logIn");
+            break;
+
+        case 'dashboard':
+        case 'sales':
+            $isLoggedIn ? $dashController->index() : header("Location: rutas.php?page=logIn");
+            break;
 
         default:
             header("Location: rutas.php?page=home");
-            die();
-        //FIN LANDING PAGE
-    }
-
-    //PÁGINAS QUE SI LO REQUIEREN
-    if ($sessionController->IsLoggedIn()) {
-        switch ($page) {
-            case 'categories':
-                $categoryController->index();
-                break;
-
-            case 'update':
-                if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
-                    echo "ID Inválido";
-                    return;
-                }
-                $categoryController->updateView($_GET["id"]);
-                break;
-
-            case 'users':
-                $userController->index();
-                break;
-
-            case 'updateUser':
-                if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
-                    echo "ID Inválido";
-                    return;
-                }
-                $userController->updateView($_GET["id"]);
-                break;
-
-            case 'hoods':
-                $hoodController->index();
-                break;
-
-            case 'updateHood':
-                if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
-                    echo "ID Inválido";
-                    return;
-                }
-                $hoodController->updateView($_GET["id"]);
-                break;
-
-            case 'chats':
-                $chatController->index();
-                break;
-
-            case 'updateChat':
-                if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
-                    echo "ID Inválido";
-                    return;
-                }
-                $chatController->updateView($_GET["id"]);
-                break;
-
-            case 'services':
-                $serviceController->index();
-                break;
-
-            case 'updateService':
-                if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
-                    echo "ID Inválido";
-                    return;
-                }
-                $serviceController->updateView($_GET["id"]);
-                break;
-            case 'dashboard':
-                $dashController->index();
-                break;
-
-            case 'sales':
-                $dashController->index();
-                break;
-        }
-    }else{
-        header("Location: rutas.php?page=logIn");
-        die();
+            break;
     }
 }
 
@@ -203,6 +199,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             case 'logOut':
                 $sessionController->LogOut();
+                break;
+
+            case 'signUp':
+                $sessionController->CreateAccount();
                 break;
             //END SESSION
 

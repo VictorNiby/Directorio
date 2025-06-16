@@ -2,18 +2,32 @@
 /**
  * Sube imagenes al proyecto, especificamente a la carpeta publico/img/servicios
  * @param string $file Nombre del campo del formulario que guarda las imágenes.
+ * @param string $type Representa que tipo de imágen se está subiendo ('service' para un servicio, 'user' para una pfp).
  * @return string Retorna el nombre del archivo subido.
  */
-function uploadImage(String $file){
+function uploadImage(String $file, String $type){
     $fileName = $_FILES[$file]["name"];
     //nombre custom para que no se repitan
     //consiste en: hora actual + '-' + Nombre original del archivo + '.' + extension
     $customName = time()."-".explode(".",$fileName)[0].".".pathinfo($_FILES[$file]['name'],PATHINFO_EXTENSION);
 
-    $folderPath = realpath(__DIR__ . '/../../publico/img/servicios');
+    $folderPath = "";
+
+    switch ($type) {
+        case 'user':
+            $folderPath = realpath(__DIR__ . '/../../publico/img/usuarios');
+            break;
+        
+        case 'service':
+            $folderPath = realpath(__DIR__ . '/../../publico/img/servicios');
+            break;
+        
+        default:
+            $folderPath = realpath(__DIR__ . '/../../publico/img');
+            break;
+    }
 
     $imageExt = strtolower(pathinfo($fileName,PATHINFO_EXTENSION));
-    
     
     $allowedExt = ["jpg","png","jpeg"];
     if (!in_array($imageExt,$allowedExt)) {

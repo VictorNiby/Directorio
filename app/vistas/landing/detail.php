@@ -82,8 +82,8 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
 
                     <div class="d-flex align-items-center mb-4 pt-2">
                         <button class="btn btn-primary px-3">
-                            <i class="fa fa-shopping-cart mr-1"></i> 
-                            Añadir al carrito
+                            <i class="fas fa-heart text-dark"></i>
+                            Añadir a favoritos
                         </button>
                     </div>
                 </div>
@@ -264,8 +264,9 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                                     <img class="img-fluid w-100" src="<?= URL_IMG ?>/servicios/<?= $related_services[0]["servicio_imagen"] ?>" 
                                     alt="Imágen del servicio recomendado">
                                     <div class="product-action">
-                                        <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                                        <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                                        <a class="btn btn-outline-dark btn-square" href="<?= URL_BASE ?>/rutas/rutas.php?page=favorites">
+                                            <i class="far fa-heart"></i>
+                                        </a>
                                     </div>
                                 </div>
 

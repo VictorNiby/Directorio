@@ -40,29 +40,38 @@ class sessionController extends sessionModel{
             echo json_encode($response,JSON_UNESCAPED_UNICODE);
             die();
        }
+       //Buscamos la contraseña asignada a ese correo
+       $hashedPass = $this->sessionModel->GetPassword($email);
 
-       $query = $this->sessionModel->LogIn($email,$password);
-
-       if (!$query) {
-            $response = ["status"=>false,"msg"=>"Credenciales inválidas."];
+       if (!$hashedPass) {
+            $response = ["status"=>false,"msg"=>"Correo incorrecto."];
             echo json_encode($response,JSON_UNESCAPED_UNICODE);
             die();
-       }
+        }
 
-       try {
-            $_SESSION["name"] = $query["nombre"];
-            $_SESSION["role"] = $query["rol"];
-            $_SESSION["email"] = $query["correo"];
-            $_SESSION["photo"] = $query["foto"];
-       } catch (\Throwable $th) {
+        if (!password_verify($password,$hashedPass["password"])) {
+            $response = ["status"=>false,"msg"=>"La contraseña es incórrecta."];
+            echo json_encode($response,JSON_UNESCAPED_UNICODE);
+            die();
+        }
+
+        $sessionData = $this->sessionModel->LogIn($email,$hashedPass["password"]);
+
+        try {
+            $_SESSION["id"] = $sessionData["id_usuario"];
+            $_SESSION["name"] = $sessionData["nombre"];
+            $_SESSION["role"] = $sessionData["rol"];
+            $_SESSION["email"] = $sessionData["correo"];
+            $_SESSION["photo"] = $sessionData["foto"];
+        } catch (\Throwable $th) {
             $response = ["status"=>false,"msg"=>"Ocurrió un error al momento de iniciar sesión, por favor intentelo más tarde."];
             echo json_encode($response,JSON_UNESCAPED_UNICODE);
             die();
-       }
+        }
 
-       $response = ["status"=>true,"msg"=>"Sesión iniciada correctamente."];
-       echo json_encode($response,JSON_UNESCAPED_UNICODE);
-       die();
+        $response = ["status"=>true,"msg"=>"Sesión iniciada correctamente."];
+        echo json_encode($response,JSON_UNESCAPED_UNICODE);
+        die();
     }
 
     public function LogOut(){
@@ -100,6 +109,19 @@ class sessionController extends sessionModel{
                 die();
             }
         }
+
+        //VALIDAMOS EDAD
+        $birthDate = new DateTime($nacimiento);
+        $today = new DateTime();
+
+        $diff = $today->diff($birthDate)->y;
+
+        if ($diff < 15) {
+            $response = ["status"=>false,"msg"=>"La edad mínima es de 15 años."];
+            echo json_encode($response,JSON_UNESCAPED_UNICODE);
+            die();
+        }
+
         //VALIDAMOS CORREO
         if (!filter_var($correo,FILTER_VALIDATE_EMAIL)) {
             $response = ["status"=>false,"msg"=>"El correo ingresado no es válido."];
@@ -120,10 +142,11 @@ class sessionController extends sessionModel{
             die();
         }
         //SUBIMOS IMAGEN Y CAPTURAMOS LA URL
-        $imageRef = uploadImage("foto");
+        $imageRef = uploadImage("foto","user");
 
         try {
-            $this->sessionModel->SignUp($documento,$nombre,$correo,$password,$telefono,$nacimiento,$imageRef);
+            $hashedPass = password_hash($password,PASSWORD_DEFAULT);
+            $this->sessionModel->SignUp($documento,$nombre,$correo,$hashedPass,$telefono,$nacimiento,$imageRef);
         } catch (PDOException $err) {
             $response = ["status"=>false,"msg"=>"Ocurrió un error al crear el usuario: ".$err];
             echo json_encode($response,JSON_UNESCAPED_UNICODE);

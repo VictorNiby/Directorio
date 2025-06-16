@@ -131,7 +131,6 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                                     <div class="product-img position-relative overflow-hidden">
                                         <img class="img-fluid w-100" src="<?= URL_BASE ?>/publico/img/servicios/<?= $service["imagen_servicio"] ?>" alt="Imagen del servicio">
                                         <div class="product-action">
-                                            <a class="btn btn-outline-dark btn-square" href="<?= URL_BASE ?>/rutas/rutas.php?page=cart"><i class="fa fa-shopping-cart"></i></a>
                                             <a class="btn btn-outline-dark btn-square" href="<?= URL_BASE ?>/rutas/rutas.php?page=favorites"><i class="far fa-heart"></i></a>
                                         </div>
                                     </div>

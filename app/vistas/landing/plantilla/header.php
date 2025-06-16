@@ -66,6 +66,7 @@ if (!defined('URL_BASE')) {
                     <a class="text-body mr-3" href="<?= URL_BASE ?>/rutas/rutas.php?page=faqs">FAQs</a>
                 </div>
             </div>
+
             <div class="col-lg-6 text-center text-lg-right">
                 <div class="d-inline-flex align-items-center">
                     <div class="btn-group">
@@ -87,24 +88,18 @@ if (!defined('URL_BASE')) {
                                     Inicia sesión aquí!
                                 </a>
 
-                                <a class="dropdown-item" href="<?= URL_BASE ?>/rutas/rutas.php?page=logIn">
+                                <a class="dropdown-item" href="<?= URL_BASE ?>/rutas/rutas.php?page=signUp">
                                     Crea tu cuenta
                                 </a>
                             <?php endif ?>
-                            
                         </div>
                     </div>
                 </div>
 
                 <div class="d-inline-flex align-items-center d-block d-lg-none">
                     <a href="<?= URL_BASE ?>/rutas/rutas.php?page=favorites" class="btn px-0 ml-2">
-                    <a href="<?= URL_BASE ?>/favorites.php" class="btn px-0 ml-2">
-                        <i class="fas fa-heart text-dark"></i>
-                        <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
-                    </a>
-                    <a href="<?= URL_BASE ?>/rutas/rutas.php?page=cart" class="btn px-0 ml-2">
-                        <i class="fas fa-shopping-cart text-dark"></i>
-                        <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
+                        <i class="fas fa-heart text-primary"></i>
+                        <span class="badge border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
                     </a>
                 </div>
             </div>
@@ -116,6 +111,7 @@ if (!defined('URL_BASE')) {
                     <span class="h1 text-uppercase text-dark bg-title-niby px-2 ml-n1">Torio</span>
                 </a>
             </div>
+
             <div class="col-lg-4 col-6 text-left">
                 <form action="<?= URL_BASE ?>/search.php" method="GET">
                     <div class="input-group">
@@ -177,12 +173,17 @@ if (!defined('URL_BASE')) {
                                 Contacto
                             </a>
                         </div>
-                        <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-                            <a href="<?= URL_BASE ?>/rutas/rutas.php?page=favorites" class="btn px-0">
-                                <i class="fas fa-heart text-primary"></i>
-                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
-                            </a>
-                        </div>
+
+                        <?php if(count($_SESSION) > 0) : ?>
+                            <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
+                                <a href="<?= URL_BASE ?>/rutas/rutas.php?page=favorites" class="btn px-0">
+                                    <i class="fas fa-heart text-primary"></i>
+                                    <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">
+                                        <?= $favsCount["total"] ?>
+                                    </span>
+                                </a>
+                            </div>
+                        <?php endif ?>
                     </div>
                 </nav>
             </div>

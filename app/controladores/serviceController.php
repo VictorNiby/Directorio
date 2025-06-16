@@ -53,7 +53,7 @@ class serviceController {
 
         //lo necesario para subir las imagenes
         $lastService = $this->model->getLastId();
-        $imagenRef = uploadImage("servicio_imagen");
+        $imagenRef = uploadImage("servicio_imagen","service");
 
         if (!$this->model->uploadImg($lastService["id_servicio"],$imagenRef)) {
             echo "No se pudo subir la imágen.";

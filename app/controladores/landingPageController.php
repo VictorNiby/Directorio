@@ -2,20 +2,24 @@
 require_once(__DIR__ . '/../modelos/CategoryModel.php');
 require_once(__DIR__ . '/../modelos/serviceModel.php');
 require_once(__DIR__ . '/../modelos/reviewsModel.php');
+require_once(__DIR__ . '/../modelos/favoritesModel.php');
 
 class LandingPageController{
     private $categoryModel;
     private $serviceModel;
     private $reviewsModel;
+    private $favoritesModel;
 
     public function __construct(){
         $this->categoryModel = new CategoryModel;
         $this->serviceModel = new ServiceModel;
         $this->reviewsModel = new ReviewsModel;
+        $this->favoritesModel = new favoritesModel;
     }
     
     public function index(){
         $data = $this->categoryModel->GetAllCategory();
+        $favsCount = count($_SESSION) > 0 ? $this->favoritesModel->GetFavoritesCount($_SESSION["id"]) :  null;
         $info = $this->categoryModel->GetAllCategoryLanding();
         $services = $this->serviceModel->getServicesWithImages();
         include_once(__DIR__ . '/../vistas/landing/index.php');
@@ -24,6 +28,7 @@ class LandingPageController{
     //PAGINA DE LA TIENDA
     public function ShopPage(){
         $data = $this->categoryModel->GetAllCategory();
+        $favsCount = count($_SESSION) > 0 ? $this->favoritesModel->GetFavoritesCount($_SESSION["id"]) :  null;
         $services_count = [];
         $services = [];
 
@@ -72,12 +77,12 @@ class LandingPageController{
 
         include_once(__DIR__ . '/../vistas/landing/shop.php');
     }
-
     //FIN PAGINA TIENDA
 
     //PAGE DETAILS SERVICE
     public function servicePage($service_id) {
         $service = $this->serviceModel->getServiceById($service_id);
+        $favsCount = count($_SESSION) > 0 ? $this->favoritesModel->GetFavoritesCount($_SESSION["id"]) :  null;
         $service_imgs = $this->serviceModel->getImagesByService($service_id);
         $reviews = $this->reviewsModel->ReviewsByService($service_id);
         $data = $this->categoryModel->GetAllCategory();
@@ -93,6 +98,15 @@ class LandingPageController{
 
         include_once(__DIR__ . '/../vistas/landing/detail.php');
     }
+
+    //FAVORITES PAGE
+    public function FavoritesPage(){
+        $data = $this->categoryModel->GetAllCategory();
+        $favsCount = count($_SESSION) > 0 ? $this->favoritesModel->GetFavoritesCount($_SESSION["id"]) :  null;
+        $favorites = $this->favoritesModel->GetFavorites($_SESSION["id"]);
+        include_once (__DIR__.'/../vistas/landing/favorites.php');
+    }
+    //END FAVORITES PAGE
 
 }
     

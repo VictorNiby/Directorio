@@ -17,9 +17,7 @@ form.addEventListener('submit',(e)=>{
             title: res.status ? "Completado" : "Error",
             text: res.msg,
             icon: res.status ? 'success' : 'error',
-            showConfirmButton:false,
-            allowOutsideClick:false,
-            allowEscapeKey:false
+            confirmButtonText:"Aceptar"
         })
 
         if (res.status) {
