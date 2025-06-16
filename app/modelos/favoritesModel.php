@@ -23,6 +23,16 @@ class favoritesModel extends Mysql{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function GetFavoritesByService($serviceId,$usuarioId){
+        $query = "SELECT 1
+        FROM favoritos
+        WHERE favoritos.usuario_id = ? AND favoritos.servicio_id = ?";
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute([$usuarioId,$serviceId]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function GetFavoritesCount($usuarioId){
         $query = "SELECT COUNT(*) as total
         FROM favoritos

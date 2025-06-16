@@ -135,15 +135,17 @@ class sessionController extends sessionModel{
             echo json_encode($response,JSON_UNESCAPED_UNICODE);
             die();
         }
+
         //VALIDAMOS NÚMERO DOCUMENTO
         if (strlen($documento) !== 10 || $documento < 1000000000) {
             $response = ["status"=>false,"msg"=>"El número de documento ingresado no es válido."];
             echo json_encode($response,JSON_UNESCAPED_UNICODE);
             die();
         }
-        //SUBIMOS IMAGEN Y CAPTURAMOS LA URL
-        $imageRef = uploadImage("foto","user");
 
+        //SUBIMOS IMAGEN Y CAPTURAMOS LA URL (SI SUBE IMAGEN)
+        $imageRef = strlen($_FILES["foto"]["name"]) > 0 ? uploadImage("foto","user") : "default-pfp.webp";
+        
         try {
             $hashedPass = password_hash($password,PASSWORD_DEFAULT);
             $this->sessionModel->SignUp($documento,$nombre,$correo,$hashedPass,$telefono,$nacimiento,$imageRef);

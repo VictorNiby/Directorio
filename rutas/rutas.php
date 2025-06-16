@@ -33,6 +33,10 @@ $dashController = new DashboardController();
 require_once(__DIR__ . '/../app/controladores/landingPageController.php');
 $landingPageController = new LandingPageController();
 
+// Controller favorites
+require_once(__DIR__ . '/../app/controladores/favoritesController.php');
+$favoritesController = new favoritesController();
+
 // Controladores de Ventas
 $saleController = "";
 
@@ -192,6 +196,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             case 'updateService':
                 $serviceController->UpdateService();
                 break;
+            
             //SESSION
             case 'logIn':
                 $sessionController->CreateSession();
@@ -201,10 +206,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $sessionController->LogOut();
                 break;
 
+            // ============================= LANDING ===========================================
             case 'signUp':
                 $sessionController->CreateAccount();
                 break;
-            //END SESSION
+            
+            case 'manageFavorites':
+                $favoritesController->ManageFavorites();
+                break;
+
+            case 'deleteFavorite':
+                $favoritesController->RemoveFavorites();
+                break;
 
             default:
                 echo "INVALID METHOD";
