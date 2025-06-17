@@ -1,11 +1,11 @@
 <?php
 
 define('RUTA_BASE', $_SERVER['DOCUMENT_ROOT'] . '/directorio');
-include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
+include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
 ?>
 <style>
     .bg-admin {
-    background-color: #007bff;
+    background-color: #007bff;  
 }
 
 .bg-cliente {
@@ -20,109 +20,147 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
     background-color: #6c4f97;
 }
 
-</style>
-<main>
-    <div class="container-fluid px-4">
-        <div class="card mb-4 mt-4 shadow-sm border-1 rounded-4 overflow-hidden">
-            <!-- Header -->
-            <div class="p-4 d-flex justify-content-between align-items-center bg-dark text-white">
-                <h5 class="mb-0 fw-bold d-flex align-items-center gap-2">
-                    <i class="fas fa-users me-2 fs-5"></i> Gestión de Usuarios
-                </h5>
-                <button class="btn btn-outline-light btn-sm rounded-circle d-flex align-items-center justify-content-center"
-                    style="width: 36px; height: 36px; transition: transform 0.3s ease;"
-                    onmouseover="this.style.transform='scale(1.15)'"
-                    onmouseout="this.style.transform='scale(1)'"
-                    title="Nuevo"
-                    data-bs-toggle="modal"
-                    data-bs-target="#modalNuevoUsuario">
-                    <i class="fas fa-plus"></i>
-                </button>
-            </div>
+.bg-gradient-sunshine {
+    background: linear-gradient(90deg,rgb(255, 153, 0),rgb(253, 179, 42));    
+}
 
-            <!-- Tabla -->
-            <div class="card-body p-4 bg-white">
-                <div class="table-responsive">
-                    <table id="tablaUsuarios" class="table table-hover table-striped table-bordered align-middle mb-0">
-                        <thead>
-                            <tr>
-                                <th class="text-center">#</th>
-                                <th class="text-center">Nombre</th>
-                                <th class="text-center">Correo</th>
-                                <th class="text-center">Teléfono</th>
-                                <th class="text-center">Num Doc</th>
-                                <th class="text-center">Nacimiento</th>
-                                <th class="text-center">Rol</th>
-                                <th class="text-center">Estado</th>
-                                <th class="text-center">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if (!empty($users) && is_array($users)): ?>
-                                <?php foreach ($users as $index => $user):
-                                    $numero = $index + 1;
-                                    $id = (int)($user['id_usuario'] ?? 0);
-                                    $nombre = htmlspecialchars($user['nombre'] ?? '', ENT_QUOTES, 'UTF-8');
-                                    $correo = htmlspecialchars($user['correo'] ?? '', ENT_QUOTES, 'UTF-8');
-                                    $telefono = htmlspecialchars($user['telefono'] ?? '', ENT_QUOTES, 'UTF-8');
-                                    $documento = htmlspecialchars($user['documento'] ?? '', ENT_QUOTES, 'UTF-8');
-                                    $nacimiento = htmlspecialchars($user['nacimiento'] ?? '', ENT_QUOTES, 'UTF-8');
-                                    $rol = htmlspecialchars($user['rol'] ?? '', ENT_QUOTES, 'UTF-8');
-                                    $estado = htmlspecialchars($user['estado'] ?? '', ENT_QUOTES, 'UTF-8');
-                                ?>
+.bg-gradient-deepocean {
+    background: linear-gradient(90deg,rgb(66, 76, 219),rgb(91, 100, 224));
+}
+
+.bg-gradient-netherwart {
+    background: linear-gradient(90deg,rgb(224, 57, 57),rgb(228, 75, 75));
+}
+
+</style>
+
+<div class="container-fluid py-2">
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+                <!-- Encabezado de la tarjeta -->
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3 px-3 d-flex justify-content-between align-items-center">
+                        <h6 class="text-white text-capitalize mb-0 d-flex align-items-center">
+                            <!-- <i class="material-symbols-rounded opacity-10 me-2">location_city</i> -->
+                            Gestión de Usuarios
+                        </h6>
+
+                        <button
+                            class="btn btn-outline-light rounded d-flex align-items-center justify-content-center shadow-sm"
+                            style="width: 40px; height: 40px; border-radius: 8px;"
+                            title="Nuevo Usuario"
+                            aria-label="Nuevo Usuario"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalNuevoUsuario">
+                            <i class="material-symbols-rounded" style="font-size: 20px;">add</i>
+                        </button>
+
+                    </div>
+                </div>
+
+
+                <!-- Cuerpo de la tarjeta -->
+                <div class="card-body px-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <table id="tablaUsuarios" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-dark text-sm font-weight-bolder opacity-10 text-center">#</th>
+                                    <th class="text-uppercase text-dark text-sm font-weight-bolder opacity-10 text-center">Nombre</th>
+                                    <th class="text-uppercase text-dark text-sm font-weight-bolder opacity-10 text-center">Correo</th>
+                                    <th class="text-uppercase text-dark text-sm font-weight-bolder opacity-10 text-center">Telefono</th>
+                                    <th class="text-uppercase text-dark text-sm font-weight-bolder opacity-10 text-center">Estado</th>
+                                    <th class="text-uppercase text-dark text-sm font-weight-bolder opacity-10 text-center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php if (!empty($users) && is_array($users)): ?>
+                                    <?php foreach ($users as $index => $user):
+                                        $numero = $index + 1;
+                                        $id = (int)($user['id_usuario'] ?? 0);
+                                        $nombre = htmlspecialchars($user['nombre'] ?? '', ENT_QUOTES, 'UTF-8');
+                                        $correo = htmlspecialchars($user['correo'] ?? '', ENT_QUOTES, 'UTF-8');
+                                        $telefono = htmlspecialchars($user['telefono'] ?? '', ENT_QUOTES, 'UTF-8');
+                                        $estado = htmlspecialchars($user['estado'] ?? '', ENT_QUOTES, 'UTF-8');
+                                        $documento = htmlspecialchars($user['documento'] ?? '', ENT_QUOTES, 'UTF-8');
+                                        $nacimiento = htmlspecialchars($user['nacimiento'] ?? '', ENT_QUOTES, 'UTF-8');
+                                    ?>
+                                        <tr>
+                                            <td class="align-middle text-center">
+                                                <span class="text-secondary text-sm font-weight-bold text-center"><?= $numero ?></span>
+                                            </td>
+                                            <td class="align-middle">
+                                                <p class="text-sm font-weight-bold mb-0 text-capitalize text-center"><?= $nombre ?></p>
+                                            </td>
+                                            <td class="align-middle">
+                                                <p class="text-sm font-weight-bold mb-0 text-center"><?= $correo ?></p>
+                                            </td>
+                                            <td class="align-middle">
+                                                <p class="text-sm font-weight-bold mb-0 text-center"><?= $telefono ?></p>
+                                            </td>
+                                            <td class="align-middle text-center text-sm">
+                                                <span class="badge badge-sm <?= $estado === 'Activo' ? 'bg-gradient-success' : 'bg-gradient-secondary' ?>">
+                                                    <?= ucfirst($estado) ?>
+                                                </span>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <button class="btn btn-sm bg-gradient-sunshine text-white mb-0 px-1 py-1 me-1"
+                                                    style="width: 30px; height: 30px;"
+                                                    title="Editar barrio"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalEditarBarrio"
+                                                    onclick="cargarDatosEditarUsuario(<?= $id ?>, '<?= addslashes($nombre) ?>', '<?= addslashes($estado) ?>')">
+                                                    <i class="material-symbols-rounded mb-1" style="font-size: 1rem;">edit</i>
+                                                </button>
+                                                <button class="btn btn-sm bg-gradient-deepocean text-white mb-0 px-1 py-1 me-1"
+                                                    style="width: 30px; height: 30px;"
+                                                    title="Ver usuario"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalVerUsuario"
+                                                    onclick="cargarDatosVerUsuario(
+                                                        <?= $id ?>, 
+                                                        '<?= addslashes($nombre) ?>', 
+                                                        '<?= addslashes($correo) ?>', 
+                                                        '<?= addslashes($telefono) ?>', 
+                                                        '<?= addslashes($estado) ?>', 
+                                                        '<?= addslashes($documento) ?>', 
+                                                        '<?= addslashes($nacimiento) ?>'
+                                                    )">
+                                                    <i class="material-symbols-rounded mb-1" style="font-size: 1rem;">visibility</i>
+                                                </button>
+                                                <form action="/directorio/rutas/rutas.php" method="POST" class="d-inline formEliminar">
+                                                    <input type="hidden" name="page" value="hoods">
+                                                    <input type="hidden" name="deleteHood" value="<?= $id ?>">
+                                                    <button type="submit" class="btn btn-sm bg-gradient-netherwart text-white mb-0 px-1 py-1"
+                                                        style="width: 30px; height: 30px;"
+                                                        onclick="return confirm('¿Estás seguro de eliminar este barrio?')"
+                                                        title="Eliminar barrio">
+                                                        <i class="material-symbols-rounded mb-1" style="font-size: 1rem;">delete</i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
                                     <tr>
-                                        <td class="text-center"><?= $numero ?></td>
-                                        <td class="text-center text-capitalize"><?= $nombre ?></td>
-                                        <td class="text-center"><?= $correo ?></td>
-                                        <td class="text-center"><?= $telefono ?></td>
-                                        <td class="text-center"><?= $documento ?></td>
-                                        <td class="text-center"><?= $nacimiento ?></td>
-                                        <td class="text-center">
-                                        <span class="badge <?= $rol === 'admin' ? 'bg-admin' : ($rol === 'cliente' ? 'bg-cliente' : ($rol === 'proveedor' ? 'bg-proveedor' : 'bg-otro')) ?>">
-                                            <?= ucfirst($rol) ?>
-                                        </span>
-                                        </td>
-                                        <td class="text-center">
-                                            <span class="badge <?= $estado === 'Activo' ? 'bg-success' : 'bg-otro' ?>">
-                                                <?= ucfirst($estado) ?>
+                                        <td colspan="4" class="align-middle text-center py-4">
+                                            <span class="text-sm text-secondary">
+                                                <i class="material-symbols-rounded opacity-10 me-1">info</i>
+                                                No hay usuarios registrados
                                             </span>
                                         </td>
-                                        <td class="text-center">
-                                            <button class="btn btn-warning btn-sm"
-                                                title="Editar usuario"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#modalEditarUsuario"
-                                                onclick="cargarDatosEditarUsuario(<?= $id ?>, '<?= addslashes($nombre) ?>', '<?= addslashes($correo) ?>', '<?= addslashes($telefono) ?>', '<?= addslashes($rol) ?>','<?= addslashes($documento)?>','<?= addslashes($nacimiento)?>')">
-                                                <i class="bi bi-pencil"></i>
-                                            </button>
-                                            <form action="/directorio/rutas/rutas.php" method="POST" class="d-inline formEliminar">
-                                                <input type="hidden" name="page" value="users">
-                                                <input type="hidden" name="deleteUser" value="<?= $id ?>">
-                                                <button type="submit" class="btn btn-danger btn-sm"
-                                                    onclick="return confirm('¿Estás seguro de eliminar este usuario?')"
-                                                    title="Eliminar usuario">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </form>
-                                        </td>
                                     </tr>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <tr>
-                                    <td colspan="8" class="text-center text-muted py-4">
-                                        <i class="bi bi-exclamation-circle me-2"></i> No hay usuarios registrados
-                                    </td>
-                                </tr>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
-                    <div id="paginacionUsuarios" class="mt-3 d-flex justify-content-center gap-2"></div>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                        <div id="paginacionBarrios" class="mt-3 d-flex justify-content-center gap-1 font-weight-bold"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- MODALES -->
+</div>
 
     <!-- Nuevo Usuario -->
     <div class="modal fade modal-lg" id="modalNuevoUsuario" tabindex="-1">
@@ -176,58 +214,55 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
         </div>
     </div>
 
-    <!-- Editar Usuario -->
-    <div class="modal fade modal-lg" id="modalEditarUsuario" tabindex="-1">
+    <!-- Ver Usuario -->
+    <div class="modal fade" id="modalVerUsuario" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <form action="rutas.php?page=users" method="POST">
-                    <input type="hidden" name="id" id="editUserId">
-                    <header class="modal-header bg-dark text-white">
-                        <h5 class="modal-title"><i class="fas fa-user-edit me-2"></i> Editar Usuario</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                    </header>
-                    <main class="modal-body">
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label class="form-label">Nombre</label>
-                                <input type="text" name="name" id="editUserNombre" class="form-control" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Correo</label>
-                                <input type="email" name="email" id="editUserCorreo" class="form-control" required>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Teléfono</label>
-                            <input type="text" name="phone" id="editUserTelefono" class="form-control" required>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label class="form-label">Documento</label>
-                                <input type="text" name="document" id="editUserDocumento" class="form-control" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Fecha de Nacimiento</label>
-                                <input type="date" name="birthdate" id="editUserNacimiento" class="form-control" required>
-                            </div>
-                        </div>
-                    </main>
-
-                    <footer class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary" name="action" value="updateUser">Guardar cambios</button>
-                    </footer>
-                </form>
+            <header class="modal-header bg-info text-white">
+                <h5 class="modal-title">
+                <i class="material-symbols-rounded me-2">visibility</i> Detalles del Usuario
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </header>
+            <main class="modal-body">
+                <p><strong>Nombre:</strong> <span id="verUserNombre"></span></p>
+                <p><strong>Correo:</strong> <span id="verUserCorreo"></span></p>
+                <p><strong>Teléfono:</strong> <span id="verUserTelefono"></span></p>
+                <p><strong>Documento:</strong> <span id="verUserDocumento"></span></p>
+                <p><strong>Nacimiento:</strong> <span id="verUserNacimiento"></span></p>
+                <p><strong>Estado:</strong> <span id="verUserEstado"></span></p>
+            </main>
+            <footer class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </footer>
             </div>
         </div>
     </div>
-</main>
 
+
+</main>
+    <!--
+    * * * * * * * * * * * * * * * *
+    * -> Javascript con funciones *
+    * * * * * * * * * * * * * * * *
+    -->
 <script>
+    /* * * * * * * * * * * * * * * * * *
+     * -> Cargar la modal ver usuario  *
+     * * * * * * * * * * * * * * * * * */ 
+    function cargarDatosVerUsuario(id, nombre, correo, telefono, estado, documento, nacimiento) {
+        document.getElementById('verUserNombre').innerText = nombre;
+        document.getElementById('verUserCorreo').innerText = correo;
+        document.getElementById('verUserTelefono').innerText = telefono;
+        document.getElementById('verUserDocumento').innerText = documento;
+        document.getElementById('verUserNacimiento').innerText = nacimiento;
+        document.getElementById('verUserEstado').innerText = estado;
+    }
+    /* * * * * * * * * * * * * * *
+     * -> Paginacion de la tabla *
+     * * * * * * * * * * * * * * */ 
     const filasPorPagina = 8;
-    document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function() {
         const tabla = document.getElementById('tablaUsuarios');
         const cuerpo = tabla.querySelector('tbody');
         const filas = Array.from(cuerpo.querySelectorAll('tr'));
@@ -265,7 +300,9 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
         mostrarPagina(1);
     });
 
-
+    /* * * * * * * * * * * * * * * * * * *
+     * -> Cargar la modal editar usuario *
+     * * * * * * * * * * * * * * * * * * */ 
     function cargarDatosEditarUsuario(id, nombre, correo, telefono, rol, documento, nacimiento) {
         document.getElementById('editUserId').value = id;
         document.getElementById('editUserNombre').value = nombre;
