@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-06-2025 a las 03:20:37
+-- Tiempo de generación: 17-06-2025 a las 15:47:59
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.3.21
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -243,6 +243,14 @@ CREATE TABLE `favoritos` (
   `usuario_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `favoritos`
+--
+
+INSERT INTO `favoritos` (`id`, `servicio_id`, `usuario_id`) VALUES
+(5, 5, 11),
+(6, 5, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -395,7 +403,8 @@ INSERT INTO `usuario` (`id_usuario`, `nombre`, `correo`, `password`, `telefono`,
 (4, 'Diego Alejandro', 'bitardos8@gmail.com', '123', '3001122334', 'proveedor', NULL, '654321987', '2005-04-20', 'Inactivo', '2025-05-07 14:36:07'),
 (8, 'Paco Pedro', 'paco@gmail.com', '123456', '3117160140', 'cliente', '1750014509-profile.jpg', '1113141910', '2000-06-17', 'Inactivo', '2025-06-15 19:08:29'),
 (9, 'Lopez Hernandez', 'lopez@gmail.com', '$2y$10$/QDhTOC8onvsIt2h4D5Hlesu4ZOBEna3mGPXLhcZjKVpgJCh3HTfq', '3118014051', 'cliente', '1750015498-profile.jpg', '1115140197', '2007-01-14', 'Activo', '2025-06-15 19:24:58'),
-(10, 'Kevin Lebron James', 'kevin@hotmail.com', '$2y$10$eu7E/colILr2NtWjRBjsaeAdUTfEdHddowxZccpr9/v68lSQjer.W', '3114019871', 'cliente', '1750015589-WhatsApp Image 2025-06-11 at 6.jpeg', '1113140918', '2001-09-11', 'Activo', '2025-06-15 19:26:29');
+(10, 'Kevin Lebron James', 'kevin@hotmail.com', '$2y$10$eu7E/colILr2NtWjRBjsaeAdUTfEdHddowxZccpr9/v68lSQjer.W', '3114019871', 'cliente', '1750015589-WhatsApp Image 2025-06-11 at 6.jpeg', '1113140918', '2001-09-11', 'Activo', '2025-06-15 19:26:29'),
+(11, 'Test Testing', 'test@gmail.com', '$2y$10$1hPdrX/MNz94MKsa9WnE3.g3Xs7kbT7Szgb8eXTT6b8vaduyq9T4C', '3118019003', 'cliente', 'default-pfp.webp', '1114150918', '2000-03-11', 'Activo', '2025-06-16 11:21:27');
 
 --
 -- Índices para tablas volcadas
@@ -434,8 +443,8 @@ ALTER TABLE `chat`
 --
 ALTER TABLE `favoritos`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `servicio_id` (`servicio_id`),
-  ADD KEY `usuario_id` (`usuario_id`);
+  ADD KEY `usuario_id` (`usuario_id`),
+  ADD KEY `servicio_id` (`servicio_id`);
 
 --
 -- Indices de la tabla `mensaje`
@@ -511,7 +520,7 @@ ALTER TABLE `chat`
 -- AUTO_INCREMENT de la tabla `favoritos`
 --
 ALTER TABLE `favoritos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `mensaje`
@@ -547,7 +556,7 @@ ALTER TABLE `servicio_usuario`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restricciones para tablas volcadas
@@ -571,8 +580,8 @@ ALTER TABLE `chat`
 -- Filtros para la tabla `favoritos`
 --
 ALTER TABLE `favoritos`
-  ADD CONSTRAINT `FK_SerivicioFavorito` FOREIGN KEY (`servicio_id`) REFERENCES `servicio` (`id_servicio`),
-  ADD CONSTRAINT `favoritos_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id_usuario`);
+  ADD CONSTRAINT `favoritos_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id_usuario`),
+  ADD CONSTRAINT `favoritos_ibfk_2` FOREIGN KEY (`servicio_id`) REFERENCES `servicio` (`id_servicio`);
 
 --
 -- Filtros para la tabla `mensaje`
