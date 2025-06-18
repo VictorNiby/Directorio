@@ -90,17 +90,13 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                     <!-- FIN FILTRO CATEGORIAS !-->
             </div>
             <!-- FIN FILTROS-->
-
+            
             <!-- INICIO MAIN-->
             <main class="col-lg-9 col-md-8">
                 <div class="row pb-3">
                     <!--INICIO ORDENAR POR!-->
                     <div class="col-12 pb-1">
                         <div class="d-flex align-items-center justify-content-between mb-4">
-                            <div>
-                                <button class="btn btn-sm btn-light"><i class="fa fa-th-large"></i></button>
-                                <button class="btn btn-sm btn-light ml-2"><i class="fa fa-bars"></i></button>
-                            </div>
                             <div class="ml-2">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Ordenar</button>
@@ -130,8 +126,14 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                                 <div class="product-item bg-light mb-4">
                                     <div class="product-img position-relative overflow-hidden">
                                         <img class="img-fluid w-100" src="<?= URL_BASE ?>/publico/img/servicios/<?= $service["imagen_servicio"] ?>" alt="Imagen del servicio">
-                                        <div class="product-action">
-                                            <a class="btn btn-outline-dark btn-square" href="<?= URL_BASE ?>/rutas/rutas.php?page=favorites"><i class="far fa-heart"></i></a>
+                                        <div class="product-action" id="btnFavorite" data-service="<?= $service['id_servicio'] ?>">
+                                            <a role="button" class="btn btn-outline-dark btn-square">
+                                                <?php if(count($favs) > 0 && in_array($service["id_servicio"],$favs)) : ?>
+                                                    <i class="fas fa-heart text-primary" id="fav-icon"></i>
+                                                <?php else : ?>
+                                                    <i class="far fa-heart text-primary" id="fav-icon"></i>
+                                                <?php endif ?>
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="text-center py-4">
@@ -187,10 +189,5 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
     </div>
     <!-- FIN CONTENIDO TIENDA  -->
 
-<script type="module">
-    function FilterByCategory(){
-            
-    }
-</script>
-
+<script type="module" src="<?= URL_BASE ?>/publico/js/shop/shop.js"></script>
 <?php include_once RUTA_BASE . '/app/vistas/landing/plantilla/footer.php'; ?>

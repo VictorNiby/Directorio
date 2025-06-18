@@ -47,8 +47,21 @@ session_start();
 if ($_SERVER["REQUEST_METHOD"] === "GET"){
     //SI NO HAY SE ENCUENTRA EL PARAMETRO 'page' SE REDIRECCIONA AL HOME DEL LANDING
     if (!isset($_GET["page"])) {
-        header("Location: rutas.php?page=home");
-        die();
+        if (!isset($_GET["action"])) {
+            header("Location: rutas.php?page=home");
+            die();
+        }
+
+        $action = $_GET["action"];
+        switch ($action) {
+            case 'getFavsCount':
+                $favoritesController->FavoritesCount();
+                break;
+            
+            default:
+                echo "QUE!";
+                break;
+        }
     }
 
     $page = $_GET["page"] ?? 'home';
@@ -85,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET"){
             break;
         
         case 'favorites':
-            $landingPageController->FavoritesPage();
+            $isLoggedIn ? $landingPageController->FavoritesPage() : header("Location: rutas.php?page=logIn");
             break;
 
         // ============================= DASHBOARD ===========================================

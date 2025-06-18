@@ -28,7 +28,7 @@ class favoritesController extends favoritesModel{
         if ($getFavorite) {
             try {
                 $this->favoritesModel->DeleteFavorite($serviceId,$userId);
-                $response = ["status"=>true,"action"=>"delete"];
+                $response = ["status"=>true,"msg"=>"Servicio eliminado de tus favoritos","action"=>"delete"];
                 echo json_encode($response,JSON_UNESCAPED_UNICODE);
                 die();
             } catch (PDOException $err) {
@@ -40,7 +40,7 @@ class favoritesController extends favoritesModel{
 
         try {
             $this->favoritesModel->InsertFavorite($serviceId,$userId);
-            $response = ["status"=>true,"action"=>"insert"];
+            $response = ["status"=>true,"msg"=>"Servicio agregado a tus favoritos","action"=>"insert"];
         } catch (PDOException $err) {
             $response = ["status"=>false,"msg"=>"Ocurrió un error: ".$err];
         }
@@ -69,6 +69,19 @@ class favoritesController extends favoritesModel{
         try {
             $this->favoritesModel->DeleteFavorite($serviceId,$userId);
             $response = ["status"=>true,"msg"=>"Se ha removido el servicio de tus favoritos!"];
+        } catch (PDOException $err) {
+            $response = ["status"=>false,"msg"=>"Ocurrió un error: ".$err];
+        }
+
+        echo json_encode($response,JSON_UNESCAPED_UNICODE);
+        die();
+    }
+
+    public function FavoritesCount(){
+        $response = [];
+        try {
+            $count = $this->favoritesModel->GetFavoritesCount($_SESSION["id"]);
+            $response = ["status"=>true,"data"=>$count["total"]];
         } catch (PDOException $err) {
             $response = ["status"=>false,"msg"=>"Ocurrió un error: ".$err];
         }

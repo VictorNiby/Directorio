@@ -115,7 +115,7 @@ class ServiceModel extends Mysql {
         FROM servicio
         INNER JOIN reviews on reviews.servicio_id = servicio.id_servicio
         INNER JOIN servicio_imagenes on servicio_imagenes.servicio_id = servicio.id_servicio
-        where servicio.estado = 'Activo' AND servicio.categoria_id_categoria = ?
+        WHERE servicio.estado = 'Activo' AND servicio.categoria_id_categoria = ?
         AND servicio.id_servicio != ?
         ORDER BY calificacion DESC
         LIMIT 5";

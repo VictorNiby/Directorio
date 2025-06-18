@@ -81,9 +81,11 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                     </p>
 
                     <div class="d-flex align-items-center mb-4 pt-2">
-                        <button class="btn btn-primary px-3">
-                            <i class="fas fa-heart text-dark"></i>
-                            Añadir a favoritos
+                        <button class="btn btn-primary px-3"
+                        id="btnManageFav" data-service="<?= $service["id_servicio"] ?>">
+                            <i class="far fa-heart" id="fav-icon"></i>
+                            <?= count($favs) > 0 && in_array($service["id_servicio"],$favs)? 'Eliminar de Mis Favoritos' : 'Añadir a Mis favoritos' ?>
+                            
                         </button>
                     </div>
                 </div>
@@ -232,9 +234,15 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                             <div class="product-item bg-light w-25 overflow-hidden">
                                 <div class="product-img position-relative overflow-hidden">
                                     <img class="img-fluid w-100" src="<?= URL_IMG ?>/servicios/<?= $related["servicio_imagen"] ?>" alt="Imágen del servicio recomendado">
-                                    <div class="product-action">
-                                        <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                                        <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+
+                                    <div class="product-action" id="btnFavorite" data-service="<?= $related['id_servicio'] ?>">
+                                        <a role="button" class="btn btn-outline-dark btn-square">
+                                            <?php if(count($favs) > 0 && in_array($related["id_servicio"],$favs)) : ?>
+                                                <i class="fas fa-heart text-primary" id="fav-icon"></i>
+                                            <?php else : ?>
+                                                <i class="far fa-heart text-primary" id="fav-icon"></i>
+                                            <?php endif ?>
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="text-center py-4">
@@ -263,9 +271,14 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                                 <div class="product-img position-relative overflow-hidden">
                                     <img class="img-fluid w-100" src="<?= URL_IMG ?>/servicios/<?= $related_services[0]["servicio_imagen"] ?>" 
                                     alt="Imágen del servicio recomendado">
-                                    <div class="product-action">
-                                        <a class="btn btn-outline-dark btn-square" href="<?= URL_BASE ?>/rutas/rutas.php?page=favorites">
-                                            <i class="far fa-heart"></i>
+
+                                    <div class="product-action" id="btnFavorite" data-service="<?= $related_services[0]['id_servicio'] ?>">
+                                        <a role="button" class="btn btn-outline-dark btn-square">
+                                            <?php if(count($favs) > 0 && in_array($related_services[0]["id_servicio"],$favs)) : ?>
+                                                <i class="fas fa-heart text-primary" id="fav-icon"></i>
+                                            <?php else : ?>
+                                                <i class="far fa-heart text-primary" id="fav-icon"></i>
+                                            <?php endif ?>
                                         </a>
                                     </div>
                                 </div>
@@ -298,7 +311,6 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
     <!-- Fin Servicios Relacionados -->
 
     <!-- SWIPER.JS !-->
-    
     <script>
         window.addEventListener('DOMContentLoaded',()=>{
             const swiper = new Swiper(".swiper-services", {
@@ -319,4 +331,5 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
         })
     </script>
 
+<script type="module" src="<?= URL_BASE ?>/publico/js/details/details.js"></script>
 <?php include_once RUTA_BASE . '/app/vistas/landing/plantilla/footer.php'; ?>

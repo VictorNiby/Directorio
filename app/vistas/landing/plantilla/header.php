@@ -55,6 +55,7 @@ if (!defined('URL_BASE')) {
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+    <script src="<?= URL_BASE ?>/publico/js/header/header.js" type="module"></script>
 </head>
 
 <body>
@@ -96,12 +97,16 @@ if (!defined('URL_BASE')) {
                     </div>
                 </div>
 
-                <div class="d-inline-flex align-items-center d-block d-lg-none">
-                    <a href="<?= URL_BASE ?>/rutas/rutas.php?page=favorites" class="btn px-0 ml-2">
-                        <i class="fas fa-heart text-primary"></i>
-                        <span class="badge border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
-                    </a>
-                </div>
+                <?php if(count($_SESSION) > 0) : ?>
+                    <div class="d-inline-flex align-items-center d-block d-lg-none">
+                        <a href="<?= URL_BASE ?>/rutas/rutas.php?page=favorites" class="btn px-0 ml-2">
+                            <i class="fas fa-heart text-primary"></i>
+                            <span class="badge border border-dark rounded-circle" style="padding-bottom: 2px;" id="responsiveFavs">
+                                0
+                            </span>
+                        </a>
+                    </div>
+                <?php endif ?>
             </div>
         </div>
         <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
@@ -176,10 +181,12 @@ if (!defined('URL_BASE')) {
 
                         <?php if(count($_SESSION) > 0) : ?>
                             <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-                                <a href="<?= URL_BASE ?>/rutas/rutas.php?page=favorites" class="btn px-0">
+                                <a href="<?= URL_BASE ?>/rutas/rutas.php?page=favorites" class="btn px-0"
+                                title="Tus Servicios Favoritos">
                                     <i class="fas fa-heart text-primary"></i>
-                                    <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">
-                                        <?= $favsCount["total"] ?>
+                                    <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;"
+                                    id="navbarFavs">
+                                        0
                                     </span>
                                 </a>
                             </div>

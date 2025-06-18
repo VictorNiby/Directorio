@@ -19,7 +19,6 @@ class LandingPageController{
     
     public function index(){
         $data = $this->categoryModel->GetAllCategory();
-        $favsCount = count($_SESSION) > 0 ? $this->favoritesModel->GetFavoritesCount($_SESSION["id"]) :  null;
         $info = $this->categoryModel->GetAllCategoryLanding();
         $services = $this->serviceModel->getServicesWithImages();
         include_once(__DIR__ . '/../vistas/landing/index.php');
@@ -27,11 +26,20 @@ class LandingPageController{
 
     //PAGINA DE LA TIENDA
     public function ShopPage(){
+        //PARA EL HEADER
         $data = $this->categoryModel->GetAllCategory();
-        $favsCount = count($_SESSION) > 0 ? $this->favoritesModel->GetFavoritesCount($_SESSION["id"]) :  null;
+        //CONSEGUIMOS LOS FAVORITOS DEL USUARIO
+        $getFavs= count($_SESSION) > 0 ? $this->favoritesModel->GetFavorites($_SESSION["id"]) :  null;
+        $favs = [];
+        //GUARDAMOS EN UN ARRAY SOLO LOS IDS 
+        if (isset($getFavs)) {
+            foreach ($getFavs as $fav) {
+                $favs[] = $fav["id_servicio"];
+            }      
+        }
+
         $services_count = [];
         $services = [];
-
         $filter_category = isset($_GET["category"]) ? intval($_GET["category"]) : null ;
         $min = isset($_GET["min"]) ? intval($_GET["min"]) : null ;
         $max = isset($_GET["max"]) ? intval($_GET["max"]) : null ;
@@ -81,8 +89,17 @@ class LandingPageController{
 
     //PAGE DETAILS SERVICE
     public function servicePage($service_id) {
+        //FAVORTIOS DEL USUARIO
+        $getFavs= count($_SESSION) > 0 ? $this->favoritesModel->GetFavorites($_SESSION["id"]) :  null;
+        $favs = [];
+        
+        if (isset($getFavs)) {
+            foreach ($getFavs as $fav) {
+                $favs[] = $fav["id_servicio"];
+            }      
+        }
+
         $service = $this->serviceModel->getServiceById($service_id);
-        $favsCount = count($_SESSION) > 0 ? $this->favoritesModel->GetFavoritesCount($_SESSION["id"]) :  null;
         $service_imgs = $this->serviceModel->getImagesByService($service_id);
         $reviews = $this->reviewsModel->ReviewsByService($service_id);
         $data = $this->categoryModel->GetAllCategory();
@@ -102,7 +119,6 @@ class LandingPageController{
     //FAVORITES PAGE
     public function FavoritesPage(){
         $data = $this->categoryModel->GetAllCategory();
-        $favsCount = count($_SESSION) > 0 ? $this->favoritesModel->GetFavoritesCount($_SESSION["id"]) :  null;
         $favorites = $this->favoritesModel->GetFavorites($_SESSION["id"]);
         include_once (__DIR__.'/../vistas/landing/favorites.php');
     }

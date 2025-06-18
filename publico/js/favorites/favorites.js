@@ -1,35 +1,28 @@
+import { DeleteFavorites } from "../EXPORTS.js"
 import { SITE_URL } from "../SITE_URL.js"
 
-export function ManageFavorites(formData) {
-    fetch(SITE_URL,{
-        method:"POST",
-        body:formData
-    })
-    .then((res)=>{return res.json()})
-    .then((res)=>{
-        return res
-    })
-    .catch((err)=>{
-        return {
-            status:false,
-            msg:err
-        }
-    })
-}
+const forms = document.querySelectorAll('#form')
 
-export function DeleteFavorites(formData) {
-    fetch(SITE_URL,{
-        method:"POST",
-        body:formData
+document.addEventListener('DOMContentLoaded',()=>{
+    forms.forEach((form)=>{
+        form.addEventListener('submit',async(e)=>{
+            e.preventDefault()
+            const formData = new FormData(form)
+            formData.append('action','deleteFavorite')
+            const request = await DeleteFavorites(formData)
+
+            Swal.fire({
+                title: request.status ? "Completado" : "Error",
+                text: request.msg,
+                icon: request.status ? 'success' : 'error',
+                confirmButtonText:"Aceptar"
+            })
+
+            if (request.status) {
+                setTimeout(() => {
+                    window.location.replace(SITE_URL + '?page=favorites')
+                }, 500);
+            }
+        })
     })
-    .then((res)=>{return res.json()})
-    .then((res)=>{
-        return res
-    })
-    .catch((err)=>{
-        return {
-            status:false,
-            msg:err
-        }
-    })
-}
+})

@@ -26,6 +26,7 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                     <table class="table table-light table-borderless table-hover text-center mb-0">
                         <thead class="thead-dark">
                             <tr>
+                                <th>Imagen</th>
                                 <th>Servicio</th>
                                 <th>Precio</th>
                                 <th>Eliminar</th>
@@ -36,7 +37,9 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                                 <tr>
                                     <td class="align-middle">
                                         <img src="<?= URL_BASE ?>/publico/img/servicios/<?= $favorite["imagen_ref"]?>" alt="Imagen del servicio" style="width: 50px;">
-                                        
+                                    </td>
+                                    
+                                    <td class="align-middle">            
                                         <a href="<?= URL_BASE ?>/rutas/rutas.php?page=service&id=<?= $favorite["id_servicio"] ?>" class="text-dark">
                                             <?= $favorite["titulo"] ?>
                                         </a>
@@ -44,7 +47,13 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
 
                                     <td class="align-middle">$<?= number_format($favorite["precio"]) ?></td>
                                     <td class="align-middle">
-                                        <button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button>
+                                        <form action="routes.php" method="post"
+                                        id="form">
+                                            <input type="text" hidden value="<?= $favorite["id_servicio"]?>" name="servicio_id">
+                                            <button class="btn btn-sm btn-danger">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             <?php endforeach ?>
@@ -64,4 +73,5 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
     </div>
     <!-- Cart End -->
 
+<script type="module" src="<?= URL_BASE ?>/publico/js/favorites/favorites.js"></script>
 <?php include_once (RUTA_BASE .'/app/vistas/landing/plantilla/footer.php'); ?>
