@@ -43,7 +43,8 @@ class LandingPageController{
         $filter_category = isset($_GET["category"]) ? intval($_GET["category"]) : null ;
         $min = isset($_GET["min"]) ? intval($_GET["min"]) : null ;
         $max = isset($_GET["max"]) ? intval($_GET["max"]) : null ;
-        
+
+        //TRAER LOS SERVICIOS DEPENDIENDO DE DE LOS FILTROS
         if (isset($filter_category) || (isset($min) && isset($max))) {
 
             if (isset($filter_category) && !isset($min) ) {
@@ -68,7 +69,7 @@ class LandingPageController{
             }
 
         }else {
-            $services = $this->serviceModel->ServicesWithReviews();
+            $services = $this->serviceModel->ShopPageServices();
         }
 
         $reviews = [];
@@ -88,29 +89,42 @@ class LandingPageController{
     //FIN PAGINA TIENDA
 
     //PAGE DETAILS SERVICE
-    public function servicePage($service_id) {
+    public function ServicePage($service_id) {
         //FAVORTIOS DEL USUARIO
+        $data = $this->categoryModel->GetAllCategory();
         $getFavs= count($_SESSION) > 0 ? $this->favoritesModel->GetFavorites($_SESSION["id"]) :  null;
         $favs = [];
-        
+
         if (isset($getFavs)) {
             foreach ($getFavs as $fav) {
                 $favs[] = $fav["id_servicio"];
             }      
         }
 
+        //SERVICIO INDIVIDUAL
         $service = $this->serviceModel->getServiceById($service_id);
         $service_imgs = $this->serviceModel->getImagesByService($service_id);
+        $serviceReviews = $this->reviewsModel->CountReviewsByService($service_id);
+        //BLOQUE DE RESEÑAS
         $reviews = $this->reviewsModel->ReviewsByService($service_id);
-        $data = $this->categoryModel->GetAllCategory();
-        $total_reviews = $this->reviewsModel->TotalReviewsByService($service_id);
+        $canUserRateService = false;
+
+        if (count($_SESSION) > 0) {
+            $getUserReview = $this->reviewsModel->UserHasRatedService($_SESSION["id"],$service["id_servicio"]);
+
+            $hasUserPurchasedService = $this->serviceModel->HasUserPurchasedService($_SESSION["id"],$service["id_servicio"]);
+
+            if ($getUserReview || !$hasUserPurchasedService) {
+                $canUserRateService = true;
+            }
+        }
+
+        //BLOQUE SERVICIOS RELACIONADOS
         $related_services = $this->serviceModel->TopRelatedServices($service["id_categoria"],$service_id);
         $isEmpty = false;
-
-        for ($i=0; $i <count($related_services) ; $i++) { 
-            if (in_array("",$related_services[$i]) || in_array(null,$related_services[$i])) {
-                $isEmpty = true;
-            }
+        
+        if (empty($related_services)) {
+            $isEmpty = true;
         }
 
         include_once(__DIR__ . '/../vistas/landing/detail.php');

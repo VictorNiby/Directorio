@@ -62,7 +62,7 @@ class ServiceModel extends Mysql {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    //PARA EL LANDING PAGE
+    //PARA EL INDEX DEL LANDING PAGE
     public function getServicesWithImages(){
         $query = "SELECT s.id_servicio, s.titulo, s.precio, COUNT(su.id) AS total_solicitudes,
         servicio_imagenes.imagen_ref
@@ -78,12 +78,13 @@ class ServiceModel extends Mysql {
         return $feature;
     }
 
-    public function ServicesWithReviews(){
+
+    public function ShopPageServices(){
         $query = "SELECT s.id_servicio, s.titulo, s.precio,
         servicio_imagenes.imagen_ref as imagen_servicio
         FROM servicio s
-        INNER JOIN servicio_imagenes on servicio_imagenes.servicio_id = s.id_servicio
-        ";
+        LEFT JOIN servicio_imagenes on servicio_imagenes.servicio_id = s.id_servicio
+        GROUP BY s.id_servicio";
 
         $preparedStmt = $this->connection->prepare($query);
         $preparedStmt->execute();
@@ -109,14 +110,16 @@ class ServiceModel extends Mysql {
             throw new Exception("Valor inválido");
         }
 
-        $query = "SELECT id_servicio, titulo, precio, AVG(reviews.calificacion) as calificacion,
-        COUNT(reviews.servicio_id) as total_reviews, 
-        servicio_imagenes.imagen_ref as servicio_imagen
+        $query = "SELECT id_servicio, titulo, precio,
+        AVG(reviews.calificacion) AS calificacion,
+        COUNT(reviews.servicio_id) AS total_reviews, 
+        MIN(servicio_imagenes.imagen_ref) AS servicio_imagen
         FROM servicio
-        INNER JOIN reviews on reviews.servicio_id = servicio.id_servicio
-        INNER JOIN servicio_imagenes on servicio_imagenes.servicio_id = servicio.id_servicio
+        LEFT JOIN reviews on reviews.servicio_id = servicio.id_servicio
+        LEFT JOIN servicio_imagenes on servicio_imagenes.servicio_id = servicio.id_servicio
         WHERE servicio.estado = 'Activo' AND servicio.categoria_id_categoria = ?
         AND servicio.id_servicio != ?
+        GROUP BY servicio.id_servicio
         ORDER BY calificacion DESC
         LIMIT 5";
 
@@ -163,12 +166,22 @@ class ServiceModel extends Mysql {
         $info = $preparedStmt->fetchAll(PDO::FETCH_ASSOC);
         return $info;
     }
+
+    //REVISAMOS QUE EL USUARIO HAYA COMPRADO EL SERVICIO
+    public function HasUserPurchasedService($userId,$serviceId){  
+        $query = "SELECT 1
+        FROM servicio_usuario
+        WHERE usuario_id = ? AND servicio_id = ? AND estado = 'Pagado'";
+        $preparedStmt = $this->connection->prepare($query);
+        $preparedStmt->execute([$userId,$serviceId]);
+        $data = $preparedStmt->fetch(PDO::FETCH_ASSOC);
+        return $data;
+    }
     //END LANDINDG PAGE
-
-
+    
     public function insert($titulo, $descripcion, $precio, $idUsuario, $idCategoria,$barrio_id,$direccion) {
         $query = "INSERT INTO servicio (titulo, descripcion, precio, usuario_id_usuario, categoria_id_categoria,barrio_id,direccion) 
-                  VALUES (?,?,?,?,?,?,?)";
+        VALUES (?,?,?,?,?,?,?)";
         $stmt = $this->connection->prepare($query);
         return $stmt->execute([$titulo, $descripcion, $precio, $idUsuario, $idCategoria,$barrio_id,$direccion]);
     }

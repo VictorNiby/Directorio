@@ -145,7 +145,6 @@ class sessionController extends sessionModel{
 
         //SUBIMOS IMAGEN Y CAPTURAMOS LA URL (SI SUBE IMAGEN)
         $imageRef = strlen($_FILES["foto"]["name"]) > 0 ? uploadImage("foto","user") : "default-pfp.webp";
-        
         try {
             $hashedPass = password_hash($password,PASSWORD_DEFAULT);
             $this->sessionModel->SignUp($documento,$nombre,$correo,$hashedPass,$telefono,$nacimiento,$imageRef);

@@ -13,9 +13,10 @@ class favoritesModel extends Mysql{
         $query = "SELECT servicio_imagenes.imagen_ref,
         servicio.titulo,servicio.precio, servicio.id_servicio
         FROM favoritos
-        INNER JOIN servicio_imagenes on servicio_imagenes.servicio_id = favoritos.servicio_id
+        LEFT JOIN servicio_imagenes on servicio_imagenes.servicio_id = favoritos.servicio_id
         INNER JOIN servicio on servicio.id_servicio = favoritos.servicio_id
         WHERE favoritos.usuario_id = ?
+        GROUP BY servicio.id_servicio 
         ";
         $stmt = $this->connection->prepare($query);
         $stmt->execute([$usuarioId]);

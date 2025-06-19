@@ -116,99 +116,98 @@ if (!defined('URL_BASE')) {
             <span class="bg-secondary pr-3">Categorías</span>
         </h2>
         <div class="row px-xl-5 pb-3">
-        <?php
-        $iconos = [
-            'Electricista' => 'fa-bolt',
-            'Mecánico' => 'fa-wrench',
-            'Carpintero' => 'fa-hammer',
-            'Pintor' => 'fa-paint-roller',
-            'Plomero' => 'fa-faucet',
-            'Jardinero' => 'fa-seedling',
-            'Albañil' => 'fa-hard-hat',
-            'Abogado' => 'fa-scale-balanced',
-            'Contador' => 'fa-calculator',
-            'Gimnasio' => 'fa-dumbbell',
-            'Estilista' => 'fa-scissors',
-            'Masajista' => 'fa-spa',
-            'Arquitecto' => 'fa-drafting-compass',
-            'Psicólogo' => 'fa-brain',
-            'Diseñador Gráfico' => 'fa-pen-nib',
-            'Transporte' => 'fa-truck',
-            'Servicio de Limpieza' => 'fa-soap',
-            'Veterinario' => 'fa-dog',
-            'Fotógrafo' => 'fa-camera',
-            'Cocinero' => 'fa-utensils',
-            'Diseño Web' => 'fa-code',
-            'Desarrollador de Software' => 'fa-laptop-code',
-            'Mantenimiento de Computadoras' => 'fa-computer',
-            'Técnico en Electrónica' => 'fa-microchip'
-        ];
-        ?>
+            <?php
+            $iconos = [
+                'Electricista' => 'fa-bolt',
+                'Mecánico' => 'fa-wrench',
+                'Carpintero' => 'fa-hammer',
+                'Pintor' => 'fa-paint-roller',
+                'Plomero' => 'fa-faucet',
+                'Jardinero' => 'fa-seedling',
+                'Albañil' => 'fa-hard-hat',
+                'Abogado' => 'fa-scale-balanced',
+                'Contador' => 'fa-calculator',
+                'Gimnasio' => 'fa-dumbbell',
+                'Estilista' => 'fa-scissors',
+                'Masajista' => 'fa-spa',
+                'Arquitecto' => 'fa-drafting-compass',
+                'Psicólogo' => 'fa-brain',
+                'Diseñador Gráfico' => 'fa-pen-nib',
+                'Transporte' => 'fa-truck',
+                'Servicio de Limpieza' => 'fa-soap',
+                'Veterinario' => 'fa-dog',
+                'Fotógrafo' => 'fa-camera',
+                'Cocinero' => 'fa-utensils',
+                'Diseño Web' => 'fa-code',
+                'Desarrollador de Software' => 'fa-laptop-code',
+                'Mantenimiento de Computadoras' => 'fa-computer',
+                'Técnico en Electrónica' => 'fa-microchip'
+            ];
+            ?>
 
-        <?php foreach ($info as $categoria): 
-            $id = $categoria["id_categoria"];
-            $nombre = $categoria['categoria'];
-            $cantidad = $categoria['cantidad_servicios'];
-            $icono = $iconos[$nombre] ?? 'fa-folder';
-        ?>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="<?= URL_BASE ?>/rutas/rutas.php?page=shop&category=<?= $id ?>">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                    <div class="d-flex justify-content-center align-items-center bg-light" style="width: 100px; height: 100px;">
-                        <i class="fa <?= $icono ?> fa-3x text-primary"></i>
-                    </div>
-
-                        <div class="flex-fill pl-3">
-                            <h6><?= htmlspecialchars($nombre) ?></h6>
-                            <small class="text-body"><?= $cantidad ?> Servicios</small>
+            <?php foreach ($info as $categoria): 
+                $id = $categoria["id_categoria"];
+                $nombre = $categoria['categoria'];
+                $cantidad = $categoria['cantidad_servicios'];
+                $icono = $iconos[$nombre] ?? 'fa-folder';
+            ?>
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                    <a class="text-decoration-none" href="<?= URL_BASE ?>/rutas/rutas.php?page=shop&category=<?= $id ?>">
+                        <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="d-flex justify-content-center align-items-center bg-light" style="width: 100px; height: 100px;">
+                            <i class="fa <?= $icono ?> fa-3x text-primary"></i>
                         </div>
-                    </div>
-                </a>
-            </div>
-        <?php endforeach; ?>
+
+                            <div class="flex-fill pl-3">
+                                <h6><?= htmlspecialchars($nombre) ?></h6>
+                                <small class="text-body"><?= $cantidad ?> Servicios</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            <?php endforeach; ?>
+        </div>
     </div>
-</div>
 
     <!-- Categories End -->
 
-
     <!-- Products Start -->
     <div class="container-fluid pt-5 pb-3">
-    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
-        <span class="bg-secondary pr-3">Servicios Más Solicitados</span>
-    </h2>
-    <div class="row px-xl-5">
-        <?php foreach ($services as $service): ?>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden" style="height: 200px;">
-                        <img class="img-fluid w-100 h-100 object-fit-cover" src="<?php RUTA_BASE ?>/directorio/publico/img/servicios/<?php echo $service["imagen_ref"];?>" 
-                            alt="<?php echo htmlspecialchars($service['titulo']); ?>">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" 
-                                href="<?php URL_BASE ?>?page=service&id=<?php echo $service["id_servicio"] ?>">
-                                <i class="fa fa-eye"></i>
+        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+            <span class="bg-secondary pr-3">Servicios Más Solicitados</span>
+        </h2>
+        <div class="row px-xl-5">
+            <?php foreach ($services as $service): ?>
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                    <div class="product-item bg-light mb-4">
+                        <div class="product-img position-relative overflow-hidden" style="height: 200px;">
+                            <img class="img-fluid w-100 h-100 object-fit-cover" src="<?php RUTA_BASE ?>/directorio/publico/img/servicios/<?php echo $service["imagen_ref"];?>" 
+                                alt="<?php echo htmlspecialchars($service['titulo']); ?>">
+                            <div class="product-action">
+                                <a class="btn btn-outline-dark btn-square" 
+                                    href="<?php URL_BASE ?>?page=service&id=<?php echo $service["id_servicio"] ?>">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="text-center py-4">
+                            <a class="h6 text-decoration-none text-truncate d-block"            style="max-width: 100%;" 
+                                href="<?php URL_BASE ?>?page=service&id=<?php echo $service["id_servicio"] ?>" 
+                                title="<?php echo htmlspecialchars($service['titulo']); ?>">
+                                <?php echo htmlspecialchars($service['titulo']); ?>
                             </a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate d-block" style="max-width: 100%;" 
-                            href="<?php URL_BASE ?>?page=service&id=<?php echo $service["id_servicio"] ?>" 
-                            title="<?php echo htmlspecialchars($service['titulo']); ?>">
-                            <?php echo htmlspecialchars($service['titulo']); ?>
-                        </a>
 
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$<?php echo number_format($service['precio'], 2); ?></h5>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="text-muted">Solicitudes: <?php echo $service['total_solicitudes']; ?></small>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <h5>$<?php echo number_format($service['precio'], 2); ?></h5>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center mb-1">
+                                <small class="text-muted">Solicitudes: <?php echo $service['total_solicitudes']; ?></small>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        <?php endforeach; ?>
+            <?php endforeach; ?>
+        </div>
     </div>
-</div>
 
  <?php include_once RUTA_BASE . '/landing/plantilla/footer.php'; ?>

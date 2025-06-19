@@ -124,8 +124,8 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                         <?php foreach($services as $index => $service) : ?>
                             <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
                                 <div class="product-item bg-light mb-4">
-                                    <div class="product-img position-relative overflow-hidden">
-                                        <img class="img-fluid w-100" src="<?= URL_BASE ?>/publico/img/servicios/<?= $service["imagen_servicio"] ?>" alt="Imagen del servicio">
+                                    <div class="product-img position-relative overflow-hidden" style="height: 200px;">
+                                        <img class="img-fluid w-100 h-100 object-fit-cover" src="<?= URL_BASE ?>/publico/img/servicios/<?= $service["imagen_servicio"] ?>" alt="Imagen del servicio">
                                         <div class="product-action" id="btnFavorite" data-service="<?= $service['id_servicio'] ?>">
                                             <a role="button" class="btn btn-outline-dark btn-square">
                                                 <?php if(count($favs) > 0 && in_array($service["id_servicio"],$favs)) : ?>
@@ -137,21 +137,36 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                                         </div>
                                     </div>
                                     <div class="text-center py-4">
-                                        <a class="h6 text-decoration-none text-truncate" href="<?= URL_BASE ?>/rutas/rutas.php?page=service&id=<?= $service["id_servicio"] ?>">
-                                            <?= $service["titulo"] ?>
+                                        <a class="h6 text-decoration-none text-truncate d-block"           style="max-width: 100%;" 
+                                        href="<?php URL_BASE ?>?page=service&id=<?php echo $service["id_servicio"] ?>" 
+                                        title="<?php echo htmlspecialchars($service['titulo']); ?>">
+                                            <?php echo htmlspecialchars($service['titulo']); ?>
                                         </a>
+
                                         <div class="d-flex align-items-center justify-content-center mt-2">
                                             <h5><?= number_format($service["precio"]) ?></h5>
                                         </div>
 
                                         <?php if($reviews[$index]["total_reviews"] > 0) : ?>
-                                        <div class="d-flex align-items-center justify-content-center mb-1">
-                                            <?php for ($i=0; $i < round($reviews[$index]["calificacion"]); $i++) : ?>
-                                                <small class="fa fa-star text-primary mr-1"></small>
-                                            <?php endfor ?>
+                                            <div class="d-flex align-items-center justify-content-center mb-1">
+                                                <?php for ($i=0; $i < round($reviews[$index]["calificacion"]); $i++) : ?>
+                                                    <small class="fa fa-star text-primary mr-1"></small>
+                                                <?php endfor ?>
 
-                                            <small><?= $reviews[$index]["total_reviews"] ?></small>
-                                        </div>
+                                                <?php if($reviews[$index]["calificacion"] < 5) : ?>
+                                                    <?php for($i = 0;$i < (5 - round($reviews[$index]["calificacion"]));$i++) : ?>
+                                                        <small class="fa-regular fa-star text-primary mr-1"></small>
+                                                    <?php endfor ?>
+                                                <?php endif ?>
+
+                                                <small><?= $reviews[$index]["total_reviews"] ?></small>
+                                            </div>
+                                        <?php else : ?>
+                                            <small class="fa-regular fa-star text-primary mr-1"></small>
+                                            <small class="fa-regular fa-star text-primary mr-1"></small>
+                                            <small class="fa-regular fa-star text-primary mr-1"></small>
+                                            <small class="fa-regular fa-star text-primary mr-1"></small>
+                                            <small class="fa-regular fa-star text-primary mr-1"></small>
                                         <?php endif ?>
                                     </div>
                                 </div>

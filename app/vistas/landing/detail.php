@@ -35,7 +35,7 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                         <div class="swiper-wrapper">
                             <?php foreach($service_imgs as $img) : ?>
                                  <div class="swiper-slide">
-                                    <img class="w-100 h-100" src="<?= URL_IMG ?>/servicios/<?= $img["imagen_ref"] ?>" alt="Imagen del servicio">
+                                    <img class="img-fluid w-100 h-100 object-fit-cover" src="<?= URL_IMG ?>/servicios/<?= $img["imagen_ref"] ?>" alt="Imagen del servicio">
                                  </div>
                              <?php endforeach ?>
                         </div>
@@ -57,22 +57,24 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                 <?php endif ?>
             </div>
 
-            <?php ?>
-
             <div class="col-lg-7 h-auto mb-30">
                 <div class="h-100 bg-light p-30">
                     <h3> <?php echo $service["titulo"] ?> </h3>
                     <div class="d-flex mb-3">
-                        <?php if($total_reviews["total_reviews"] > 0) : ?>
+                        <?php if($serviceReviews["total_reviews"] > 0) : ?>
                             <div class="text-primary mr-2">
-                                <small class="fas fa-star"></small>
-                                <small class="fas fa-star"></small>
-                                <small class="fas fa-star"></small>
-                                <small class="fas fa-star-half-alt"></small>
-                                <small class="far fa-star"></small>
+                                <?php for($i = 0;$i < round($serviceReviews["reviews_promedio"]);$i++) : ?>
+                                    <small class="fas fa-star"></small>
+                                <?php endfor ?>
+                                
+                                <?php if(round($serviceReviews["reviews_promedio"]) < 5) : ?>
+                                    <?php for($i = 0;$i < (5 - round($serviceReviews["reviews_promedio"]));$i++) : ?>
+                                        <small class="fa-regular fa-star"></small>
+                                    <?php endfor ?>
+                                <?php endif ?>
                             </div>
                         <?php endif ?>
-                        <small class="pt-1"><?php echo $total_reviews["total_reviews"] > 0 ? $total_reviews["total_reviews"] : "Este servicio no tiene reseñas." ?></small>
+                        <small class="pt-1"><?php echo $serviceReviews["total_reviews"] > 0 ? $serviceReviews["total_reviews"] : "Este servicio no tiene reseñas." ?></small>
                     </div>
 
                     <h3 class="font-weight-semi-bold mb-4"><?php echo number_format($service["precio"]) ?></h3>
@@ -84,7 +86,7 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                         <button class="btn btn-primary px-3"
                         id="btnManageFav" data-service="<?= $service["id_servicio"] ?>">
                             <i class="far fa-heart" id="fav-icon"></i>
-                            <?= count($favs) > 0 && in_array($service["id_servicio"],$favs)? 'Eliminar de Mis Favoritos' : 'Añadir a Mis favoritos' ?>
+                            <?= count($favs) > 0 && in_array($service["id_servicio"],$favs)? 'Eliminar de Mis Favoritos' : 'Añadir a Mis Favoritos' ?>
                         </button>
                     </div>
                 </div>
@@ -97,7 +99,7 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                     <div class="nav nav-tabs mb-4">
                         <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Descripción</a>
                         <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-2">Información</a>
-                        <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reseñas (<?php echo $total_reviews["total_reviews"]?>)</a>
+                        <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reseñas (<?php echo $serviceReviews["total_reviews"]?>)</a>
                     </div>
                     <div class="tab-content">
                         <!--Descripcion del producto !-->
@@ -139,10 +141,10 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                         <div class="tab-pane fade" id="tab-pane-3">
                             <div class="row">
                                 <!--Col de reseñas !-->
-                                <?php if($total_reviews["total_reviews"] > 0) : ?>
-                                    <div class="col-md-6">
+                                <div class="col-md-6">
+                                    <?php if($serviceReviews["total_reviews"] > 0) : ?>
                                         <h4 class="mb-4">
-                                            Reseñas totales: <?php echo $total_reviews["total_reviews"] ?>
+                                            Reseñas totales: <?php echo $serviceReviews["total_reviews"] ?>
                                         </h4>
 
                                         <?php foreach($reviews as $review) : ?>
@@ -155,60 +157,71 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                                                 <img src="<?= URL_IMG ?>/usuarios/<?php echo $review['usuario_foto']?>" alt="Imagen de perfil del usuario" class="img-fluid mr-3 mt-1" style="width: 45px;">
                                                 
                                                 <div class="media-body">
-                                                    <h6><?php echo $review["nombre_usuario"] ?>
+                                                    <h6>
+                                                        <?php echo $review["nombre_usuario"] ?>
                                                         <small> - 
                                                             <i>
                                                                 <?php echo date($fecha[0]) ?> <?php echo date('h:i:s',$hora)?>
                                                             </i>
                                                         </small>
                                                     </h6>
-                                                    <div class="text-primary mb-2">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                        <i class="far fa-star"></i>
-                                                    </div>
+
+                                                    <?php for($i = 0;$i < $review["calificacion"];$i++) : ?>
+                                                        <small class="fas fa-star text-primary"></small>
+                                                    <?php endfor ?>
+                                                    
+                                                    <?php if($review["calificacion"] < 5) : ?>
+                                                        <?php for($i = 0;$i < (5 - $review["calificacion"]);$i++) : ?>
+                                                            <small class="fa-regular fa-star text-primary"></small>
+                                                        <?php endfor ?>
+                                                    <?php endif ?>
 
                                                     <p><?php echo $review["comentario"]?></p>
                                                 </div>
                                             </div>
                                         <?php endforeach ?>
 
-                                    </div>
-                                <?php endif ?>
+                                    <?php else : ?>
+                                        <p class="mb-4">No hay reseñas aún para este servicio...</p>
+                                    <?php endif ?>        
+                                </div>
+                                
                                 <!--FIN RESEÑAS!-->
 
                                 <!--Col para añadir una nueva reseñas!-->
-                                <div class="col-md-<?php echo $total_reviews["total_reviews"] > 0 ? '6' : '12' ?>">
-                                    <h4 class="mb-4">Deja una reseña!</h4>
+                                <?php if(!$canUserRateService) : ?>
+                                    <div class="col-md-6">
+                                        <h4 class="mb-4">Deja una reseña!</h4>
 
-                                    <div class="d-flex my-3">
-                                        <p class="mb-0 mr-2">Tu calificación:</p>
-                                        <div class="text-primary">
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
+                                        <div class="d-flex my-3">
+                                            <p class="mb-0 mr-2">Tu calificación:</p>
+                                            <div class="text-primary"
+                                            id="starsContainer">
+                                                <i class="far fa-star" id="rate"></i>
+                                                <i class="far fa-star" id="rate"></i>
+                                                <i class="far fa-star" id="rate"></i>
+                                                <i class="far fa-star" id="rate"></i>
+                                                <i class="far fa-star" id="rate"></i>
+                                            </div>
                                         </div>
+                                        <form id="formRating" enctype="multipart/form-data">
+                                            <input type="number" name="servicio_id" id="servicio_id"
+                                            hidden value="<?= $service["id_servicio"] ?>">
+
+                                            <div class="form-group w-100">
+                                                <label for="message">Tu reseña *</label>
+                                                <textarea id="message" class="form-control"
+                                                name="comentario"></textarea>
+                                            </div>
+
+                                            <div class="form-group mb-0">
+                                                <button type="submit" class="btn btn-primary px-3">
+                                                    Enviar
+                                                </button>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <form>
-                                        <input type="number" hidden name="calificacion">
-
-                                        <div class="form-group">
-                                            <label for="message">Tu reseña *</label>
-                                            <textarea id="message" cols="30" rows="5" class="form-control"
-                                            name="comentario"></textarea>
-                                        </div>
-
-                                        <div class="form-group mb-0">
-                                            <button type="submit" name="action" value="new_review" class="btn btn-primary px-3">
-                                                Enviar
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
+                                <?php endif ?>
                                 <!--FIN AÑADIR RESEÑAS!-->
                             </div>
                         </div>
@@ -223,87 +236,64 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
     <!--  Inicio Servicios Relacionados -->
     <?php if(!$isEmpty) : ?> 
         <div class="container-fluid py-5">
-            <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Puede que también te interesen</span></h2>
+            <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+                <span class="bg-secondary pr-3">Puede que también te interesen</span>
+            </h2>
             <div class="row px-xl-5">
-                <div class="col">
-                    <?php if(count($related_services) > 1)  : ?>
-                        <div class="owl-carousel related-carousel">
-                            <?php foreach($related_services as $related) : ?>
+                <?php foreach($related_services as $related) : ?>
+                    <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                        <div class="product-item bg-light mb-4">
+                            <div class="product-img position-relative overflow-hidden" style="height: 200px;">
+                                <img class="img-fluid w-100 h-100 object-fit-cover" src="<?= URL_IMG ?>/servicios/<?= $related["servicio_imagen"] ?>" alt="Imágen del servicio recomendado">
 
-                            <div class="product-item bg-light w-25 overflow-hidden">
-                                <div class="product-img position-relative overflow-hidden">
-                                    <img class="img-fluid w-100" src="<?= URL_IMG ?>/servicios/<?= $related["servicio_imagen"] ?>" alt="Imágen del servicio recomendado">
-
-                                    <div class="product-action" id="btnFavorite" data-service="<?= $related['id_servicio'] ?>">
-                                        <a role="button" class="btn btn-outline-dark btn-square">
-                                            <?php if(count($favs) > 0 && in_array($related["id_servicio"],$favs)) : ?>
-                                                <i class="fas fa-heart text-primary" id="fav-icon"></i>
-                                            <?php else : ?>
-                                                <i class="far fa-heart text-primary" id="fav-icon"></i>
-                                            <?php endif ?>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="text-center py-4">
-                                    <a class="h6 text-decoration-none text-truncate" href="<?php URL_BASE ?>?page=service&id=<?php echo $related["id_servicio"] ?>">
-                                        <?= $related["titulo"] ?>
+                                <div class="product-action" id="btnFavorite" data-service="<?= $related['id_servicio'] ?>">
+                                    <a role="button" class="btn btn-outline-dark btn-square">
+                                        <?php if(count($favs) > 0 && in_array($related["id_servicio"],$favs)) : ?>
+                                            <i class="fas fa-heart text-primary" id="fav-icon"></i>
+                                        <?php else : ?>
+                                            <i class="far fa-heart text-primary" id="fav-icon"></i>
+                                        <?php endif ?>
                                     </a>
-
-                                    <div class="d-flex align-items-center justify-content-center mt-2">
-                                        <h5> <?= $related["precio"] ?> </h5>
-                                    </div>
-
-                                    <div class="d-flex align-items-center justify-content-center mb-1">
-                                        <small class="fa fa-star text-primary mr-1"></small>
-                                        <small class="fa fa-star text-primary mr-1"></small>
-                                        <small class="fa fa-star text-primary mr-1"></small>
-                                        <small class="fa fa-star text-primary mr-1"></small>
-                                        <small class="fa fa-star text-primary mr-1"></small>
-                                        <small><?= $related["total_reviews"] ?></small>
-                                    </div>
                                 </div>
                             </div>
-                            <?php endforeach ?>
-                        </div>
-                    <?php else : ?>
-                        <div class="product-item bg-light w-25 overflow-hidden">
-                                <div class="product-img position-relative overflow-hidden">
-                                    <img class="img-fluid w-100" src="<?= URL_IMG ?>/servicios/<?= $related_services[0]["servicio_imagen"] ?>" 
-                                    alt="Imágen del servicio recomendado">
-
-                                    <div class="product-action" id="btnFavorite" data-service="<?= $related_services[0]['id_servicio'] ?>">
-                                        <a role="button" class="btn btn-outline-dark btn-square">
-                                            <?php if(count($favs) > 0 && in_array($related_services[0]["id_servicio"],$favs)) : ?>
-                                                <i class="fas fa-heart text-primary" id="fav-icon"></i>
-                                            <?php else : ?>
-                                                <i class="far fa-heart text-primary" id="fav-icon"></i>
-                                            <?php endif ?>
-                                        </a>
-                                    </div>
-                                </div>
 
                             <div class="text-center py-4">
-                                <a class="h6 text-decoration-none text-truncate" href="<?php URL_BASE ?>?page=service&id=<?php echo $related_services[0]["id_servicio"] ?>">
-                                    <?= $related_services[0]["titulo"] ?>
+                                <a class="h6 text-decoration-none text-truncate d-block"              style="max-width: 100%;" 
+                                href="<?php URL_BASE ?>?page=service&id=<?php echo $related["id_servicio"] ?>" 
+                                title="<?php echo htmlspecialchars($related["titulo"]); ?>">
+                                    <?php echo htmlspecialchars($related["titulo"]); ?>
                                 </a>
 
                                 <div class="d-flex align-items-center justify-content-center mt-2">
-                                    <h5> <?= $related_services[0]["precio"] ?> </h5>
+                                    <h5> <?= $related["precio"] ?> </h5>
                                 </div>
 
                                 <div class="d-flex align-items-center justify-content-center mb-1">
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small><?= $related_services[0]["total_reviews"] ?></small>
+                                    <?php if($related["calificacion"] > 0) : ?>
+                                        <?php for($i = 0;$i < round($related["calificacion"]);$i++) : ?>
+                                            <small class="fa fa-star text-primary mr-1"></small>
+                                        <?php endfor ?>
+
+                                        <?php if(round($related["calificacion"]) < 5) : ?>
+                                            <?php for($i = 0;$i < (5 - round($related["calificacion"]));$i++) : ?>
+                                                <small class="fa-regular fa-star text-primary mr-1"></small>
+                                            <?php endfor ?>
+                                        <?php endif ?>
+
+                                        <small><?= $related["total_reviews"] ?></small>
+
+                                    <?php else : ?>
+                                        <small class="fa-regular fa-star text-primary mr-1"></small>
+                                        <small class="fa-regular fa-star text-primary mr-1"></small>
+                                        <small class="fa-regular fa-star text-primary mr-1"></small>
+                                        <small class="fa-regular fa-star text-primary mr-1"></small>
+                                        <small class="fa-regular fa-star text-primary mr-1"></small>
+                                    <?php endif ?>
                                 </div>
                             </div>
-
                         </div>
-                    <?php endif ?>
-                </div>
+                    </div>
+                <?php endforeach ?>
             </div>
         </div>
     <?php endif ?>

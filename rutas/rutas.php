@@ -37,6 +37,11 @@ $landingPageController = new LandingPageController();
 require_once(__DIR__ . '/../app/controladores/favoritesController.php');
 $favoritesController = new favoritesController();
 
+// Controller reviews
+require_once(__DIR__ . '/../app/controladores/reviewsController.php');
+$reviewsController = new reviewsController();
+
+
 // Controladores de Ventas
 $saleController = "";
 
@@ -45,7 +50,7 @@ session_start();
 
 // ========================== GET ==========================
 if ($_SERVER["REQUEST_METHOD"] === "GET"){
-    //SI NO HAY SE ENCUENTRA EL PARAMETRO 'page' SE REDIRECCIONA AL HOME DEL LANDING
+    //SI NO HAY SE ENCUENTRA EL PARAMETRO 'page', REVISA OTRO PARAMETRO LLAMADO 'action', SI TAMPOCO LO ENCUENTRA, REDIRECCIONA AL HOME
     if (!isset($_GET["page"])) {
         if (!isset($_GET["action"])) {
             header("Location: rutas.php?page=home");
@@ -94,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET"){
                 header("Location: rutas.php?page=home");
                 break;
             }
-            $landingPageController->servicePage($_GET["id"]);
+            $landingPageController->ServicePage($_GET["id"]);
             break;
         
         case 'favorites':
@@ -103,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET"){
 
         // ============================= DASHBOARD ===========================================
         case 'categories':
-            $isLoggedIn ? $categoryController->index() : header("Location: rutas.php?page=logIn");
+            $isLoggedIn && $_SESSION["role"] === "admin" ? $categoryController->index() : header("Location: rutas.php?page=logIn");
             break;
 
         case 'update':
@@ -230,6 +235,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             case 'deleteFavorite':
                 $favoritesController->RemoveFavorites();
+                break;
+
+            case 'newReview':
+                $reviewsController->CreateReview();
                 break;
 
             default:
