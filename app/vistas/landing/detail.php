@@ -85,7 +85,6 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                         id="btnManageFav" data-service="<?= $service["id_servicio"] ?>">
                             <i class="far fa-heart" id="fav-icon"></i>
                             <?= count($favs) > 0 && in_array($service["id_servicio"],$favs)? 'Eliminar de Mis Favoritos' : 'Añadir a Mis favoritos' ?>
-                            
                         </button>
                     </div>
                 </div>

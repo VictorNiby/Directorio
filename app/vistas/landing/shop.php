@@ -146,11 +146,10 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
 
                                         <?php if($reviews[$index]["total_reviews"] > 0) : ?>
                                         <div class="d-flex align-items-center justify-content-center mb-1">
-                                            <small class="fa fa-star text-primary mr-1"></small>
-                                            <small class="fa fa-star text-primary mr-1"></small>
-                                            <small class="fa fa-star text-primary mr-1"></small>
-                                            <small class="fa fa-star text-primary mr-1"></small>
-                                            <small class="fa fa-star text-primary mr-1"></small>
+                                            <?php for ($i=0; $i < round($reviews[$index]["calificacion"]); $i++) : ?>
+                                                <small class="fa fa-star text-primary mr-1"></small>
+                                            <?php endfor ?>
+
                                             <small><?= $reviews[$index]["total_reviews"] ?></small>
                                         </div>
                                         <?php endif ?>
