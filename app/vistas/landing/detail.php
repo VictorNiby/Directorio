@@ -82,7 +82,14 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                         <?php echo $service["descripcion"] ?>
                     </p>
 
+                    
+
                     <div class="d-flex align-items-center mb-4 pt-2">
+                        <a href="<?= URL_BASE ?>/rutas/rutas.php?page=checkout&service=<?= $service["id_servicio"] ?>" class="btn btn-primary px-3" style="margin-right: 10px;">
+                            <i class="far fa-shop" id="fav-icon"></i>
+                            Encargar Servicio
+                        </a>
+                        
                         <button class="btn btn-primary px-3"
                         id="btnManageFav" data-service="<?= $service["id_servicio"] ?>">
                             <i class="far fa-heart" id="fav-icon"></i>
@@ -189,7 +196,7 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                                 <!--FIN RESEÑAS!-->
 
                                 <!--Col para añadir una nueva reseñas!-->
-                                <?php if(!$canUserRateService) : ?>
+                                <?php if($canUserRateService) : ?>
                                     <div class="col-md-6">
                                         <h4 class="mb-4">Deja una reseña!</h4>
 

@@ -3,18 +3,21 @@ require_once(__DIR__ . '/../modelos/CategoryModel.php');
 require_once(__DIR__ . '/../modelos/serviceModel.php');
 require_once(__DIR__ . '/../modelos/reviewsModel.php');
 require_once(__DIR__ . '/../modelos/favoritesModel.php');
+require_once(__DIR__ . '/../modelos/hoodModel.php');
 
 class LandingPageController{
     private $categoryModel;
     private $serviceModel;
     private $reviewsModel;
     private $favoritesModel;
+    private $hoodsModel;
 
     public function __construct(){
         $this->categoryModel = new CategoryModel;
         $this->serviceModel = new ServiceModel;
         $this->reviewsModel = new ReviewsModel;
         $this->favoritesModel = new favoritesModel;
+        $this->hoodsModel = new HoodModel;
     }
     
     public function index(){
@@ -114,7 +117,7 @@ class LandingPageController{
 
             $hasUserPurchasedService = $this->serviceModel->HasUserPurchasedService($_SESSION["id"],$service["id_servicio"]);
 
-            if ($getUserReview || !$hasUserPurchasedService) {
+            if (!$getUserReview && $hasUserPurchasedService) {
                 $canUserRateService = true;
             }
         }
@@ -137,6 +140,15 @@ class LandingPageController{
         include_once (__DIR__.'/../vistas/landing/favorites.php');
     }
     //END FAVORITES PAGE
+
+    //CHECKOUT PAGE
+    public function CheckOutPage(){
+        $data = $this->categoryModel->GetAllCategory();
+        $service = $this->serviceModel->getServiceById($_GET["service"]);
+        $hoods = $this->hoodsModel->getAllHood();
+
+        include_once (__DIR__.'/../vistas/landing/checkout.php');
+    }
 
 }
     

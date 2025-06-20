@@ -106,6 +106,10 @@ if ($_SERVER["REQUEST_METHOD"] === "GET"){
             $isLoggedIn ? $landingPageController->FavoritesPage() : header("Location: rutas.php?page=logIn");
             break;
 
+        case 'checkout':
+            $isLoggedIn && isset($_GET["service"]) ? $landingPageController->CheckOutPage() : header("Location: rutas.php?page=logIn");
+            break;
+
         // ============================= DASHBOARD ===========================================
         case 'categories':
             $isLoggedIn && $_SESSION["role"] === "admin" ? $categoryController->index() : header("Location: rutas.php?page=logIn");

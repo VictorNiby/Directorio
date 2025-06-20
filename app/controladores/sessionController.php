@@ -63,6 +63,8 @@ class sessionController extends sessionModel{
             $_SESSION["role"] = $sessionData["rol"];
             $_SESSION["email"] = $sessionData["correo"];
             $_SESSION["photo"] = $sessionData["foto"];
+            $_SESSION["phone_number"] = $sessionData["telefono"];
+            
         } catch (\Throwable $th) {
             $response = ["status"=>false,"msg"=>"Ocurrió un error al momento de iniciar sesión, por favor intentelo más tarde."];
             echo json_encode($response,JSON_UNESCAPED_UNICODE);

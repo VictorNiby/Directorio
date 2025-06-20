@@ -19,7 +19,7 @@ class sessionModel extends Mysql{
     }
 
     public function LogIn($email,$password){
-        $sql = "SELECT usuario.id_usuario,usuario.nombre,usuario.correo,usuario.rol,usuario.foto
+        $sql = "SELECT usuario.id_usuario,usuario.nombre,usuario.correo,usuario.rol,usuario.foto,usuario.telefono
         FROM usuario
         WHERE usuario.correo = ? AND usuario.password = ? AND usuario.estado = 'Activo'";
         $stmt = $this->connection->prepare($sql);
