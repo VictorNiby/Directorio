@@ -99,7 +99,7 @@ if (!defined('URL_BASE')) {
                         <h3 class="text-white mb-3" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;" title="<?php echo htmlspecialchars($nombre, ENT_QUOTES); ?>">
                             <?php echo $nombre_corto; ?>
                         </h3>
-                        <a href="" class="btn btn-primary">Ver Ahora</a>
+                        <a href="<?= URL_BASE ?>/rutas/rutas.php?page=service&id=<?= $id_servicio ?>" class="btn btn-primary">Ver Ahora</a>
                     </div>
                 </div>
                 <?php 

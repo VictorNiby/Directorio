@@ -82,11 +82,9 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                         <?php echo $service["descripcion"] ?>
                     </p>
 
-                    
-
                     <div class="d-flex align-items-center mb-4 pt-2">
                         <a href="<?= URL_BASE ?>/rutas/rutas.php?page=checkout&service=<?= $service["id_servicio"] ?>" class="btn btn-primary px-3" style="margin-right: 10px;">
-                            <i class="far fa-shop" id="fav-icon"></i>
+                            <i class="fa-solid fa-check" id="fav-icon"></i>
                             Encargar Servicio
                         </a>
                         
@@ -253,8 +251,14 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                             <div class="product-img position-relative overflow-hidden" style="height: 200px;">
                                 <img class="img-fluid w-100 h-100 object-fit-cover" src="<?= URL_IMG ?>/servicios/<?= $related["servicio_imagen"] ?>" alt="Imágen del servicio recomendado">
 
-                                <div class="product-action" id="btnFavorite" data-service="<?= $related['id_servicio'] ?>">
-                                    <a role="button" class="btn btn-outline-dark btn-square">
+                                <div class="product-action">
+                                    <a class="btn btn-outline-dark btn-square" 
+                                    href="<?php URL_BASE ?>?page=service&id=<?php echo $related["id_servicio"] ?>">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+
+                                    <a role="button" class="btn btn-outline-dark btn-square"
+                                    id="btnFavorite" data-service="<?= $related['id_servicio'] ?>">
                                         <?php if(count($favs) > 0 && in_array($related["id_servicio"],$favs)) : ?>
                                             <i class="fas fa-heart text-primary" id="fav-icon"></i>
                                         <?php else : ?>

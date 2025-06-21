@@ -1,5 +1,6 @@
 <?php
 // =========================================================================
+date_default_timezone_set('UTC');
 
 // Controladores de la landing Page
 require_once(__DIR__ . '/../app/controladores/sessionController.php');
@@ -41,9 +42,9 @@ $favoritesController = new favoritesController();
 require_once(__DIR__ . '/../app/controladores/reviewsController.php');
 $reviewsController = new reviewsController();
 
-
 // Controladores de Ventas
-$saleController = "";
+require_once(__DIR__ . '/../app/controladores/checkOutController.php');
+$checkOutController = new checkOutController;
 
 // =========================================================================
 session_start();
@@ -173,7 +174,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET"){
 
         case 'dashboard':
         case 'sales':
-            $isLoggedIn ? $dashController->index() : header("Location: rutas.php?page=logIn");
+            $isLoggedIn && $_SESSION["role"] === 'admin' ? $dashController->index() : header("Location: rutas.php?page=logIn");
             break;
 
         default:
@@ -243,6 +244,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             case 'newReview':
                 $reviewsController->CreateReview();
+                break;
+
+            case 'checkOut':
+                $checkOutController->ManageCheckOut();
                 break;
 
             default:

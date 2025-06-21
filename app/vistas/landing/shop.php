@@ -126,8 +126,14 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                                 <div class="product-item bg-light mb-4">
                                     <div class="product-img position-relative overflow-hidden" style="height: 200px;">
                                         <img class="img-fluid w-100 h-100 object-fit-cover" src="<?= URL_BASE ?>/publico/img/servicios/<?= $service["imagen_servicio"] ?>" alt="Imagen del servicio">
-                                        <div class="product-action" id="btnFavorite" data-service="<?= $service['id_servicio'] ?>">
-                                            <a role="button" class="btn btn-outline-dark btn-square">
+                                        <div class="product-action">
+                                            <a class="btn btn-outline-dark btn-square" 
+                                                href="<?php URL_BASE ?>?page=service&id=<?php echo $service["id_servicio"] ?>">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+
+                                            <a role="button" class="btn btn-outline-dark btn-square"
+                                            id="btnFavorite" data-service="<?= $service['id_servicio'] ?>">
                                                 <?php if(count($favs) > 0 && in_array($service["id_servicio"],$favs)) : ?>
                                                     <i class="fas fa-heart text-primary" id="fav-icon"></i>
                                                 <?php else : ?>
