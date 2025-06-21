@@ -51,6 +51,9 @@ if (!defined('URL_BASE')) {
         <a href="<?= URL_BASE ?>/rutas/rutas.php?page=signUp">Crear Cuenta</a>
         <a href="#">¿Olvidaste tu contraseña?</a>
       </div>
+      <div class="links-container justify-content-center">
+           <a href="<?= URL_BASE ?>/rutas/rutas.php?page=home" class="guest-link">Iniciar como invitado</a>
+      </div>
     </div>
   </div>
 

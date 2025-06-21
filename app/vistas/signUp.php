@@ -40,11 +40,13 @@ if (!defined('URL_BASE')) {
         <div class="mb-3">
           <input type="text" class="form-control" placeholder="Telefono" name="telefono" required>
         </div>
-        <div class="mb-3">
-          <input type="date" class="form-control" placeholder="Fecha de nacimiento" name="nacimiento" required>
-        </div>
-        <div class="mb-3">
-          <input type="email" class="form-control" placeholder="Correo electrónico" name="correo" required>
+        <div class="row">
+          <div class="mb-3 col-md-6">
+            <input type="email" class="form-control" placeholder="Correo electrónico" name="correo" required>
+          </div>
+          <div class="mb-3 col-md-6">
+            <input type="date" class="form-control" placeholder="Fecha de nacimiento" name="nacimiento" required>
+          </div>
         </div>
         <div class="mb-3">
           <input type="password" class="form-control" placeholder="Contraseña" name="password" required>
@@ -54,6 +56,9 @@ if (!defined('URL_BASE')) {
         </div>
         <button type="submit" class="btn">Registrarse</button>
       </form>
+            <div class="text-center mt-3">
+        <p>¿Ya tienes una cuenta? <a href="<?= URL_BASE ?>/rutas/rutas.php?page=logIn">Inicia sesión aquí</a></p>
+      </div>
     </div>
   </div>
   <!-- Bootstrap Bundle JS -->
