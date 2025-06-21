@@ -52,6 +52,12 @@ if (!defined('URL_BASE')) {
         border-top-left-radius: 5px;
         border-bottom-left-radius: 5px;
         }
+        .bg-didi-header {
+        background-color: #1c2833 !important;
+        }
+        .bg-niby-nav {
+        background-color: #FFC332 !important;
+        }
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
@@ -61,10 +67,10 @@ if (!defined('URL_BASE')) {
 <body>
     <!-- Topbar Start -->
     <div class="container-fluid">
-        <div class="row bg-secondary py-1 px-xl-5">
+        <div class="row bg-secondary py-1 px-xl-5 bg-didi-header">
             <div class="col-lg-6 d-none d-lg-block">
                 <div class="d-inline-flex align-items-center h-100">
-                    <a class="text-body mr-3" href="<?= URL_BASE ?>/rutas/rutas.php?page=faqs">FAQs</a>
+                    <a class="text-white mr-3" href="<?= URL_BASE ?>/rutas/rutas.php?page=faqs">FAQs</a>
                 </div>
             </div>
 
@@ -137,7 +143,7 @@ if (!defined('URL_BASE')) {
     <div class="container-fluid bg-dark mb-30">
         <div class="row px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
-                <a class="btn d-flex align-items-center justify-content-between bg-primary w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; padding: 0 30px;">
+                <a class="btn d-flex align-items-center justify-content-between bg-niby-nav w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; padding: 0 30px;">
                     <h6 class="text-dark m-0"><i class="fa fa-bars mr-2"></i>Categorías</h6>
                     <i class="fa fa-angle-down text-dark"></i>
                 </a>

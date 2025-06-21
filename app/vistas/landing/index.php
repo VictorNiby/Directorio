@@ -1,15 +1,28 @@
 
 <?php 
+$protocolo = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
 define('RUTA_BASE', dirname(__DIR__)); // Obtiene la ruta raíz del proyecto
+define('URL_PUBLICO', $protocolo . "://" . $_SERVER['HTTP_HOST'] . "/directorio/publico/");
+//define('URL_BASE_TIENDA', $protocolo . "://" . $_SERVER['HTTP_HOST'] . "/directorio/app/vistas/landing");
 include_once RUTA_BASE . '/landing/plantilla/header.php';
-
 if (!defined('URL_BASE')) {
-    $protocolo = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
     define('URL_BASE', $protocolo . "://" . $_SERVER['HTTP_HOST'] . "/directorio/rutas/rutas.php");
-    define('URL_BASE_TIENDA', $protocolo . "://" . $_SERVER['HTTP_HOST'] . "/directorio/app/vistas/landing");
 }
 
 ?>
+<style>
+    .btn-primary{
+    border-color: #FFC332 !important;
+    background-color: #FFC332 !important;
+    }
+    .btn-primary:hover{
+    background-color:#e9b02d !important;
+    border-color: #e9b02d !important;
+    }
+    .text-primary{
+    color: #FFC332 !important;
+    }
+</style>
     <!-- Carousel Start -->
     <div class="container-fluid mb-3">
         <div class="row px-xl-5">
@@ -22,32 +35,33 @@ if (!defined('URL_BASE')) {
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item position-relative active" style="height: 430px;">
-                            <img class="position-absolute w-100 h-100" src="img/carousel-1.jpg" style="object-fit: cover;">
+                            <img class="position-absolute w-100 h-100" src="<?= URL_PUBLICO ?>img/carruselInicio/disenoGrafico.png" style="object-fit: cover;">
+                            <div class="position-absolute w-100 h-100" style="background: rgba(0, 0, 0, 0.3); top: 0; left: 0;"></div>
                             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                 <div class="p-3" style="max-width: 700px;">
-                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Men Fashion</h1>
-                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
-                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Shop Now</a>
+                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Diseñador Gráfico</h1>
+                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Soluciones visuales que inspiran y comunican.</p>
+                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="">Ver Ahora</a>
                                 </div>
                             </div>
                         </div>
                         <div class="carousel-item position-relative" style="height: 430px;">
-                            <img class="position-absolute w-100 h-100" src="img/carousel-2.jpg" style="object-fit: cover;">
+                            <img class="position-absolute w-100 h-100" src="<?= URL_PUBLICO ?>img/carruselInicio/jardineria.png" style="object-fit: cover;">
                             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                 <div class="p-3" style="max-width: 700px;">
-                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Women Fashion</h1>
-                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
-                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Shop Now</a>
+                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Jardinería</h1>
+                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Aprende, compra y transforma. ¡Cada planta cuenta una historia!</p>
+                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Ver Ahora</a>
                                 </div>
                             </div>
                         </div>
                         <div class="carousel-item position-relative" style="height: 430px;">
-                            <img class="position-absolute w-100 h-100" src="img/carousel-3.jpg" style="object-fit: cover;">
+                            <img class="position-absolute w-100 h-100" src="<?= URL_PUBLICO ?>img/carruselInicio/software.png" style="object-fit: cover;">
                             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                 <div class="p-3" style="max-width: 700px;">
-                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Kids Fashion</h1>
-                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
-                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Shop Now</a>
+                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Desarollador de Software</h1>
+                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Textazo</p>
+                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Ver Ahora</a>
                                 </div>
                             </div>
                         </div>
@@ -55,22 +69,43 @@ if (!defined('URL_BASE')) {
                 </div>
             </div>
             <div class="col-lg-4">
+                <?php 
+                // Función para limpar textos (DIEGO no se lo robe pues webon)
+                function limpiarTexto($texto) {
+                    $texto = preg_replace('/[[:^print:]]/', '', $texto);
+                    $texto = preg_replace('/[^\p{L}\p{N}\s]/u', '', $texto);
+                    $texto = preg_replace('/\s+/', ' ', trim($texto));
+                    return $texto;
+                }
+
+                $counter = 1;
+                foreach ($toptier as $top): 
+                    $nombre = htmlspecialchars($top['nombre_servicio'] ?? '', ENT_QUOTES, 'UTF-8');
+                    $nombre = limpiarTexto($nombre);
+                    $nombre_corto = strlen($nombre) > 20 ? substr($nombre, 0, 20).'...' : $nombre;
+                    
+                    $reservas = $top['cantidad_reservas'] ?? 0;
+                    $id_servicio = $top['id_servicio'] ?? 0;
+                    
+                    $imagen = URL_PUBLICO . 'img/servicios/default-service.jpg';
+                    if (!empty($top['imagen_servicio'])) {
+                        $imagen = URL_PUBLICO . 'img/servicios/' . htmlspecialchars($top['imagen_servicio'], ENT_QUOTES, 'UTF-8');
+                    }
+                ?>
                 <div class="product-offer mb-30" style="height: 200px;">
-                    <img class="img-fluid" src="img/offer-1.jpg" alt="">
+                    <img class="img-fluid" src="<?php echo $imagen; ?>" alt="" style="opacity: 0.4;">
                     <div class="offer-text">
-                        <h6 class="text-white text-uppercase">Save 20%</h6>
-                        <h3 class="text-white mb-3">Special Offer</h3>
-                        <a href="" class="btn btn-primary">Shop Now</a>
+                        <h6 class="text-white text-uppercase">Servicio #<?php echo $counter; ?> en reservas</h6>
+                        <h3 class="text-white mb-3" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;" title="<?php echo htmlspecialchars($nombre, ENT_QUOTES); ?>">
+                            <?php echo $nombre_corto; ?>
+                        </h3>
+                        <a href="" class="btn btn-primary">Ver Ahora</a>
                     </div>
                 </div>
-                <div class="product-offer mb-30" style="height: 200px;">
-                    <img class="img-fluid" src="img/offer-2.jpg" alt="">
-                    <div class="offer-text">
-                        <h6 class="text-white text-uppercase">Save 20%</h6>
-                        <h3 class="text-white mb-3">Special Offer</h3>
-                        <a href="" class="btn btn-primary">Shop Now</a>
-                    </div>
-                </div>
+                <?php 
+                $counter++;
+                endforeach; 
+                ?>
             </div>
         </div>
     </div>

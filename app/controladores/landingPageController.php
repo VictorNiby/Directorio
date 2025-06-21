@@ -24,6 +24,7 @@ class LandingPageController{
         $data = $this->categoryModel->GetAllCategory();
         $info = $this->categoryModel->GetAllCategoryLanding();
         $services = $this->serviceModel->getServicesWithImages();
+        $toptier = $this->serviceModel->getAllServiceByPopulating();
         include_once(__DIR__ . '/../vistas/landing/index.php');
     }
 

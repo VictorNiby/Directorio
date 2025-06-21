@@ -231,4 +231,28 @@ class ServiceModel extends Mysql {
             return false;
         }
     }
+
+    //TRAER LOS DOS SERVICIOS MAS TOPS DEL MERCADO
+        public function getAllServiceByPopulating() 
+        {
+        $query = "SELECT 
+            s.id_servicio,
+            s.titulo AS nombre_servicio,
+            si.imagen_ref AS imagen_servicio,
+            COUNT(su.servicio_id) AS cantidad_reservas
+        FROM 
+            servicio s
+        INNER JOIN 
+            servicio_usuario su ON s.id_servicio = su.servicio_id
+        LEFT JOIN 
+            servicio_imagenes si ON s.id_servicio = si.servicio_id
+        GROUP BY 
+            s.id_servicio, s.titulo, si.imagen_ref
+        ORDER BY 
+            cantidad_reservas DESC
+        LIMIT 2;";
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
 }
