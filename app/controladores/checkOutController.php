@@ -128,4 +128,33 @@ class checkOutController {
         die();
     }
 
+    public function CancelPurchase(){
+        $response = [];
+        if (count($_SESSION) < 1) {
+            $response = ["status"=>false,"msg"=>"Debes iniciar sesión para realizar esta acción."];
+            echo json_encode($response,JSON_UNESCAPED_UNICODE);
+            die();
+        }
+        $servicio_id = filter_var(intval($_POST["servicio_id"]),FILTER_SANITIZE_NUMBER_INT);
+        $usuario_id = $_SESSION["id"];
+
+        if (!is_numeric($servicio_id) || !$this->serviceModel->getServiceById($servicio_id)) {
+            $response = ["status"=>false,"msg"=>"No se pudo encontrar el servicio."];
+            echo json_encode($response,JSON_UNESCAPED_UNICODE);
+            die();
+        }
+
+        try {
+            $this->checkOutModel->CancelService($servicio_id,$usuario_id);
+        } catch (PDOException $err) {
+            $response = ["status"=>false,"msg"=>"Ocurrió un error: ".$err];
+            echo json_encode($response,JSON_UNESCAPED_UNICODE);
+            die();
+        }
+
+        $response = ["status"=>true,"msg"=>"Servicio cancelado."];
+        echo json_encode($response,JSON_UNESCAPED_UNICODE);
+        die();
+    }
+
 }

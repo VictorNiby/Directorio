@@ -5,6 +5,7 @@ require_once(__DIR__ . '/../modelos/reviewsModel.php');
 require_once(__DIR__ . '/../modelos/favoritesModel.php');
 require_once(__DIR__ . '/../modelos/hoodModel.php');
 require_once(__DIR__ . '/../modelos/historyModel.php');
+require_once(__DIR__ . '/../modelos/ordersModel.php');
 
 class LandingPageController{
     private $categoryModel;
@@ -13,6 +14,7 @@ class LandingPageController{
     private $favoritesModel;
     private $hoodsModel;
     private $historyModel;
+    private $ordersModel;
 
     public function __construct(){
         $this->categoryModel = new CategoryModel;
@@ -21,6 +23,7 @@ class LandingPageController{
         $this->favoritesModel = new favoritesModel;
         $this->hoodsModel = new HoodModel;
         $this->historyModel = new historyModel;
+        $this->ordersModel = new ordersModel;
     }
     
     public function index(){
@@ -164,11 +167,12 @@ class LandingPageController{
         include_once (__DIR__.'/../vistas/landing/checkout.php');
     }
 
-    //CONTACT PAGE
-    public function ContactPage(){
+    //ORDERS PAGE
+    public function OrdersPage(){
         $data = $this->categoryModel->GetAllCategory();
+        $orders = $this->ordersModel->GetOrders($_SESSION["id"]);
 
-        include_once (__DIR__.'/../vistas/landing/contact.php');
+        include_once (__DIR__.'/../vistas/landing/orders.php');
     }
 
 }

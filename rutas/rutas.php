@@ -115,6 +115,10 @@ if ($_SERVER["REQUEST_METHOD"] === "GET"){
             $isLoggedIn ? $landingPageController->HistoryPage() : header("Location:rutas.php?page=logIn");
             break;
 
+        case 'orders':
+            $isLoggedIn && $_SESSION["role"] === "proveedor" ? $landingPageController->OrdersPage() : header("Location:rutas.php?page=logIn");
+            break;
+
         // ============================= DASHBOARD ===========================================
         case 'categories':
             $isLoggedIn ? $categoryController->index() : header("Location: rutas.php?page=logIn");
@@ -252,6 +256,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             case 'checkOut':
                 $checkOutController->ManageCheckOut();
+                break;
+
+            case 'cancelService':
+                $checkOutController->CancelPurchase();
                 break;
 
             default:

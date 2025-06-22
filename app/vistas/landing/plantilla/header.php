@@ -170,6 +170,12 @@ if (!defined('URL_BASE')) {
                             <a href="<?= URL_BASE ?>/rutas/rutas.php?page=shoppingHistory" class="nav-item nav-link <?= $_GET["page"] === 'shoppingHistory' ? 'active' : '' ?>">
                                 Historial de Compras
                             </a>
+
+                            <?php if(count($_SESSION) > 1 && $_SESSION["role"] === "proveedor") : ?>
+                                <a href="<?= URL_BASE ?>/rutas/rutas.php?page=orders" class="nav-item nav-link <?= $_GET["page"] === 'orders' ? 'active' : '' ?>">
+                                    Pedidos
+                                </a>
+                            <?php endif ?>
                         </div>
 
                         <?php if(count($_SESSION) > 0) : ?>

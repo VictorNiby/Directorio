@@ -109,32 +109,41 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                     <div class="tab-content">
                         <!--Descripcion del producto !-->
                         <div class="tab-pane fade show active" id="tab-pane-1">
-                            <h4 class="mb-3">Descripción del servicio</h4>
+                            <h4 class="mb-3">Descripción del Servicio</h4>
                             <p><?php echo $service["descripcion"] ?></p>
                         </div>
                         
                         <!--Informacion adicional!-->
                         <div class="tab-pane fade" id="tab-pane-2">
-                            <h4 class="mb-3">Información adicional</h4>
+                            <h4 class="mb-3">Información Adicional</h4>
                             
                             <div class="row">
                                 <div class="col-md-12">
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item px-0">
-                                            Precio: <?php echo $service["precio"]?>
+                                            <strong>Dueño del Servicio:</strong> 
+                                            <?php echo $service["nombre"]?>
                                         </li>
                                         <li class="list-group-item px-0">
-                                            Descripción completa: <?php echo $service["descripcion"]?>
+                                            <strong>Precio:</strong>
+                                            <?php echo $service["precio"]?>
                                         </li>
                                         <li class="list-group-item px-0">
-                                            Categoría: <?php echo $service["categoria"]?>
+                                            <strong>Descripción Completa:</strong>
+                                            <?php echo $service["descripcion"]?>
                                         </li>
                                         <li class="list-group-item px-0">
+                                            <strong>Categoría:</strong>
+                                            <?php echo $service["categoria"]?>
+                                        </li>
+                                        <li class="list-group-item px-0">
+                                            <strong>Fecha de Creación:</strong>
                                             <?php $fecha = explode(" ",$service["fecha_creacion"])?>
-                                            Fecha de creación: <?php echo $fecha[0]?>
+                                            <?php echo $fecha[0]?>
                                         </li>
                                         <li class="list-group-item px-0">
-                                            Dirección: <?php echo $service["direccion"]?>
+                                            <strong>Dirección: </strong>
+                                            <?php echo $service["direccion"]?>
                                         </li>
 
                                       </ul> 

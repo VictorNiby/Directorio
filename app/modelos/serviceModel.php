@@ -79,7 +79,6 @@ class ServiceModel extends Mysql {
         return $feature;
     }
 
-
     public function ShopPageServices(){
         $query = "SELECT s.id_servicio, s.titulo, s.precio,
         servicio_imagenes.imagen_ref as imagen_servicio
