@@ -64,11 +64,12 @@ class ServiceModel extends Mysql {
 
     //PARA EL INDEX DEL LANDING PAGE
     public function getServicesWithImages(){
-        $query = "SELECT s.id_servicio, s.titulo, s.precio, COUNT(su.id) AS total_solicitudes,
+        $query = "SELECT s.id_servicio, s.titulo, s.precio, COUNT(su.servicio_id) AS total_solicitudes,
         servicio_imagenes.imagen_ref
         FROM servicio s
-        JOIN servicio_usuario su ON s.id_servicio = su.servicio_id
-        INNER JOIN servicio_imagenes on servicio_imagenes.servicio_id = s.id_servicio
+        INNER JOIN servicio_usuario su ON s.id_servicio = su.servicio_id
+        INNER JOIN servicio_imagenes ON servicio_imagenes.servicio_id = s.id_servicio
+        WHERE s.estado = 'Activo'
         GROUP BY s.id_servicio
         ORDER BY total_solicitudes DESC
         LIMIT 8;";
@@ -139,6 +140,17 @@ class ServiceModel extends Mysql {
         
         $preparedStmt = $this->connection->prepare($query);
         $preparedStmt->execute([$category_id]);
+        $services = $preparedStmt->fetchAll(PDO::FETCH_ASSOC);
+        return $services;
+    }
+
+    public function GetServiceByUser($user_id,$service_id){
+        $query = "SELECT 1
+        FROM servicio
+        WHERE servicio.usuario_id_usuario = ? AND servicio.id_servicio = ? AND estado = 'Activo'";
+        
+        $preparedStmt = $this->connection->prepare($query);
+        $preparedStmt->execute([$user_id,$service_id]);
         $services = $preparedStmt->fetchAll(PDO::FETCH_ASSOC);
         return $services;
     }
@@ -233,26 +245,25 @@ class ServiceModel extends Mysql {
     }
 
     //TRAER LOS DOS SERVICIOS MAS TOPS DEL MERCADO
-        public function getAllServiceByPopulating() 
-        {
-        $query = "SELECT 
-            s.id_servicio,
-            s.titulo AS nombre_servicio,
-            si.imagen_ref AS imagen_servicio,
-            COUNT(su.servicio_id) AS cantidad_reservas
-        FROM 
-            servicio s
-        INNER JOIN 
-            servicio_usuario su ON s.id_servicio = su.servicio_id
-        LEFT JOIN 
-            servicio_imagenes si ON s.id_servicio = si.servicio_id
-        GROUP BY 
-            s.id_servicio, s.titulo, si.imagen_ref
-        ORDER BY 
-            cantidad_reservas DESC
-        LIMIT 2;";
-        $stmt = $this->connection->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        public function getAllServiceByPopulating() {
+            $query = "SELECT 
+                s.id_servicio,
+                s.titulo AS nombre_servicio,
+                si.imagen_ref AS imagen_servicio,
+                COUNT(su.servicio_id) AS cantidad_reservas
+            FROM 
+                servicio s
+            INNER JOIN 
+                servicio_usuario su ON s.id_servicio = su.servicio_id
+            LEFT JOIN 
+                servicio_imagenes si ON s.id_servicio = si.servicio_id
+            GROUP BY 
+                s.id_servicio, s.titulo, si.imagen_ref
+            ORDER BY 
+                cantidad_reservas DESC
+            LIMIT 2;";
+            $stmt = $this->connection->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 }

@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             if (res.status) {
                 setTimeout(() => {
                     window.location.replace(SITE_URL + '?page=home')
-                }, 500);
+                }, 2000);
             }
         })
         .catch((err)=>{

@@ -111,9 +111,13 @@ if ($_SERVER["REQUEST_METHOD"] === "GET"){
             $isLoggedIn && isset($_GET["service"]) ? $landingPageController->CheckOutPage() : header("Location: rutas.php?page=logIn");
             break;
 
+        case 'shoppingHistory':
+            $isLoggedIn ? $landingPageController->HistoryPage() : header("Location:rutas.php?page=logIn");
+            break;
+
         // ============================= DASHBOARD ===========================================
         case 'categories':
-            $isLoggedIn && $_SESSION["role"] === "admin" ? $categoryController->index() : header("Location: rutas.php?page=logIn");
+            $isLoggedIn ? $categoryController->index() : header("Location: rutas.php?page=logIn");
             break;
 
         case 'update':
@@ -121,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET"){
                 echo "ID Inválido";
                 return;
             }
-            $isLoggedIn ? $categoryController->updateView($_GET["id"]) : header("Location: rutas.php?page=logIn");
+            $isLoggedIn ?  $categoryController->updateView($_GET["id"]) : header("Location: rutas.php?page=logIn");
             break;
 
         case 'users':

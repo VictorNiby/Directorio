@@ -68,13 +68,8 @@ if (!defined('URL_BASE')) {
     <!-- Topbar Start -->
     <div class="container-fluid">
         <div class="row bg-secondary py-1 px-xl-5 bg-didi-header">
-            <div class="col-lg-6 d-none d-lg-block">
-                <div class="d-inline-flex align-items-center h-100">
-                    <a class="text-white mr-3" href="<?= URL_BASE ?>/rutas/rutas.php?page=faqs">FAQs</a>
-                </div>
-            </div>
-
-            <div class="col-lg-6 text-center text-lg-right">
+    
+            <div class="col-lg-12 text-center text-lg-right">
                 <div class="d-inline-flex align-items-center">
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Mi cuenta</button>
@@ -104,11 +99,11 @@ if (!defined('URL_BASE')) {
                 </div>
 
                 <?php if(count($_SESSION) > 0) : ?>
-                    <div class="d-inline-flex align-items-center d-block d-lg-none">
+                    <div class="d-inline-flex align-items-center d-block d-lg-none ms-2">
                         <a href="<?= URL_BASE ?>/rutas/rutas.php?page=favorites" class="btn px-0 ml-2">
                             <i class="fas fa-heart text-primary"></i>
                             <span class="badge border border-dark rounded-circle" style="padding-bottom: 2px;" id="responsiveFavs">
-                                0
+                                
                             </span>
                         </a>
                     </div>
@@ -172,8 +167,8 @@ if (!defined('URL_BASE')) {
                                 Tienda
                             </a>
 
-                            <a href="<?= URL_BASE ?>/rutas/rutas.php?page=contact" class="nav-item nav-link <?= $_GET["page"] === 'contact' ? 'active' : '' ?>">
-                                Contacto
+                            <a href="<?= URL_BASE ?>/rutas/rutas.php?page=shoppingHistory" class="nav-item nav-link <?= $_GET["page"] === 'shoppingHistory' ? 'active' : '' ?>">
+                                Historial de Compras
                             </a>
                         </div>
 
@@ -184,7 +179,7 @@ if (!defined('URL_BASE')) {
                                     <i class="fas fa-heart text-primary"></i>
                                     <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;"
                                     id="navbarFavs">
-                                        0
+                                        
                                     </span>
                                 </a>
                             </div>

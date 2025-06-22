@@ -27,15 +27,21 @@ class checkOutController {
     public function ManageCheckOut() {
         $response = [];
 
-        $servicio_id = filter_var(trim($_POST["servicio_id"]),FILTER_SANITIZE_NUMBER_INT);
+        if (count($_SESSION) < 1) {
+            $response = ["status"=>false,"msg"=>"Debes iniciar sesión para realizar una compra."];
+            echo json_encode($response,JSON_UNESCAPED_UNICODE);
+            die();
+        }
+
+        $servicio_id = filter_var(intval($_POST["servicio_id"]),FILTER_SANITIZE_NUMBER_INT);
         $usuario_id = $_SESSION["id"];
-        $barrio_usuario = filter_var(trim($_POST["barrio_usuario"]),FILTER_SANITIZE_NUMBER_INT);
+        $barrio_usuario = filter_var(intval($_POST["barrio_usuario"]),FILTER_SANITIZE_NUMBER_INT);
         $direccion_usuario = filter_var(trim($_POST["direccion_usuario"]),FILTER_SANITIZE_SPECIAL_CHARS);
         $metodo_pago = filter_var(trim($_POST["metodo_pago"]),FILTER_SANITIZE_SPECIAL_CHARS);
         $terminos_checked = filter_var(trim($_POST["terminos_checked"]),FILTER_SANITIZE_SPECIAL_CHARS);
 
         if (!$terminos_checked || $terminos_checked !== "checked") {
-            $response = ["status"=>false,"msg"=>"Para realizar la reserva de este servicio debes aceptar nuestros Términos y Condiciones."];
+            $response = ["status"=>false,"msg"=>"Para realizar la compra de este servicio debes aceptar nuestros Términos y Condiciones."];
             echo json_encode($response,JSON_UNESCAPED_UNICODE);
             die();
         }
@@ -47,6 +53,12 @@ class checkOutController {
             echo json_encode($response,JSON_UNESCAPED_UNICODE);
             die();
         }
+        //VALIDAMOS EL ID DEL BARRIO
+        if (!is_numeric($barrio_usuario) || !$this->hoodModel->getHoodById($barrio_usuario)) {
+            $response = ["status"=>false,"msg"=>"Por favor seleccione un barrio."];
+            echo json_encode($response,JSON_UNESCAPED_UNICODE);
+            die();
+        }
 
         $service = $this->serviceModel->getServiceById($servicio_id);
         //VALIDAMOS EL ID DEL SERVICIO
@@ -55,12 +67,13 @@ class checkOutController {
             echo json_encode($response,JSON_UNESCAPED_UNICODE);
             die();
         }
-        //VALIDAMOS EL ID DEL BARRIO
-        if (!is_numeric($barrio_usuario) || !$this->hoodModel->getHoodById($barrio_usuario)) {
-            $response = ["status"=>false,"msg"=>"Por favor seleccione un barrio."];
+        //VALIDAMOS QUE EL DUEÑO NO COMPRE SU PROPIO SERVICIO PORQUE NO MAMES
+        if ($this->serviceModel->GetServiceByUser($usuario_id,$servicio_id)) {
+            $response = ["status"=>false,"msg"=>"No puedes comprar tu propio servicio."];
             echo json_encode($response,JSON_UNESCAPED_UNICODE);
             die();
         }
+       
         //VALIDAMOS MÉTODOS DE PAGO
         $paymentMethods = ["pago_directo","tarjeta"];
         if (!in_array($metodo_pago,$paymentMethods)) {

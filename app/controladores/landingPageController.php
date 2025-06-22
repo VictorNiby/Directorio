@@ -4,6 +4,7 @@ require_once(__DIR__ . '/../modelos/serviceModel.php');
 require_once(__DIR__ . '/../modelos/reviewsModel.php');
 require_once(__DIR__ . '/../modelos/favoritesModel.php');
 require_once(__DIR__ . '/../modelos/hoodModel.php');
+require_once(__DIR__ . '/../modelos/historyModel.php');
 
 class LandingPageController{
     private $categoryModel;
@@ -11,6 +12,7 @@ class LandingPageController{
     private $reviewsModel;
     private $favoritesModel;
     private $hoodsModel;
+    private $historyModel;
 
     public function __construct(){
         $this->categoryModel = new CategoryModel;
@@ -18,6 +20,7 @@ class LandingPageController{
         $this->reviewsModel = new ReviewsModel;
         $this->favoritesModel = new favoritesModel;
         $this->hoodsModel = new HoodModel;
+        $this->historyModel = new historyModel;
     }
     
     public function index(){
@@ -114,11 +117,13 @@ class LandingPageController{
         $canUserRateService = false;
 
         if (count($_SESSION) > 0) {
+            $isOwner = $this->serviceModel->GetServiceByUser($_SESSION["id"],$service["id_servicio"]);
+
             $getUserReview = $this->reviewsModel->UserHasRatedService($_SESSION["id"],$service["id_servicio"]);
 
             $hasUserPurchasedService = $this->serviceModel->HasUserPurchasedService($_SESSION["id"],$service["id_servicio"]);
 
-            if (!$getUserReview && $hasUserPurchasedService) {
+            if (!$isOwner && !$getUserReview && $hasUserPurchasedService) {
                 $canUserRateService = true;
             }
         }
@@ -142,6 +147,14 @@ class LandingPageController{
     }
     //END FAVORITES PAGE
 
+    //FAVORITES PAGE
+    public function HistoryPage(){
+        $data = $this->categoryModel->GetAllCategory();
+        $history = $this->historyModel->GetHistory($_SESSION["id"]);
+        include_once (__DIR__.'/../vistas/landing/history.php');
+    }
+    //END FAVORITES PAGE
+
     //CHECKOUT PAGE
     public function CheckOutPage(){
         $data = $this->categoryModel->GetAllCategory();
@@ -149,6 +162,13 @@ class LandingPageController{
         $hoods = $this->hoodsModel->getAllHood();
 
         include_once (__DIR__.'/../vistas/landing/checkout.php');
+    }
+
+    //CONTACT PAGE
+    public function ContactPage(){
+        $data = $this->categoryModel->GetAllCategory();
+
+        include_once (__DIR__.'/../vistas/landing/contact.php');
     }
 
 }
