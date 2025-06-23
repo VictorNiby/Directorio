@@ -24,5 +24,27 @@ class checkOutModel extends Mysql{
         return $stmt->execute([$servicio_id, $usuario_id]);
     }
 
+    public function GetAllSales(){  
+        $query = "SELECT 
+        su.id,
+        s.titulo AS servicio,
+        u.nombre AS usuario_nombre,
+        u.documento AS usuario_documento,
+        su.total,
+        su.fecha,
+        b.nombre AS barrio,
+        su.direccion_usuario,
+        su.metodo_pago,
+        su.estado
+        FROM servicio_usuario su
+        JOIN servicio s ON su.servicio_id = s.id_servicio
+        JOIN usuario u ON su.usuario_id = u.id_usuario
+        JOIN barrio b ON su.barrio_usuario = b.id_barrio;
+        ";
+        $preparedStmt = $this->conn->prepare($query);
+        $preparedStmt->execute();
+        $data = $preparedStmt->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
 
 }
