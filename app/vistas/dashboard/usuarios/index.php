@@ -158,14 +158,13 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
                                         * -> Boton "Borrar" Datos Usuario *
                                         * * * * * * * * * * * * * * * * * *
                                         -->
-                                        <form action="/directorio/rutas/rutas.php" method="POST" class="d-inline formEliminar">
-                                            <input type="hidden" name="page" value="id">
+                                        <form method="POST" class="d-inline formEliminar" id="formDelete"
+                                        data-action="<?= $estado ?>">
                                             <input type="hidden" name="deleteUser" value="<?= $id ?>">
                                             <button type="submit"
                                                 class="btn btn-sm <?= $estado === 'Activo' ? 'bg-gradient-netherwart' : 'bg-gradient-touchgrass' ?> text-white mb-0 px-1 py-1"
                                                 style="width: 30px; height: 30px;"
-                                                onclick="return confirm('<?= $estado === 'Activo' ? '¿Estás seguro de desactivar este usuario?' : '¿Estás seguro de reactivar este usuario?' ?>')"
-                                                title="<?= $estado === 'Activo' ? 'Desactivar usuario' : 'Reactivar usuario' ?>">
+                                                title="<?= $estado === 'Activo' ? 'Desactivar usuario' : 'Reactivar usuario' ?>" >
                                                 <i class="material-symbols-rounded mb-1" style="font-size: 1rem;">
                                                     <?= $estado === 'Activo' ? 'block' : 'check_circle' ?>
                                                 </i>
@@ -200,7 +199,7 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
     <div class="modal fade modal-lg" id="modalNuevoUsuario" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <form action="rutas.php?page=users" method="POST">
+                <form id="formInsert" method="POST" enctype="multipart/form-data">
                     <div class="modal-header bg-dark text-white">
                         <h5 class="modal-title text-white">
                             <i class="fas fa-user-plus me-2"></i> Nuevo Usuario
@@ -247,7 +246,7 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
                 </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary" name="action" value="insertUser">Guardar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
                 </form>
             </div>
@@ -261,7 +260,8 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
     <div class="modal fade modal-lg" id="modalEditarUsuario" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <form action="rutas.php?page=users" method="POST">
+                <form enctype="multipart/form-data" method="POST"
+                id="formUpdate">
                     <div class="modal-header bg-gradient-netherwart text-white">
                         <h5 class="modal-title text-white">
                             <i class="material-symbols-rounded me-2">edit</i> Editar Usuario
@@ -269,7 +269,7 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" id="editUserId" name="id">
+                    <input type="hidden" id="editUserId" name="id">
                     <div class="row">
                         <div class="col-md-6">
                         <div class="input-group input-group-outline mb-3">
@@ -342,108 +342,112 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
     * -> Javascript con funciones *
     * * * * * * * * * * * * * * * *
     -->
-<script>
-    /* * * * * * * * * * * * * * * * * * *
-     * -> Manejo de datatime customizado *
-     * * * * * * * * * * * * * * * * * * */ 
-    flatpickr("#birthdate", {
-    dateFormat: "Y-m-d",
-    maxDate: "today",
-    defaultDate: null,
-    locale: {
-      firstDayOfWeek: 1
-    }});
-    flatpickr("#editUserNacimiento", {
-    dateFormat: "Y-m-d",
-    maxDate: "today",
-    locale: {
-    firstDayOfWeek: 1
-    }});
-    /* * * * * * * * * * * * * * * * * *
-     * -> Cargar la modal ver usuario  *
-     * * * * * * * * * * * * * * * * * */ 
-    function cargarDatosVerUsuario(id, nombre, correo, telefono, estado, documento, nacimiento) {
-        document.getElementById('verUserNombre').innerText = nombre;
-        document.getElementById('verUserCorreo').innerText = correo;
-        document.getElementById('verUserTelefono').innerText = telefono;
-        document.getElementById('verUserDocumento').innerText = documento;
-        document.getElementById('verUserNacimiento').innerText = nacimiento;
-        document.getElementById('verUserEstado').innerText = estado;
-    }
-    /* * * * * * * * * * * * * * *
-     * -> Paginacion de la tabla *
-     * * * * * * * * * * * * * * */ 
-    const filasPorPagina = 5
-    document.addEventListener('DOMContentLoaded', function() {
-        const cuerpo = document.querySelector('.table-responsive tbody');
-        const filas = Array.from(cuerpo.querySelectorAll('tr'));
-        const paginacion = document.getElementById('paginacionUsuarios');
-        if (filas.length <= filasPorPagina) {
-            paginacion.style.display = 'none';
-            return;
+    
+
+    <script>
+        /* * * * * * * * * * * * * * * * * * *
+        * -> Manejo de datatime customizado *
+        * * * * * * * * * * * * * * * * * * */ 
+        flatpickr("#birthdate", {
+        dateFormat: "Y-m-d",
+        maxDate: "today",
+        defaultDate: null,
+        locale: {
+        firstDayOfWeek: 1
+        }});
+        flatpickr("#editUserNacimiento", {
+        dateFormat: "Y-m-d",
+        maxDate: "today",
+        locale: {
+        firstDayOfWeek: 1
+        }});
+        /* * * * * * * * * * * * * * * * * *
+        * -> Cargar la modal ver usuario  *
+        * * * * * * * * * * * * * * * * * */ 
+        function cargarDatosVerUsuario(id, nombre, correo, telefono, estado, documento, nacimiento) {
+            document.getElementById('verUserNombre').innerText = nombre;
+            document.getElementById('verUserCorreo').innerText = correo;
+            document.getElementById('verUserTelefono').innerText = telefono;
+            document.getElementById('verUserDocumento').innerText = documento;
+            document.getElementById('verUserNacimiento').innerText = nacimiento;
+            document.getElementById('verUserEstado').innerText = estado;
         }
-        let paginaActual = 1;
-        const totalPaginas = Math.ceil(filas.length / filasPorPagina);
-        function mostrarPagina(pagina) {
-            paginaActual = pagina;
-            const inicio = (pagina - 1) * filasPorPagina;
-            const fin = inicio + filasPorPagina;
-            filas.forEach((fila, i) => {
-                fila.style.display = (i >= inicio && i < fin) ? 'table-row' : 'none';
-            });
-            actualizarPaginacion();
-        }
-        function actualizarPaginacion() {
-            paginacion.innerHTML = '';
-            paginacion.style.display = 'flex';
-            if (paginaActual > 1) {
-                const btnAnterior = document.createElement('button');
-                btnAnterior.className = 'btn btn-sm btn-outline-dark';
-                btnAnterior.innerHTML = '&laquo;';
-                btnAnterior.addEventListener('click', () => mostrarPagina(paginaActual - 1));
-                paginacion.appendChild(btnAnterior);
+        /* * * * * * * * * * * * * * *
+        * -> Paginacion de la tabla *
+        * * * * * * * * * * * * * * */ 
+        const filasPorPagina = 5
+        document.addEventListener('DOMContentLoaded', function() {
+            const cuerpo = document.querySelector('.table-responsive tbody');
+            const filas = Array.from(cuerpo.querySelectorAll('tr'));
+            const paginacion = document.getElementById('paginacionUsuarios');
+            if (filas.length <= filasPorPagina) {
+                paginacion.style.display = 'none';
+                return;
             }
-            const inicioPaginas = Math.max(1, paginaActual - 2);
-            const finPaginas = Math.min(totalPaginas, paginaActual + 2);
-            for (let i = inicioPaginas; i <= finPaginas; i++) {
-                const btn = document.createElement('button');
-                btn.className = 'btn btn-sm ' + (i === paginaActual ? 'btn-dark' : 'btn-outline-dark');
-                btn.textContent = i;
-                btn.addEventListener('click', () => mostrarPagina(i));
-                paginacion.appendChild(btn);
+            let paginaActual = 1;
+            const totalPaginas = Math.ceil(filas.length / filasPorPagina);
+            function mostrarPagina(pagina) {
+                paginaActual = pagina;
+                const inicio = (pagina - 1) * filasPorPagina;
+                const fin = inicio + filasPorPagina;
+                filas.forEach((fila, i) => {
+                    fila.style.display = (i >= inicio && i < fin) ? 'table-row' : 'none';
+                });
+                actualizarPaginacion();
             }
-            if (paginaActual < totalPaginas) {
-                const btnSiguiente = document.createElement('button');
-                btnSiguiente.className = 'btn btn-sm btn-outline-dark';
-                btnSiguiente.innerHTML = '&raquo;';
-                btnSiguiente.addEventListener('click', () => mostrarPagina(paginaActual + 1));
-                paginacion.appendChild(btnSiguiente);
+            function actualizarPaginacion() {
+                paginacion.innerHTML = '';
+                paginacion.style.display = 'flex';
+                if (paginaActual > 1) {
+                    const btnAnterior = document.createElement('button');
+                    btnAnterior.className = 'btn btn-sm btn-outline-dark';
+                    btnAnterior.innerHTML = '&laquo;';
+                    btnAnterior.addEventListener('click', () => mostrarPagina(paginaActual - 1));
+                    paginacion.appendChild(btnAnterior);
+                }
+                const inicioPaginas = Math.max(1, paginaActual - 2);
+                const finPaginas = Math.min(totalPaginas, paginaActual + 2);
+                for (let i = inicioPaginas; i <= finPaginas; i++) {
+                    const btn = document.createElement('button');
+                    btn.className = 'btn btn-sm ' + (i === paginaActual ? 'btn-dark' : 'btn-outline-dark');
+                    btn.textContent = i;
+                    btn.addEventListener('click', () => mostrarPagina(i));
+                    paginacion.appendChild(btn);
+                }
+                if (paginaActual < totalPaginas) {
+                    const btnSiguiente = document.createElement('button');
+                    btnSiguiente.className = 'btn btn-sm btn-outline-dark';
+                    btnSiguiente.innerHTML = '&raquo;';
+                    btnSiguiente.addEventListener('click', () => mostrarPagina(paginaActual + 1));
+                    paginacion.appendChild(btnSiguiente);
+                }
             }
-        }
-        mostrarPagina(1);
-    });
-    /* * * * * * * * * * * * * * * * * * *
-     * -> Cargar la modal editar usuario *
-     * * * * * * * * * * * * * * * * * * */ 
-    function cargarDatosEditarUsuario(id, nombre, correo = '', telefono = '', nacimiento = '') {
-        document.getElementById('editUserId').value = id;
-        document.getElementById('editUserNombre').value = nombre;
-        document.getElementById('editUserCorreo').value = correo;
-        document.getElementById('editUserTelefono').value = telefono;
-        document.getElementById('editUserNacimiento')._flatpickr.setDate(nacimiento);
-        document.querySelectorAll('#modalEditarUsuario .input-group').forEach(group => {
-        const input = group.querySelector('input');
-        if (input && input.value.trim() !== '') {
-        group.classList.add('is-filled');
-        } else {
-        group.classList.remove('is-filled');
-        }
+            mostrarPagina(1);
         });
-        }
-</script>
-<!--
-* * * * * * * * * * * * * * * * * * * * *
-* -> Inclusión de generos (plantillas)  *
-* * * * * * * * * * * * * * * * * * * * *
--->
-<?php include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/footer.php'; ?>
+        /* * * * * * * * * * * * * * * * * * *
+        * -> Cargar la modal editar usuario *
+        * * * * * * * * * * * * * * * * * * */ 
+        function cargarDatosEditarUsuario(id, nombre, correo = '', telefono = '', nacimiento = '') {
+            document.getElementById('editUserId').value = id;
+            document.getElementById('editUserNombre').value = nombre;
+            document.getElementById('editUserCorreo').value = correo;
+            document.getElementById('editUserTelefono').value = telefono;
+            document.getElementById('editUserNacimiento')._flatpickr.setDate(nacimiento);
+            document.querySelectorAll('#modalEditarUsuario .input-group').forEach(group => {
+            const input = group.querySelector('input');
+            if (input && input.value.trim() !== '') {
+            group.classList.add('is-filled');
+            } else {
+            group.classList.remove('is-filled');
+            }
+            });
+            }
+    </script>
+    <!--
+    * * * * * * * * * * * * * * * * * * * * *
+    * -> Inclusión de generos (plantillas)  *
+    * * * * * * * * * * * * * * * * * * * * *
+    -->
+
+<?php include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/footer.php'; ?>
+<script type="module" src="<?= URL_BASE ?>/js/users/users.js"></script>

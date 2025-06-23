@@ -44,6 +44,7 @@ if (!defined('URL_BASE')) {
   <link id="pagestyle" href="<?= URL_BASE ?>/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
 
 </head>
 <style>

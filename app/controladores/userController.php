@@ -19,9 +19,12 @@ class UserController {
     }
 
     public function insertUser() {
+        $response = [];
+
         if (!isset($_POST["name"], $_POST["email"], $_POST["password"], $_POST["phone"], $_POST["document"], $_POST["birthdate"])) {
-            echo "Todos los campos son requeridos.";
-            return;
+            $response = ["status"=>false,"msg"=>"Todos los campos son requeridos."];
+            echo json_encode($response,JSON_UNESCAPED_UNICODE);
+            die();
         }
 
         $name = trim($_POST["name"]);
@@ -35,23 +38,31 @@ class UserController {
         $age = $birthday->diff($today)->y;
 
         if ($age < 18) {
-            echo "Debe tener al menos 18 años.";
-            return;
+            $response = ["status"=>false,"msg"=>"Debe tener al menos 18 años."];
+            echo json_encode($response,JSON_UNESCAPED_UNICODE);
+            die();
         }
 
-        if (!$this->model->insert($name, $email, $password, $phone, $document, $birthdate)) {
-            echo "El usuario pudo ser creado.";
-            return;
+        try {
+            $this->model->insert($name, $email, password_hash($password,PASSWORD_DEFAULT), $phone, $document, $birthdate);
+        } catch (PDOException $err) {
+            $response = ["status"=>false,"msg"=>"El usuario no pudo ser creado."];
+            echo json_encode($response,JSON_UNESCAPED_UNICODE);
+            die();
         }
 
-        header("Location: /directorio/rutas/rutas.php?page=users");
-        exit();
+        $response = ["status"=>true,"msg"=>"Usuario creado correctamente."];
+        echo json_encode($response,JSON_UNESCAPED_UNICODE);
+        die();
     }
 
     public function updateUser() {
-        if (!isset($_POST["id"], $_POST["name"], $_POST["email"], $_POST["phone"], $_POST["document"], $_POST["birthdate"])) {
-            echo "Datos inválidos.";
-            return;
+        $response = [];
+
+        if (!isset($_POST["id"], $_POST["name"], $_POST["email"], $_POST["phone"], $_POST["birthdate"])) {
+            $response = ["status"=>false,"msg"=>"Todos los campos son requeridos."];
+            echo json_encode($response,JSON_UNESCAPED_UNICODE);
+            die();
         }
 
         $userId = (int) $_POST["id"];
@@ -64,32 +75,44 @@ class UserController {
         $age = $birthday->diff($today)->y;
 
         if ($age < 18) {
-            echo "Debe tener al menos 18 años.";
-            return;
+            $response = ["status"=>false,"msg"=>"Debe tener al menos 18 años."];
+            echo json_encode($response,JSON_UNESCAPED_UNICODE);
+            die();
         }
 
-        if (!$this->model->update($userId, $name, $email, $phone, $birthdate)) {
-            echo "El usuario pudo ser actualizado.";
-            return;
+        try {
+            $this->model->update($userId, $name, $email, $phone, $birthdate);
+        } catch (PDOException $err) {
+            $response = ["status"=>false,"msg"=>"El usuario no pudo ser actualizado."];
+            echo json_encode($response,JSON_UNESCAPED_UNICODE);
+            die();
         }
 
-        header("Location: /directorio/rutas/rutas.php?page=users");
-        exit();
+        $response = ["status"=>true,"msg"=>"El usuario se actualizó correctamente."];
+        echo json_encode($response,JSON_UNESCAPED_UNICODE);
+        die();
     }
 
     public function deleteUser() {
+        $response = [];
+
         if (!isset($_POST["deleteUser"]) || !is_numeric($_POST["deleteUser"])) {
-            echo "Datos inválidos.";
-            return;
+            $response = ["status"=>false,"msg"=>"Datos inválidos."];
+            echo json_encode($response,JSON_UNESCAPED_UNICODE);
+            die();
         }
 
         $userId = (int) $_POST["deleteUser"];
-        if (!$this->model->delete($userId)) {
-            echo "El usuario no pudo ser eliminado.";
-            return;
+        try {
+            $this->model->delete($userId);
+        } catch (PDOException $err) {
+            $response = ["status"=>false,"msg"=>"No se pudo desactivar el usuario."];
+            echo json_encode($response,JSON_UNESCAPED_UNICODE);
+            die();
         }
 
-        header("Location: /directorio/rutas/rutas.php?page=users");
-        exit();
+        $response = ["status"=>true];
+        echo json_encode($response,JSON_UNESCAPED_UNICODE);
+        die();
     }
 }
