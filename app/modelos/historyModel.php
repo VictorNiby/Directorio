@@ -11,7 +11,7 @@ class historyModel extends Mysql{
     }
 
     public function GetHistory($user_id){  
-        $query = "SELECT servicio.id_servicio,servicio.titulo,servicio_imagenes.imagen_ref as imagen,servicio_usuario.total,servicio_usuario.fecha, servicio_usuario.estado
+        $query = "SELECT servicio.id_servicio,servicio.usuario_id_usuario AS owner_id,servicio.titulo,servicio_imagenes.imagen_ref as imagen,servicio_usuario.total,servicio_usuario.fecha, servicio_usuario.estado
         FROM servicio_usuario
         INNER JOIN usuario ON usuario.id_usuario = servicio_usuario.usuario_id
         INNER JOIN servicio ON servicio.id_servicio = servicio_usuario.servicio_id

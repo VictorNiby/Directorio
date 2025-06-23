@@ -119,6 +119,10 @@ if ($_SERVER["REQUEST_METHOD"] === "GET"){
             $isLoggedIn && $_SESSION["role"] === "proveedor" ? $landingPageController->OrdersPage() : header("Location:rutas.php?page=logIn");
             break;
 
+        case 'chat':
+            $isLoggedIn ? $landingPageController->ChatPage() : header("Location:rutas.php?page=logIn");
+            break;
+
         // ============================= DASHBOARD ===========================================
         case 'categories':
             $isLoggedIn ? $categoryController->index() : header("Location: rutas.php?page=logIn");

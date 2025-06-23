@@ -167,9 +167,11 @@ if (!defined('URL_BASE')) {
                                 Tienda
                             </a>
 
-                            <a href="<?= URL_BASE ?>/rutas/rutas.php?page=shoppingHistory" class="nav-item nav-link <?= $_GET["page"] === 'shoppingHistory' ? 'active' : '' ?>">
-                                Historial de Compras
-                            </a>
+                            <?php if(!empty($_SESSION)) : ?>
+                                <a href="<?= URL_BASE ?>/rutas/rutas.php?page=shoppingHistory" class="nav-item nav-link <?= $_GET["page"] === 'shoppingHistory' ? 'active' : '' ?>">
+                                    Historial de Compras
+                                </a>
+                            <?php endif ?>
 
                             <?php if(count($_SESSION) > 1 && $_SESSION["role"] === "proveedor") : ?>
                                 <a href="<?= URL_BASE ?>/rutas/rutas.php?page=orders" class="nav-item nav-link <?= $_GET["page"] === 'orders' ? 'active' : '' ?>">

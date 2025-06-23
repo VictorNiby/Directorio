@@ -188,6 +188,12 @@ class LandingPageController{
         include_once (__DIR__.'/../vistas/landing/orders.php');
     }
 
+    public function ChatPage(){
+        // $data = $this->categoryModel->GetAllCategory();
+
+        include_once (__DIR__.'/../vistas/landing/chat.php');
+    }
+
 }
     
 

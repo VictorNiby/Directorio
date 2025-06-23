@@ -31,7 +31,7 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                                 <th>Total</th>
                                 <th>Fecha</th>
                                 <th>Estado</th>
-                                <th>Cancelar</th>
+                                <th>Acciones</th> 
                             </tr>
                         </thead>
                         <tbody class="align-middle">
@@ -62,11 +62,17 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                                     <td class="align-middle">
                                         <?php if (!in_array($item["estado"],["Cancelado","Realizado"])) : ?>
                                             <button class="btn btn-sm btn-danger"
+                                            style="margin-right: 10px;"
                                             data-service="<?= $item["id_servicio"] ?>"
+                                            title="Cancelar Servicio"
                                             id="btnCancel">
                                                 <i class="fa fa-times"></i>
                                             </button>
                                         <?php endif ?>
+
+                                        <a href="<?= URL_BASE ?>/rutas/rutas.php?page=chat&user=<?= $item["owner_id"] ?>" class="text-dark" title="Chatear con el vendedor">
+                                            <i class="fa-solid fa-comments"></i>
+                                        </a>
                                     </td>
                                 </tr>
                            <?php endforeach ?>
