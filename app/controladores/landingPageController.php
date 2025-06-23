@@ -50,32 +50,45 @@ class LandingPageController{
 
         $services_count = [];
         $services = [];
-        $filter_category = isset($_GET["category"]) ? intval($_GET["category"]) : null ;
-        $min = isset($_GET["min"]) ? intval($_GET["min"]) : null ;
-        $max = isset($_GET["max"]) ? intval($_GET["max"]) : null ;
+        $filter_category = isset($_GET["category"]) && is_numeric($_GET["category"]) ? intval($_GET["category"]) : null;
+        $price = isset($_GET["price"]) && is_numeric($_GET["price"]) ? intval($_GET["price"]) : null ;
 
         //TRAER LOS SERVICIOS DEPENDIENDO DE DE LOS FILTROS
-        if (isset($filter_category) || (isset($min) && isset($max))) {
+        if (isset($filter_category) || (isset($price) )) {
+            $ranges = [
+                0 => ['min' => 0, 'max' => 999999999],
+                1 => ['min' => 0, 'max' => 5000],
+                2 => ['min' => 5000, 'max' => 15000],
+                3 => ['min' => 15000, 'max' => 30000],
+                4 => ['min' => 30000, 'max' => 60000],
+                5 => ['min' => 60000, 'max' => 100000],
+                6 => ['min' => 100000, 'max' => 999999999]
+            ];
 
-            if (isset($filter_category) && !isset($min) ) {
+            if (isset($filter_category) && !isset($price) ) {
 
-                if(!is_numeric($filter_category) || $filter_category < 1) {
-                    header("Location: rutas.php?page=home"); 
+                if(!$this->categoryModel->CategoryById($filter_category)){
+                    header("Location: rutas.php?page=shop"); 
                     die();
                 }
                 $services = $this->serviceModel->ServicesByCategory($filter_category);
-                
 
-            }else if(isset($min) && !isset($filter_category)){
+            }else if(isset($price) && !isset($filter_category)){
                 
-                if ($min < 0 || $max <= $min) {
-                    header("Location: rutas.php?page=home"); 
+                if (!isset($ranges[$price])) {
+                    header("Location: rutas.php?page=shop"); 
                     die();
                 }
 
-                $services = $this->serviceModel->ServicesByPrice($min,$max);
+                $services = $this->serviceModel->ServicesByPrice($ranges[$price]["min"],$ranges[$price]["max"]);
+                
             }else{
+                if (!$this->categoryModel->CategoryById($filter_category) || !isset($ranges[$price])) {
+                    header("Location: rutas.php?page=shop"); 
+                    die();
+                }
 
+                $services = $this->serviceModel->ServicesByCategoryAndPrice($filter_category,$ranges[$price]["min"],$ranges[$price]["max"]);
             }
 
         }else {

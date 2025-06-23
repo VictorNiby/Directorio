@@ -7,7 +7,7 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
     <div class="container-fluid">
         <div class="row px-xl-5">
             <div class="col-12">
-                <nav class="breadcrumb bg-light mb-30">
+                <nav class="breadcrumb bg-light mb-5">
                     <a class="breadcrumb-item text-dark" href="<?= URL_BASE ?>/rutas/rutas.php?page=home">Inicio</a>
                     <a class="breadcrumb-item text-dark" href="<?= URL_BASE ?>/rutas/rutas.php?page=shop">Tienda</a>
                     <span class="breadcrumb-item active">Lista de Servicios</span>
@@ -26,58 +26,67 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                     <!-- INICIO FILTRO PRECIO -->
                     <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filtrar por precio</span></h5>
                     <div class="bg-light p-4 mb-30">
-                        <form action="rutas.php">
-                                <div class="custom-control d-flex align-items-center justify-content-between mb-3">
-                                    <a href="rutas.php?page=shop"
-                                    class="text-dark">
-                                        Cualquier precio
-                                    </a>
-                                </div>
-                                <div class="custom-control d-flex align-items-center justify-content-between mb-3">
-                                    <a href="rutas.php?page=shop&min0&max=2000"
-                                    class="text-dark">
-                                        0 - 2000
-                                    </a>
-                                </div>
+                        <?php
+                            $category = isset($_GET["category"]) && is_numeric($_GET["category"]) ? $_GET["category"] : null;
 
-                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                    <input type="radio" class="custom-control-input" id="price-1">
-                                    <label class="custom-control-label" for="price-1">$0 - $1000</label>
-                                    <span class="badge border font-weight-normal">0</span>
-                                </div>
-                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                    <input type="radio" class="custom-control-input" id="price-2">
-                                    <label class="custom-control-label" for="price-2">$1000 - $5000</label>
-                                    <span class="badge border font-weight-normal">0</span>
-                                </div>
-                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                    <input type="radio" class="custom-control-input" id="price-3">
-                                    <label class="custom-control-label" for="price-3">$5000 - $10000</label>
-                                    <span class="badge border font-weight-normal">0</span>
-                                </div>
-                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                    <input type="radio" class="custom-control-input" id="price-4">
-                                    <label class="custom-control-label" for="price-4">$10000 - $20000</label>
-                                    <span class="badge border font-weight-normal">0</span>
-                                </div>
-                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                                    <input type="radio" class="custom-control-input" id="price-5">
-                                    <label class="custom-control-label" for="price-5">$20000 - $50000</label>
-                                    <span class="badge border font-weight-normal">0</span>
-                                </div>
+                            $filterURL = isset($category) ? 'rutas.php?page=shop&category='.$category : 'rutas.php?page=shop'; 
+                        ?>
 
-                                <button class="btn btn-primary mt-3">Filtrar</button>
-                        </form>
+                        <div class="custom-control d-flex align-items-center justify-content-between mb-3">
+                            <a href="<?= $filterURL ?>&price=0" class="text-<?= isset($_GET["price"]) && $_GET["price"] === "0" ? 'primary' : 'dark'?>">
+                                Cualquier precio
+                            </a>
+                        </div>
+
+                        <div class="custom-control d-flex align-items-center justify-content-between mb-3">
+                            <a href="<?= $filterURL ?>&price=1" class="text-<?= isset($_GET["price"]) && $_GET["price"] === "1" ? 'primary' : 'dark'?>">
+                                $0 - $5.000
+                            </a>
+                        </div>
+
+                        <div class="custom-control d-flex align-items-center justify-content-between mb-3">
+                            <a href="<?= $filterURL ?>&price=2" class="text-<?= isset($_GET["price"]) && $_GET["price"] === "2" ? 'primary' : 'dark'?>">
+                                $5.000 - $15.000
+                            </a>
+                        </div>
+
+                        <div class="custom-control d-flex align-items-center justify-content-between mb-3">
+                            <a href="<?= $filterURL ?>&price=3" class="text-<?= isset($_GET["price"]) && $_GET["price"] === "3" ? 'primary' : 'dark'?>">
+                                $15.000 - $30.000
+                            </a>
+                        </div>
+
+                        <div class="custom-control d-flex align-items-center justify-content-between mb-3">
+                            <a href="<?= $filterURL ?>&price=4" class="text-<?= isset($_GET["price"]) && $_GET["price"] === "4" ? 'primary' : 'dark'?>">
+                                $30.000 - $60.000
+                            </a>
+                        </div>
+
+                        <div class="custom-control d-flex align-items-center justify-content-between mb-3">
+                            <a href="<?= $filterURL ?>&price=5" class="text-<?= isset($_GET["price"]) && $_GET["price"] === "5" ? 'primary' : 'dark'?>">
+                                $60.000 - $100.000
+                            </a>
+                        </div>
+
+                        <div class="custom-control d-flex align-items-center justify-content-between mb-3">
+                            <a href="<?= $filterURL ?>&price=6" class="text-<?= isset($_GET["price"]) && $_GET["price"] === "6" ? 'primary' : 'dark'?>">
+                                $100.000 +
+                            </a>
+                        </div>
                     </div>
                     <!-- FINAL FILTRO PRECIO  -->
                     
                     <!-- INICIO FILTRO CATEGORIAS  -->
                     <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filtro por categoria</span></h5>
                     <div class="bg-light p-4 mb-30">
+                        <?php
+                            $price = isset($_GET["price"]) && is_numeric($_GET["price"]) ? $_GET["price"] : null;
+                        ?>
+
                         <?php foreach ($data as $index => $category) : ?>
                         <div class="custom-control mb-3 d-flex justify-content-between">
-                            <a href="rutas.php?page=shop&category=<?= $category["id_categoria"]?>"
-                            class="text-dark">
+                            <a href="rutas.php?page=shop&category=<?= $category["id_categoria"] ?><?= isset($price) ? '&price='.$price : '' ?>"
+                            class="text-<?= isset($_GET["category"]) && $_GET["category"] === strval($category["id_categoria"]) ? 'primary' : 'dark'?>">
                                 <?= $category["nombre"] ?>
                             </a>
 

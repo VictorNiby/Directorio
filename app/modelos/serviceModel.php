@@ -134,9 +134,10 @@ class ServiceModel extends Mysql {
         $query = "SELECT s.id_servicio, s.titulo, s.precio,
         servicio_imagenes.imagen_ref as imagen_servicio
         FROM servicio s
-        INNER JOIN servicio_imagenes on servicio_imagenes.servicio_id = s.id_servicio
+        LEFT JOIN servicio_imagenes on servicio_imagenes.servicio_id = s.id_servicio
         INNER JOIN categoria c on c.id_categoria = s.categoria_id_categoria
-        WHERE c.id_categoria = ?";
+        WHERE c.id_categoria = ? AND s.estado = 'Activo'
+        GROUP BY S.id_servicio ";
         
         $preparedStmt = $this->connection->prepare($query);
         $preparedStmt->execute([$category_id]);
@@ -159,8 +160,9 @@ class ServiceModel extends Mysql {
         $query = "SELECT s.id_servicio, s.titulo, s.precio,
         servicio_imagenes.imagen_ref as imagen_servicio
         FROM servicio s
-        INNER JOIN servicio_imagenes on servicio_imagenes.servicio_id = s.id_servicio
-        WHERE s.precio BETWEEN ? and ?";
+        LEFT JOIN servicio_imagenes on servicio_imagenes.servicio_id = s.id_servicio
+        WHERE s.precio BETWEEN ? and ? AND s.estado = 'Activo' 
+        GROUP BY s.id_servicio";
         
         $preparedStmt = $this->connection->prepare($query);
         $preparedStmt->execute([$min,$max]);
@@ -168,10 +170,24 @@ class ServiceModel extends Mysql {
         return $services;
     }
 
+    public function ServicesByCategoryAndPrice($category_id,$min,$max){
+        $query = "SELECT s.id_servicio, s.titulo, s.precio,
+        servicio_imagenes.imagen_ref as imagen_servicio
+        FROM servicio s
+        LEFT JOIN servicio_imagenes on servicio_imagenes.servicio_id = s.id_servicio
+        WHERE s.precio BETWEEN ? and ? AND s.estado = 'Activo' AND s.categoria_id_categoria = ?
+        GROUP BY s.id_servicio";
+        
+        $preparedStmt = $this->connection->prepare($query);
+        $preparedStmt->execute([$min,$max,$category_id]);
+        $services = $preparedStmt->fetchAll(PDO::FETCH_ASSOC);
+        return $services;
+    }
+
     public function CountServiceByCategory($category_id){
         $query = "SELECT COUNT(s.categoria_id_categoria) AS service_count
         FROM servicio s
-        WHERE s.categoria_id_categoria = ?";
+        WHERE s.categoria_id_categoria = ? AND s.estado = 'Activo' ";
         $preparedStmt = $this->connection->prepare($query);
         $preparedStmt->execute([$category_id]);
 
