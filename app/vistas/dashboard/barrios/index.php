@@ -2,33 +2,48 @@
 define('RUTA_BASE', $_SERVER['DOCUMENT_ROOT'] . '/directorio');
 include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
 ?>
+<style>   
+.bg-gradient-sunshine {
+    background: linear-gradient(90deg,rgb(255, 153, 0),rgb(253, 179, 42));    
+}
 
+.bg-gradient-deepocean {
+    background: linear-gradient(90deg,rgb(66, 76, 219),rgb(91, 100, 224));
+}
+
+.bg-gradient-touchgrass {
+    background: linear-gradient(90deg,rgb(62, 175, 88),rgb(80, 195, 90));
+}
+
+.bg-gradient-netherwart {
+    background: linear-gradient(90deg,rgb(224, 57, 57),rgb(228, 75, 75));
+}
+</style>
 <div class="container-fluid py-2">
     <div class="row">
         <div class="col-12">
             <div class="card my-4">
                 <!-- Encabezado de la tarjeta -->
-<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 pb-4">
     <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3 px-3 d-flex justify-content-between align-items-center">
         <h6 class="text-white text-capitalize mb-0 d-flex align-items-center">
             <!-- <i class="material-symbols-rounded opacity-10 me-2">location_city</i> -->
             Gestión de Barrios
         </h6>
-
+        
         <button
-            class="btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center shadow-sm"
-            style="width: 40px; height: 40px;"
-            title="Nuevo barrio"
-            aria-label="Agregar nuevo barrio"
+            class="btn btn-outline-light rounded d-flex align-items-center justify-content-center shadow-sm"
+            style="width: 40px; height: 40px; border-radius: 8px;"
+            title="Nuevo Barrio"
+            aria-label="Nuevo Barrio"
             data-bs-toggle="modal"
             data-bs-target="#modalNuevoBarrio">
             <i class="material-symbols-rounded" style="font-size: 20px;">add</i>
         </button>
     </div>
 </div>
-
-
-                <!-- Cuerpo de la tarjeta -->
+            </div>
+                            <!-- Cuerpo de la tarjeta -->
                 <div class="card-body px-0 pb-2">
                     <div class="table-responsive p-0">
                         <table id="tablaBarrios" class="table table-striped table-bordered align-items-center mb-0">
@@ -61,9 +76,9 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
                                                 </span>
                                             </td>
                                             <td class="align-middle text-center">
-                                                <button class="btn btn-sm bg-gradient-warning text-white mb-0 px-1 py-1 rounded-circle me-1"
+                                                <button class="btn btn-sm bg-gradient-sunshine text-white mb-0 px-1 py-1 me-1"
                                                     style="width: 30px; height: 30px;"
-                                                    title="Editar barrio"
+                                                    title="Editar Barrio"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#modalEditarBarrio"
                                                     onclick="cargarDatosEditarBarrio(<?= $id ?>, '<?= addslashes($nombre) ?>', '<?= addslashes($estado) ?>')">
@@ -72,7 +87,7 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
                                                 <form action="/directorio/rutas/rutas.php" method="POST" class="d-inline formEliminar">
                                                     <input type="hidden" name="page" value="hoods">
                                                     <input type="hidden" name="deleteHood" value="<?= $id ?>">
-                                                    <button type="submit" class="btn btn-sm bg-gradient-danger text-white mb-0 px-1 py-1 rounded-circle"
+                                                    <button type="submit" class="btn btn-sm bg-gradient-netherwart text-white mb-0 px-1 py-1"
                                                         style="width: 30px; height: 30px;"
                                                         onclick="return confirm('¿Estás seguro de eliminar este barrio?')"
                                                         title="Eliminar barrio">
@@ -97,7 +112,6 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
                         <div id="paginacionBarrios" class="mt-3 d-flex justify-content-center gap-1 font-weight-bold"></div>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
 </div>
@@ -111,7 +125,7 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
                     <!-- <i class="material-symbols-rounded opacity-10 me-2">add_location</i> -->
                     Nuevo Barrio
                 </h5>
-                <button type="button" class="btn-close btn-close-white text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="rutas.php?page=hoods" method="POST">
                 <div class="modal-body">
@@ -138,7 +152,7 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
                     <!-- <i class="material-symbols-rounded opacity-10 me-2">edit_location</i> -->
                     Editar Barrio
                 </h5>
-                <button type="button" class="btn-close btn-close-white text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="rutas.php?page=hoods" method="POST">
                 <input type="hidden" name="id" id="editHoodId">

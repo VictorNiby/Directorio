@@ -42,16 +42,16 @@ class UserModel extends Mysql {
         return $stmt->execute([$nombre, $correo, password_hash($password, PASSWORD_BCRYPT), $telefono, $rol, $documento, $nacimiento]);
     }
 
-    public function update($id, $nombre, $correo, $telefono, $documento, $nacimiento) {
+    public function update($id, $nombre, $correo, $telefono, $nacimiento) {
         if (!is_numeric($id)) {
             throw new Exception("ID inválido para actualizar usuario");
         }
 
         $query = "UPDATE usuario 
-                  SET nombre = ?, correo = ?, telefono = ?, documento = ?, nacimiento = ?
+                  SET nombre = ?, correo = ?, telefono = ?, nacimiento = ?
                   WHERE id_usuario = ?";
         $stmt = $this->connection->prepare($query);
-        return $stmt->execute([$nombre, $correo, $telefono, $documento, $nacimiento, $id]);
+        return $stmt->execute([$nombre, $correo, $telefono, $nacimiento, $id]);
     }
 
     public function delete($id){

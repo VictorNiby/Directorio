@@ -58,7 +58,6 @@ class UserController {
         $name = trim($_POST["name"]);
         $email = trim($_POST["email"]);
         $phone = trim($_POST["phone"]);
-        $document = trim($_POST["document"]);
         $birthdate = $_POST["birthdate"];
         $birthday = new DateTime($birthdate);
         $today = new DateTime();
@@ -69,7 +68,7 @@ class UserController {
             return;
         }
 
-        if (!$this->model->update($userId, $name, $email, $phone, $document, $birthdate)) {
+        if (!$this->model->update($userId, $name, $email, $phone, $birthdate)) {
             echo "El usuario pudo ser actualizado.";
             return;
         }

@@ -22,90 +22,112 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
     flex-direction: column !important;
     gap: 8px !important;
 }
+.bg-gradient-sunshine {
+    background: linear-gradient(90deg,rgb(255, 153, 0),rgb(253, 179, 42));    
+}
+
+.bg-gradient-deepocean {
+    background: linear-gradient(90deg,rgb(66, 76, 219),rgb(91, 100, 224));
+}
+
+.bg-gradient-touchgrass {
+    background: linear-gradient(90deg,rgb(62, 175, 88),rgb(80, 195, 90));
+}
+
+.bg-gradient-netherwart {
+    background: linear-gradient(90deg,rgb(224, 57, 57),rgb(228, 75, 75));
+}
 </style>
 <main>
-    <div class="container-fluid px-4">
-        <div class="card mb-4 mt-4 shadow-sm border-1 rounded-4 overflow-hidden">
-        <!--"SELECT chat.id_chat, chat.fecha_creacion, pro.nombre as proovedor, cli.nombre as cliente, chat.estado FROM chat
-        INNER JOIN usuario pro on usuario_id_usuario_pro = pro.id_usuario
-        INNER JOIN usuario cli on usuario_id_usuario_cli = cli.id_usuario" -->
-            <!-- Header -->
-            <div class="p-4 d-flex justify-content-between align-items-center bg-dark text-white">
-                <h5 class="mb-0 fw-bold d-flex align-items-center gap-2">
-                    <i class="fas fa-city me-2 fs-5"></i> Gestión de Chats
-                </h5>
-            </div>
-
-            <!-- Tabla -->
-            <div class="card-body p-4 bg-white">
-                <div class="table-responsive">
-                    <table id="tablaChat" class="table table-hover table-striped table-bordered align-middle mb-0">
-                        <thead>
-                            <tr>
-                                <th class="text-center">#</th>
-                                <th class="text-center">Proovedor</th>
-                                <th class="text-center">Cliente</th>
-                                <th class="text-center">Fecha de Creacion</th>
-                                <th class="text-center">Estado</th>
-                                <th class="text-center">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if (!empty($chat) && is_array($chat)): ?>
-                                
-                                <?php foreach ($chat as $index => $chats):
-                            
-                                    $numero = $index + 1;
-                                    $idChat = (int)($chats['id_chat'] ?? 0);
-                                    $proovedor = htmlspecialchars($chats['proovedor'] ?? 'Null');
-                                    $cliente = htmlspecialchars($chats['cliente'] ?? 'Null');
-                                    $fechaCreacion = $chats['fecha_creacion'] ?? '??-??-????';
-                                    $estado = htmlspecialchars($chats['estado'] ?? 'Null');
-                                ?>
-                                    <tr>
-                                        <td class="text-center"><?= $numero ?></td>
-                                        <td class="text-center text-capitalize"><?= $proovedor ?></td>
-                                        <td class="text-center text-capitalize"><?= $cliente ?></td>
-                                        <td class="text-center text-capitalize"><?= $fechaCreacion ?></td>
-                                        <td class="text-center">
-                                            <span class="badge <?= $estado === 'Activo' ? 'bg-success' : 'bg-secondary' ?>">
-                                                <?=($estado) ?>
-                                            </span>
-                                        </td>
-                                        <td class="text-center">
-                                        <button class="btn btn-primary btn-sm"
-                                            title="Ver Chat"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#modalVerChat"
-                                            onclick="verChat(<?= $idChat ?>, <?= htmlspecialchars(json_encode($this->model->getChatById($idChat)), ENT_QUOTES, 'UTF-8') ?>)">
-                                            <i class="bi bi-eye"></i>
-                                        </button>
-
-
-                                            <form action="/directorio/rutas/rutas.php" method="POST" class="d-inline formEliminar">
-                                                <input type="hidden" name="page" value="chats">
-                                                <input type="hidden" name="validateChat" value="<?= $idChat ?>">
-                                                <button type="submit" class="btn btn-sm <?= $estado === 'Activo' ? 'btn-success' : 'btn-danger' ?>"
-                                                    onclick="return confirm('<?= $estado === 'Activo' ? '¿Estás seguro de finalizar la conversación?' : '¿Estás seguro de reactivar la conversación?' ?>')"
-                                                    title="<?= $estado === 'Activo' ? 'Finalizar chat' : 'Reactivar chat' ?>">
-                                                    <i class="<?= $estado === 'Activo' ? 'bi bi-floppy' : 'bi bi-pencil-square' ?>"></i>
-                                                </button>
-                                            </form>
-                                            
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <tr>
-                                    <td colspan="6" class="text-center text-muted py-4">
-                                        <i class="bi bi-envelope-slash me-2"></i> No hay chats registrados
-                                    </td>
-                                </tr>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
-                    <div id="paginacionChat" class="mt-3 d-flex justify-content-center gap-2"></div>
+    <div class="container-fluid py-2">
+        <div class="row">
+            <div class="col-12">
+                <div class="card my-4">
+                    <!-- Encabezado de la tarjeta -->
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 pb-4">
+                        <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3 px-3 d-flex justify-content-between align-items-center">
+                            <h6 class="text-white text-capitalize mb-0 d-flex align-items-center">
+                                Gestión de Chats
+                            </h6>
+                        </div>
+                    </div>
                 </div>
+                                    <!-- Cuerpo de la tarjeta -->
+                    <div class="card-body px-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table id="tablaCategorias" class="table table-striped table-bordered align-items-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="text-uppercase text-dark text-sm font-weight-bolder opacity-10 text-center">#</th>
+                                        <th class="text-uppercase text-dark text-sm font-weight-bolder opacity-10 text-center">Proovedor</th>
+                                        <th class="text-uppercase text-dark text-sm font-weight-bolder opacity-10 text-center">Cliente</th>
+                                        <th class="text-uppercase text-dark text-sm font-weight-bolder opacity-10 text-center">Fecha de Creacion</th>
+                                        <th class="text-uppercase text-dark text-sm font-weight-bolder opacity-10 text-center">Estado</th>
+                                        <th class="text-uppercase text-dark text-sm font-weight-bolder opacity-10 text-center">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if (!empty($chat) && is_array($chat)): ?>
+                                        
+                                        <?php foreach ($chat as $index => $chats):
+                                    
+                                            $numero = $index + 1;
+                                            $idChat = (int)($chats['id_chat'] ?? 0);
+                                            $proovedor = htmlspecialchars($chats['proovedor'] ?? 'Null');
+                                            $cliente = htmlspecialchars($chats['cliente'] ?? 'Null');
+                                            $fechaCreacion = $chats['fecha_creacion'] ?? '??-??-????';
+                                            $estado = htmlspecialchars($chats['estado'] ?? 'Null');
+                                        ?>
+                                            <tr>
+                                                <td class="text-center"><?= $numero ?></td>
+                                                <td class="text-center text-capitalize"><?= $proovedor ?></td>
+                                                <td class="text-center text-capitalize"><?= $cliente ?></td>
+                                                <td class="text-center text-capitalize"><?= $fechaCreacion ?></td>
+                                                <td class="text-center">
+                                                    <span class="badge <?= $estado === 'Activo' ? 'bg-success' : 'bg-secondary' ?>">
+                                                        <?=($estado) ?>
+                                                    </span>
+                                                </td>
+                                                <td class="text-center">
+                                                <button class="btn btn-sm bg-gradient-deepocean text-white mb-0 px-1 py-1 me-1"
+                                                    style="width: 30px; height: 30px;"
+                                                    title="Ver Chat"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalVerChat"
+                                                     onclick="verChat(<?= $idChat ?>, <?= htmlspecialchars(json_encode($this->model->getChatById($idChat)), ENT_QUOTES, 'UTF-8') ?>)">
+                                                    <i class="material-symbols-rounded mb-1" style="font-size: 1rem;">visibility</i>
+                                                </button>
+                                                <form action="/directorio/rutas/rutas.php" method="POST" class="d-inline formEliminar">
+                                                    <input type="hidden" name="page" value="chats">
+                                                    <input type="hidden" name="validateChat" value="<?= $idChat ?>">
+                                                    <button type="submit"
+                                                        class="btn btn-sm <?= $estado === 'Activo' ? 'bg-gradient-touchgrass' : 'bg-gradient-netherwart' ?> text-white mb-0 px-1 py-1"
+                                                        style="width: 30px; height: 30px;"
+                                                        onclick="return confirm('<?= $estado === 'Activo' ? '¿Estás seguro de finalizar la conversación?' : '¿Estás seguro de reactivar la conversación?' ?>')"
+                                                        title="<?= $estado === 'Activo' ? 'Finalizar chat' : 'Reactivar chat' ?>">
+                                                        <i class="material-symbols-rounded mb-1" style="font-size: 1rem;">
+                                                            <?= $estado === 'Activo' ? 'save' : 'edit' ?>
+                                                        </i>
+                                                    </button>
+                                                </form>
+
+
+                                                    
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="6" class="text-center text-muted py-4">
+                                                <i class="bi bi-envelope-slash me-2"></i> No hay chats registrados
+                                            </td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                            <div id="paginacionChat" class="mt-3 d-flex justify-content-center gap-1 font-weight-bold"></div>
+                        </div>
+                    </div>
             </div>
         </div>
     </div>
@@ -118,7 +140,7 @@ include_once RUTA_BASE . '/App/vistas/dashboard/plantilla/header.php';
                 <h5 class="modal-title fw-bold" id="modalVerChatLabel">
                     <i class="bi bi-chat-dots me-2"></i> Conversación
                 </h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div id="modalChatBody" class="modal-body bg-light" style="max-height: 60vh; overflow-y: auto;">
                 <div id="contenedorMensajes" class="d-flex flex-column gap-2">
