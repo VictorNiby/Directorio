@@ -84,6 +84,7 @@ class ServiceModel extends Mysql {
         servicio_imagenes.imagen_ref as imagen_servicio
         FROM servicio s
         LEFT JOIN servicio_imagenes on servicio_imagenes.servicio_id = s.id_servicio
+        WHERE s.estado = 'Activo'
         GROUP BY s.id_servicio";
 
         $preparedStmt = $this->connection->prepare($query);

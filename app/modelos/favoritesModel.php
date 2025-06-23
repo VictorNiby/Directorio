@@ -15,7 +15,7 @@ class favoritesModel extends Mysql{
         FROM favoritos
         LEFT JOIN servicio_imagenes on servicio_imagenes.servicio_id = favoritos.servicio_id
         INNER JOIN servicio on servicio.id_servicio = favoritos.servicio_id
-        WHERE favoritos.usuario_id = ?
+        WHERE favoritos.usuario_id = ? AND servicio.estado = 'Activo'
         GROUP BY servicio.id_servicio 
         ";
         $stmt = $this->connection->prepare($query);
@@ -27,7 +27,8 @@ class favoritesModel extends Mysql{
     public function GetFavoritesByService($serviceId,$usuarioId){
         $query = "SELECT 1
         FROM favoritos
-        WHERE favoritos.usuario_id = ? AND favoritos.servicio_id = ?";
+        INNER JOIN servicio on servicio.id_servicio = favoritos.servicio_id
+        WHERE favoritos.usuario_id = ? AND favoritos.servicio_id = ? AND servicio.estado = 'Activo' ";
         $stmt = $this->connection->prepare($query);
         $stmt->execute([$usuarioId,$serviceId]);
 
@@ -37,7 +38,8 @@ class favoritesModel extends Mysql{
     public function GetFavoritesCount($usuarioId){
         $query = "SELECT COUNT(*) as total
         FROM favoritos
-        WHERE favoritos.usuario_id = ?";
+        INNER JOIN servicio on servicio.id_servicio = favoritos.servicio_id
+        WHERE favoritos.usuario_id = ? AND servicio.estado = 'Activo'";
         $stmt = $this->connection->prepare($query);
         $stmt->execute([$usuarioId]);
 

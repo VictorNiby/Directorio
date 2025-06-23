@@ -39,7 +39,7 @@ class UserModel extends Mysql {
         $query = "INSERT INTO usuario (nombre, correo, password, telefono, rol, documento, nacimiento, foto) 
                   VALUES (?, ?, ?, ?, ?, ?, ?, '')";
         $stmt = $this->connection->prepare($query);
-        return $stmt->execute([$nombre, $correo, password_hash($password, PASSWORD_BCRYPT), $telefono, $rol, $documento, $nacimiento]);
+        return $stmt->execute([$nombre, $correo, password_hash($password, PASSWORD_DEFAULT), $telefono, $rol, $documento, $nacimiento]);
     }
 
     public function update($id, $nombre, $correo, $telefono, $nacimiento) {

@@ -44,7 +44,7 @@ class UserController {
         }
 
         try {
-            $this->model->insert($name, $email, password_hash($password,PASSWORD_DEFAULT), $phone, $document, $birthdate);
+            $this->model->insert($name, $email,$password, $phone, $document, $birthdate);
         } catch (PDOException $err) {
             $response = ["status"=>false,"msg"=>"El usuario no pudo ser creado."];
             echo json_encode($response,JSON_UNESCAPED_UNICODE);

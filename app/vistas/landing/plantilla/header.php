@@ -103,7 +103,7 @@ if (!defined('URL_BASE')) {
                         <a href="<?= URL_BASE ?>/rutas/rutas.php?page=favorites" class="btn px-0 ml-2">
                             <i class="fas fa-heart text-primary"></i>
                             <span class="badge border border-dark rounded-circle" style="padding-bottom: 2px;" id="responsiveFavs">
-                                
+                                0
                             </span>
                         </a>
                     </div>
@@ -185,7 +185,7 @@ if (!defined('URL_BASE')) {
                                     <i class="fas fa-heart text-primary"></i>
                                     <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;"
                                     id="navbarFavs">
-                                        
+                                        0
                                     </span>
                                 </a>
                             </div>
