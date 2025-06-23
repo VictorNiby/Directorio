@@ -157,4 +157,8 @@ class checkOutController {
         die();
     }
 
+    public function index(){
+        $ventas = $this->checkOutModel->GetAllSales();
+        include_once(__DIR__ . '/../vistas/dashboard/ventas/index.php');
+    }
 }

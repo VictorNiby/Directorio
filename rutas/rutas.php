@@ -184,8 +184,11 @@ if ($_SERVER["REQUEST_METHOD"] === "GET"){
             $isLoggedIn ? $serviceController->updateView($_GET["id"]) : header("Location: rutas.php?page=logIn");
             break;
 
-        case 'dashboard':
         case 'sales':
+            $isLoggedIn ? $checkOutController->index() : header("Location: rutas.php?page=logIn");
+            break;
+            
+        case 'dashboard':
             $isLoggedIn && $_SESSION["role"] === 'admin' ? $dashController->index() : header("Location: rutas.php?page=logIn");
             break;
 
