@@ -107,14 +107,14 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
                                                     id="btnEdit">
                                                     <i class="material-symbols-rounded mb-1" style="font-size: 1rem;">edit</i>
                                                 </button>
-                                                <form action="/directorio/rutas/rutas.php" method="POST" class="d-inline formEliminar">
-                                                    <input type="hidden" name="page" value="services">
+                                                <form id="formDelete" method="POST" class="d-inline formEliminar" data-estado = "<?= $estado ?>">
                                                     <input type="hidden" name="deleteService" value="<?= $id ?>">
-                                                    <button type="submit" class="btn btn-sm bg-gradient-netherwart text-white mb-0 px-1 py-1"
+                                                    <button type="submit" class="btn btn-sm <?= $estado === 'Activo' ? 'bg-gradient-netherwart' : 'bg-gradient-touchgrass' ?> text-white mb-0 px-1 py-1"
                                                         style="width: 30px; height: 30px;"
-                                                        onclick="return confirm('¿Estás seguro de eliminar este servicio?')"
                                                         title="Eliminar servicio">
-                                                        <i class="material-symbols-rounded mb-1" style="font-size: 1rem;">delete</i>
+                                                        <i class="material-symbols-rounded mb-1" style="font-size: 1rem;">
+                                                        <?= $estado === 'Activo' ? 'block' : 'check_circle' ?>
+                                                        </i>
                                                     </button>
                                                 </form>
                                             </td>
@@ -151,7 +151,7 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
 <div class="modal fade modal-lg" id="modalNuevoServicio" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form action="rutas.php?page=services" method="POST" enctype="multipart/form-data">
+            <form id="formInsert" method="POST" enctype="multipart/form-data">
                 <div class="modal-header bg-dark text-white">
                     <h5 class="modal-title text-white">
                         <i class="fas fa-concierge-bell me-2"></i> Nuevo Servicio
@@ -232,7 +232,7 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" name="action" value="insertService">Guardar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
             </form>
         </div>
@@ -248,7 +248,7 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
 <div class="modal fade modal-lg" id="modalEditarServicio" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <form action="rutas.php?page=services" method="POST" enctype="multipart/form-data">
+      <form id="formUpdate" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="id_servicio" id="editServicioId">
         
         <div class="modal-header bg-dark text-white">
@@ -279,7 +279,7 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-primary" name="action" value="updateService">Guardar cambios</button>
+          <button type="submit" class="btn btn-primary">Guardar cambios</button>
         </div>
       </form>
     </div>
@@ -418,3 +418,4 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
     }
 </script>
 <?php include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/footer.php'; ?>
+<script type="module" src="<?= URL_BASE ?>/js/services/services.js"></script>

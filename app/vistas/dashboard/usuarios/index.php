@@ -175,7 +175,7 @@ include_once RUTA_BASE . '/app/vistas/dashboard/plantilla/header.php';
                                         * * * * * * * * * * * * * * * * * *
                                         -->
                                         <form method="POST" class="d-inline formEliminar" id="formDelete"
-                                        data-action="<?= $estado ?>">
+                                        data-estado="<?= $estado ?>">
                                             <input type="hidden" name="deleteUser" value="<?= $id ?>">
                                             <button type="submit"
                                                 class="btn btn-sm <?= $estado === 'Activo' ? 'bg-gradient-netherwart' : 'bg-gradient-touchgrass' ?> text-white mb-0 px-1 py-1"

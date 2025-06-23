@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     formInsert.addEventListener('submit',(e)=>{
         e.preventDefault()
         const formData = new FormData(formInsert)
-        formData.append('action','insertUser')
+        formData.append('action','insertService')
         fetch(SITE_URL,{
             method:"POST",
             body:formData
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 
             if (res.status) {
                 setTimeout(() => {
-                    window.location.replace(SITE_URL + '?page=users')
+                    window.location.replace(SITE_URL + '?page=services')
                 }, 500);
             }
         })
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     formUpdate.addEventListener('submit',(e)=>{
         e.preventDefault()
         const formData = new FormData(formUpdate)
-        formData.append('action','updateUser')
+        formData.append('action','updateService')
         fetch(SITE_URL,{
             method:"POST",
             body:formData
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 
             if (res.status) {
                 setTimeout(() => {
-                    window.location.replace(SITE_URL + '?page=users')
+                    window.location.replace(SITE_URL + '?page=services')
                 }, 500);
             }
         })
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded',()=>{
             
             if (estado === "Activo") {
                 Swal.fire({
-                    title: "¿Está seguro de eliminar este usuario?",
+                    title: "¿Está seguro de eliminar este servicio?",
                     icon: 'info',
                     confirmButtonText:"Aceptar",
                     showCancelButton:true,
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                             }
 
                             if (res.status) {
-                                window.location.replace(SITE_URL + '?page=users')
+                                window.location.replace(SITE_URL + '?page=services')
                             }
                         })
                         .catch((err)=>{
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                     }
 
                     if (res.status) {
-                        window.location.replace(SITE_URL + '?page=users')
+                        window.location.replace(SITE_URL + '?page=services')
                     }
                 })
                 .catch((err)=>{

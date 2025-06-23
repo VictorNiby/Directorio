@@ -31,11 +31,14 @@ class serviceController {
     }
 
     public function insertService() {
+        $response = [];
         if (!isset($_POST["titulo"], $_POST["descripcion"], $_POST["precio"], $_POST["usuario_id"],
             $_POST["categoria_id"],
             $_FILES["servicio_imagen"],$_POST["barrio_id"])) {
-            echo "Todos los campos son requeridos.";
-            return;
+
+            $response = ["status"=>false,"msg"=>"Todos los campos son requeridos."];
+            echo json_encode($response,JSON_UNESCAPED_UNICODE);
+            die();
         }
 
         $titulo = trim($_POST["titulo"]);
@@ -46,9 +49,12 @@ class serviceController {
         $barrio_id = (int) $_POST["barrio_id"];
         $direccion =  trim($_POST["direccion"]);
         
-        if (!$this->model->insert($titulo, $descripcion, $precio, $usuarioId, $categoriaId,$barrio_id,strlen($direccion)>0 ? $direccion : "No aplica")) {
-            echo "El servicio no pudo ser creado.";
-            return;
+        try {
+            $this->model->insert($titulo, $descripcion, $precio, $usuarioId, $categoriaId,$barrio_id,strlen($direccion)>0 ? $direccion : "No aplica");
+        } catch (PDOException $err) {
+            $response = ["status"=>false,"msg"=>"El servicio no pudo ser creado."];
+            echo json_encode($response,JSON_UNESCAPED_UNICODE);
+            die();
         }
 
         //lo necesario para subir las imagenes
@@ -56,18 +62,23 @@ class serviceController {
         $imagenRef = uploadImage("servicio_imagen","service");
 
         if (!$this->model->uploadImg($lastService["id_servicio"],$imagenRef)) {
-            echo "No se pudo subir la imágen.";
-            return;
+            $response = ["status"=>false,"msg"=>"No se pudo subir la imágen."];
+            echo json_encode($response,JSON_UNESCAPED_UNICODE);
+            die();
         }
 
-        header("Location: /directorio/rutas/rutas.php?page=services");
-        exit();
+        $response = ["status"=>true,"msg"=>"Servicio creado correctamente."];
+        echo json_encode($response,JSON_UNESCAPED_UNICODE);
+        die();
     }
 
     public function updateService() {
+        $response = [];
+
         if (!isset($_POST["id_servicio"], $_POST["titulo"], $_POST["descripcion"], $_POST["precio"])) {
-            echo "Datos incompletos.";
-            return;
+            $response = ["status"=>false,"msg"=>"Todos los campos son requeridos."];
+            echo json_encode($response,JSON_UNESCAPED_UNICODE);
+            die();
         }
 
         $id = (int) $_POST["id_servicio"];
@@ -75,29 +86,40 @@ class serviceController {
         $descripcion = trim($_POST["descripcion"]);
         $precio = (float) $_POST["precio"];
 
-        if (!$this->model->update($titulo, $descripcion, $precio, $id)) {
-            echo "El servicio no pudo ser actualizado.";
-            return;
+        try {
+            $this->model->update($titulo, $descripcion, $precio, $id);
+        } catch (PDOException $err) {
+            $response = ["status"=>false,"msg"=>"El servicio no pudo ser actualizado."];
+            echo json_encode($response,JSON_UNESCAPED_UNICODE);
+            die();
         }
 
-        header("Location: /directorio/rutas/rutas.php?page=services");
-        exit();
+        $response = ["status"=>true,"msg"=>"Servicio actualizado correctamente."];
+        echo json_encode($response,JSON_UNESCAPED_UNICODE);
+        die();
     }
 
     public function deleteService() {
+        $response = [];
+
         if (!isset($_POST["deleteService"]) || !is_numeric($_POST["deleteService"])) {
-            echo "ID de servicio inválido.";
-            return;
+            $response = ["status"=>false,"msg"=>"ID de servicio inválido."];
+            echo json_encode($response,JSON_UNESCAPED_UNICODE);
+            die();
         }
 
         $serviceId = (int) $_POST["deleteService"];
-        if (!$this->model->delete($serviceId)) {
-            echo "El servicio no pudo ser eliminado.";
-            return;
+        try {
+            $this->model->delete($serviceId);
+        } catch (PDOException $err) {
+            $response = ["status"=>false,"msg"=>"El servicio no pudo ser eliminado."];
+            echo json_encode($response,JSON_UNESCAPED_UNICODE);
+            die();
         }
 
-        header("Location: /directorio/rutas/rutas.php?page=services");
-        exit();
+        $response = ["status"=>true];
+        echo json_encode($response,JSON_UNESCAPED_UNICODE);
+        die();
     }
     
 }
