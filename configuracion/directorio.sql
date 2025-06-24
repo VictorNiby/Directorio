@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-06-2025 a las 04:10:14
+-- Tiempo de generación: 24-06-2025 a las 15:33:11
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.3.21
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -241,10 +241,7 @@ CREATE TABLE `favoritos` (
 --
 
 INSERT INTO `favoritos` (`id`, `servicio_id`, `usuario_id`) VALUES
-(6, 5, 1),
-(94, 12, 10),
-(96, 6, 10),
-(97, 11, 10);
+(88, 1, 12);
 
 -- --------------------------------------------------------
 
@@ -280,8 +277,8 @@ CREATE TABLE `reviews` (
 --
 
 INSERT INTO `reviews` (`id_review`, `calificacion`, `comentario`, `fecha`, `servicio_id`, `usuario_id`) VALUES
-(14, '4', 'Su puta madre', '2025-06-19 22:46:14', 6, 11),
-(15, '4', 'Muy buena señor tablos', '2025-06-24 03:46:51', 5, 11);
+(15, '5', 'EL mejor artista el mundo', '2025-06-24 13:30:04', 1, 12),
+(16, '3', 'Buen trabajo!', '2025-06-24 13:32:04', 10, 12);
 
 -- --------------------------------------------------------
 
@@ -308,14 +305,11 @@ CREATE TABLE `servicio` (
 
 INSERT INTO `servicio` (`id_servicio`, `titulo`, `descripcion`, `precio`, `fecha_creacion`, `usuario_id_usuario`, `categoria_id_categoria`, `estado`, `barrio_id`, `direccion`) VALUES
 (1, '🎨 Arte pixelado a medida — en 64x64 y 128x128', '¿Necesitás sprites, íconos o gráficos estáticos para tu proyecto? Yo me encargo.\r\nTrabajo con formatos 64x64 y 128x128, ideales para juegos, apps, interfaces o prototipos.\r\n\r\n🧑‍🎨 ¿Qué ofrezco?\r\n\r\nGráficos personalizados, sin animar\r\n\r\nEstilo limpio, visualmente claro y fácil de adaptar\r\n\r\nEntregas en PNG con fondo transparente\r\n\r\nComunicación directa y proceso ágil\r\n\r\n💡 Si tenés una idea pero no sabés cómo bajarla a lo visual, te ayudo a convertirla en algo concreto. También puedo trabajar desde', 12000, '2025-04-24 18:26:12', 2, 15, 'Activo', 1, 'Carrera 9 #4-760'),
-(5, 'Lavadora', 'Alquilamos lavadora a los cabrones pobres de mierda, 15 mil pesos minimo', 15000, '2025-04-29 10:44:59', 2, 17, 'Activo', 9, 'Carrera 14 #4-45'),
-(6, 'Venta de Camisetas Personalizadas', 'Vendemos camisetas con un mensaje estampado personalizado, matate', 15000, '2025-04-29 10:51:25', 11, 23, 'Activo', 17, 'No aplica'),
-(7, 'Proyect nonas', 'Proyecto nonas', 1500, '2025-04-29 10:52:10', 2, 17, 'Activo', 1, 'Carrera 18 #4-27'),
-(8, 'Arreglo de computadoras', 'Arreglamos computadoras porque de algo hay que vivir', 2500, '2025-05-19 19:10:03', 3, 23, 'Activo', 10, 'Por ahi'),
-(9, 'Destruímos computadores', 'Esta vez es personal', 100000, '2025-06-19 11:45:55', 11, 23, 'Activo', 65, 'Carrera Sisas con 40'),
-(10, 'Cosa', 'cosas', 10000, '2025-06-22 21:04:50', 11, 18, 'Activo', 17, 'Carrera 9 #8-10'),
-(11, 'OOOO', 'IIIISISAS', 10000, '2025-06-22 21:48:51', 21, 1, 'Activo', 16, 'EEEE'),
-(12, 'Test', 'test', 2000, '2025-06-22 22:02:55', 3, 17, 'Activo', 15, 'test');
+(10, 'Servicio de jardinería', 'Soy jardinero con experiencia, dedicado a cuidar, diseñar y mantener jardines de todo tipo. Ofrezco podas, siembras, mantenimiento general y asesoría personalizada para que tu espacio verde luzca siempre saludable y atractivo. Trabajo con responsabilidad, detalle y amor por la naturaleza. Si quieres darle vida y belleza a tu jardín, no dudes en contactarme. ¡Tu jardín estará en buenas manos!', 7000, '2025-06-24 08:01:49', 13, 6, 'Activo', 80, 'Carrera 14 #4-45'),
+(11, 'Servicio de Electricista', 'Soy electricista profesional, con experiencia en instalaciones, reparaciones y mantenimiento eléctrico para hogares y negocios. Trabajo con responsabilidad, seguridad y atención a los detalles para garantizar que todo funcione correctamente y sin riesgos. Si necesitas un servicio confiable y bien hecho, no dudes en contactarme. ¡Tu tranquilidad es mi prioridad!', 12000, '2025-06-24 08:03:53', 2, 1, 'Activo', 45, 'calle 18a 16-19'),
+(14, 'Creacion de paginas web a la medida', 'Diseño y desarrollo páginas web personalizadas, adaptadas a las necesidades de tu negocio o proyecto. Cada sitio es único, optimizado para ser rápido, atractivo y fácil de usar, garantizando que tu marca tenga presencia profesional en internet. Te acompaño desde la idea hasta la puesta en línea, con soluciones modernas, responsivas y seguras. ¡Haz crecer tu negocio con una página web hecha a tu medida!', 15000, '2025-06-24 08:19:12', 12, 21, 'Activo', 16, 'Carrera 7 #10-10'),
+(15, 'Limpieza general', 'Ofrezco servicio de limpieza general para casas: aseo profundo, organización de espacios, lavado de baños, cocina y áreas comunes. Trabajo con dedicación, responsabilidad y atención a cada detalle para que tu hogar luzca impecable y acogedor. Ideal para limpiezas periódicas o puntuales. ¡Deja la limpieza en manos confiables y disfruta de tu tiempo libre!', 5000, '2025-06-24 08:23:35', 14, 17, 'Activo', 88, 'Carrera 8 #4-27'),
+(16, 'Mantenimiento de Computadores', 'Brindo servicio de mantenimiento preventivo y correctivo para computadores de escritorio y portátiles. Realizo limpieza interna, optimización del sistema, eliminación de virus y respaldo de información para que tu equipo funcione rápido y sin problemas. Trabajo con responsabilidad y trato personalizado, ideal para hogares, oficinas o negocios. ¡Cuida tu computador y alarga su vida útil, contáctame!\r\n\r\nHORARIOS:\r\nLUNES - VIERNES\r\n9:00 am  - 17:00 pm\r\nSABADO\r\n10:00 am - 16:00 pm\r\nDOMINGO\r\nNo hay s', 11000, '2025-06-24 08:26:51', 13, 23, 'Activo', 20, 'calle 1a 1a-19');
 
 -- --------------------------------------------------------
 
@@ -334,16 +328,13 @@ CREATE TABLE `servicio_imagenes` (
 --
 
 INSERT INTO `servicio_imagenes` (`id`, `imagen_ref`, `servicio_id`) VALUES
-(2, '1745941499-descarga.jpg', 5),
-(3, '1745941885-ChatGPT Image 21 abr 2025, 06_48_36.png', 6),
-(4, '1745941930-descarga.jpg', 7),
-(5, '1745941499-descarga.jpg', 1),
-(6, '1745941499-descarga.jpg', 8),
-(7, '1745941930-descarga.jpg', 9),
-(8, '1745941499-descarga.jpg', 6),
-(9, '1750644290-profile-Photoroom.png', 10),
-(10, '1750646931-profile-Photoroom.png', 11),
-(11, '1750647775-cafe-logo-free.jpg', 12);
+(9, '1750770109-jardineria.jpg', 10),
+(10, '1750770233-electricista.jpg', 11),
+(11, 'OmegaStrikersGBA.gif', 1),
+(12, 'iono.png', 1),
+(13, '1750771152-web.jpg', 14),
+(14, '1750771415-1750633578-aseo.png', 15),
+(15, '1750771611-tecnico-imagen.png', 16);
 
 -- --------------------------------------------------------
 
@@ -356,11 +347,11 @@ CREATE TABLE `servicio_usuario` (
   `servicio_id` int(11) NOT NULL,
   `usuario_id` int(11) NOT NULL,
   `total` int(11) NOT NULL,
-  `fecha` datetime NOT NULL,
+  `fecha` datetime NOT NULL DEFAULT current_timestamp(),
   `barrio_usuario` int(11) NOT NULL,
   `direccion_usuario` varchar(100) NOT NULL,
   `metodo_pago` varchar(60) NOT NULL,
-  `estado` varchar(20) NOT NULL
+  `estado` varchar(20) DEFAULT 'Activo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -368,10 +359,10 @@ CREATE TABLE `servicio_usuario` (
 --
 
 INSERT INTO `servicio_usuario` (`id`, `servicio_id`, `usuario_id`, `total`, `fecha`, `barrio_usuario`, `direccion_usuario`, `metodo_pago`, `estado`) VALUES
-(26, 5, 11, 15000, '2025-06-23 19:09:37', 11, 'CRA 39 No. 22-18', 'pago_directo', 'Cancelado'),
-(27, 5, 11, 15000, '2025-06-23 19:12:32', 10, 'CRA 39 No. 22-18', 'tarjeta', 'Cancelado'),
-(28, 6, 10, 15000, '2025-06-23 22:41:59', 1, 'CRA 39 No. 22-18', 'pago_directo', 'Realizado'),
-(29, 5, 11, 15000, '2025-06-23 22:46:14', 11, 'CRA 39 No. 22-18', 'tarjeta', 'Realizado');
+(13, 10, 12, 7000, '2025-06-24 08:04:41', 19, 'Carrera 18 #4-27', 'pago_directo', 'En Curso'),
+(14, 10, 14, 7000, '2025-06-24 08:06:04', 40, 'calle 18a 16-10', 'pago_directo', 'En Curso'),
+(15, 1, 14, 12000, '2025-06-24 08:06:26', 11, 'Carrera 18 #4-27', 'pago_directo', 'En Curso'),
+(16, 1, 12, 12000, '2025-06-24 08:28:48', 15, 'Carrera 18 #4-27', 'tarjeta', 'Pagado');
 
 -- --------------------------------------------------------
 
@@ -398,19 +389,10 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id_usuario`, `nombre`, `correo`, `password`, `telefono`, `rol`, `foto`, `documento`, `nacimiento`, `estado`, `created_at`) VALUES
-(1, 'Camilo', 'jcvanegas@gmail.com', '123', '3001234567', 'admin', 'default-pfp.webp', '123456789', '1995-04-20', 'Activo', '2025-05-07 14:36:07'),
-(2, 'Diana Delgado Delgado', 'didi@gmail.com', '123', '3007654321', 'cliente', 'default-pfp.webp', '987654321', '2007-04-20', 'Activo', '2025-05-07 14:36:07'),
-(3, 'VictorNiby', 'nibyminson@gmail.com', '123', '3009876543', 'cliente', 'default-pfp.webp', '456123789', '2005-04-20', 'Activo', '2025-05-07 14:36:07'),
-(4, 'Diego Alejandro Valdés', 'bitardos8@gmail.com', '123', '3001122334', 'proveedor', 'default-pfp.webp', '654321987', '2005-04-20', 'Activo', '2025-05-07 14:36:07'),
-(8, 'Paco Pedro', 'paco@gmail.com', '123456', '3117160140', 'cliente', '1750014509-profile.jpg', '1113141910', '2000-06-17', 'Activo', '2025-06-15 19:08:29'),
-(9, 'Lopez Hernandez', 'lopez@gmail.com', '$2y$10$/QDhTOC8onvsIt2h4D5Hlesu4ZOBEna3mGPXLhcZjKVpgJCh3HTfq', '3118014051', 'cliente', '1750015498-profile.jpg', '1115140197', '2007-01-14', 'Activo', '2025-06-15 19:24:58'),
-(10, 'Kevin Lebron James', 'kevin@hotmail.com', '$2y$10$eu7E/colILr2NtWjRBjsaeAdUTfEdHddowxZccpr9/v68lSQjer.W', '3114019871', 'admin', '1750015589-WhatsApp Image 2025-06-11 at 6.jpeg', '1113140918', '2001-09-11', 'Activo', '2025-06-15 19:26:29'),
-(11, 'Test Tésting', 'test@gmail.com', '$2y$10$1hPdrX/MNz94MKsa9WnE3.g3Xs7kbT7Szgb8eXTT6b8vaduyq9T4C', '3118019003', 'proveedor', 'default-pfp.webp', '1114150918', '2000-03-11', 'Activo', '2025-06-16 11:21:27'),
-(21, 'Testing Test', 'testing@gmail.com', '$2y$10$68ys7WcPgX8VboAI9ikHyefQih/Ym/YOujbvRrNlWvYY5ukU17E.i', '3119018031', 'cliente', '', '11138907625', '2005-02-18', 'Inactivo', '2025-06-23 01:50:12'),
-(22, 'test2', 'test2@gmail.com', '$2y$10$edul9D/psnzcCvGumAo4d.71LNKsk08NiOUSZmaoe0yf3opooJaPC', '3160472210', 'cliente', '', '11138907629', '2006-06-16', 'Activo', '2025-06-23 01:57:11'),
-(23, 'Carlito Hernandes', 'carlo@gmail.com', '$2y$10$DrQRFsd9gcHQ3X/RioIZKuaXcGPvLxRqr.rJXna.o7gtueTuzKrB6', '3160472210', 'cliente', '', '11138907623', '2006-04-21', 'Inactivo', '2025-06-23 02:54:19'),
-(24, 'Pachico Montes', 'pachico@gmail.com', '$2y$10$rENVcGMqNqqI5c8Oob1tGONwgBAvwf/JK28yIJNVFSXCOM85Ov.ZW', '3160472210', 'cliente', '', '1113890768', '2007-04-12', 'Inactivo', '2025-06-23 02:57:20'),
-(25, 'Normie Manolo', 'normie@gmail.com', '$2y$10$MF83vTfTLqsogMqeKH6bGu2CV57PfCxYe/BPk1QHREmgf5E7CNEoK', '3160472210', 'cliente', '', '11138907639', '2006-02-10', 'Activo', '2025-06-23 03:00:53');
+(2, 'Diana Delgado Delgado', 'didi@gmail.com', '$2y$10$IvYoi06N6zqq8JpewsEXfO3rSPDHajA4YfesbLCghJD6DGbwbjUpu', '3007654321', 'proveedor', 'default-pfp.webp', '987654321', '2007-04-20', 'Activo', '2025-05-07 14:36:07'),
+(12, 'Heung Min Son', 'nibyminson@gmail.com', '$2y$10$IvYoi06N6zqq8JpewsEXfO3rSPDHajA4YfesbLCghJD6DGbwbjUpu', '3024044590', 'admin', 'default-pfp.webp', '1010103030', '2005-07-11', 'Activo', '2025-06-24 12:52:49'),
+(13, 'Diego Alejandro', 'bitardos8@gmail.com', '$2y$10$hSRlrAGJe7U/fQI1VwRPdO5mWDDYnPOE8WGPXv/s8A0ozoq/eZKjK', '3108948606', 'cliente', '', '1114109301', '2004-06-10', 'Activo', '2025-06-24 12:57:22'),
+(14, 'Vanessa', 'vanessa@gmail.com', '$2y$10$8P0X/VA8PyehUxSyqIt0Q.hOw/UXIycIXNZfu6TfWu8BghSI4ekay', '3108948595', 'cliente', '', '1010102330', '1999-06-11', 'Activo', '2025-06-24 12:58:23');
 
 --
 -- Índices para tablas volcadas
@@ -527,7 +509,7 @@ ALTER TABLE `chat`
 -- AUTO_INCREMENT de la tabla `favoritos`
 --
 ALTER TABLE `favoritos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT de la tabla `mensaje`
@@ -539,31 +521,31 @@ ALTER TABLE `mensaje`
 -- AUTO_INCREMENT de la tabla `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id_review` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_review` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `servicio`
 --
 ALTER TABLE `servicio`
-  MODIFY `id_servicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_servicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `servicio_imagenes`
 --
 ALTER TABLE `servicio_imagenes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `servicio_usuario`
 --
 ALTER TABLE `servicio_usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Restricciones para tablas volcadas
