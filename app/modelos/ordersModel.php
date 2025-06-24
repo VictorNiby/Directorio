@@ -17,9 +17,12 @@ class ordersModel extends Mysql{
         INNER JOIN usuario ON usuario.id_usuario = servicio_usuario.usuario_id
         INNER JOIN servicio ON servicio.id_servicio = servicio_usuario.servicio_id
         LEFT JOIN servicio_imagenes ON servicio_imagenes.servicio_id = servicio_usuario.servicio_id
-        WHERE servicio.usuario_id_usuario = ? AND servicio_usuario.estado = 'En Curso'
-        GROUP BY servicio_usuario.fecha
+        WHERE servicio.usuario_id_usuario = ?
+        AND servicio_usuario.estado NOT IN ('Cancelado', 'Realizado')
+        GROUP BY 
+            servicio_usuario.id
         ORDER BY servicio_usuario.fecha DESC";
+
         $preparedStmt = $this->conn->prepare($query);
         $preparedStmt->execute([$user_id]);
         $data = $preparedStmt->fetchAll(PDO::FETCH_ASSOC);

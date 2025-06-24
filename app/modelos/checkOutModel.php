@@ -9,11 +9,11 @@ class checkOutModel extends Mysql{
     }
 
     public function Insert($servicio_id, $usuario_id, $total, $barrio_usuario, $direccion_usuario, $metodo_pago) {
-        $query = "INSERT INTO servicio_usuario(servicio_id, usuario_id, total, barrio_usuario, direccion_usuario, metodo_pago)
-        VALUES (?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO servicio_usuario(servicio_id, usuario_id, total, barrio_usuario, direccion_usuario, metodo_pago, estado, fecha)
+        VALUES (?, ?, ?, ?, ?, ?, ? , ?)";
 
         $stmt = $this->conn->prepare($query);
-        return $stmt->execute([$servicio_id, $usuario_id, $total, $barrio_usuario, $direccion_usuario, $metodo_pago]);
+        return $stmt->execute([$servicio_id, $usuario_id, $total, $barrio_usuario, $direccion_usuario, $metodo_pago, $metodo_pago === 'tarjeta' ? 'Pagado' : 'En Curso', date('Y-m-d H:i:s')]);
     }
 
     public function CancelService($servicio_id,$usuario_id){

@@ -163,9 +163,16 @@ if (!defined('URL_BASE')) {
                             <a href="<?= URL_BASE ?>/rutas/rutas.php?page=home" class="nav-item nav-link <?= $_GET["page"] === 'home' ? 'active' : '' ?>">
                                 Inicio
                             </a>
+                            
                             <a href="<?= URL_BASE ?>/rutas/rutas.php?page=shop" class="nav-item nav-link <?= $_GET["page"] === 'shop' ? 'active' : '' ?>">
                                 Tienda
                             </a>
+
+                            <?php if(!empty($_SESSION) && $_SESSION["role"] === "proveedor") : ?>
+                                <a href="<?= URL_BASE ?>/rutas/rutas.php?page=myServices" class="nav-item nav-link <?= $_GET["page"] === 'myServices' ? 'active' : '' ?>">
+                                    Mis Servicios
+                                </a>
+                            <?php endif ?>
 
                             <?php if(!empty($_SESSION)) : ?>
                                 <a href="<?= URL_BASE ?>/rutas/rutas.php?page=shoppingHistory" class="nav-item nav-link <?= $_GET["page"] === 'shoppingHistory' ? 'active' : '' ?>">
@@ -173,7 +180,7 @@ if (!defined('URL_BASE')) {
                                 </a>
                             <?php endif ?>
 
-                            <?php if(count($_SESSION) > 1 && $_SESSION["role"] === "proveedor") : ?>
+                            <?php if(!empty($_SESSION) && $_SESSION["role"] === "proveedor") : ?>
                                 <a href="<?= URL_BASE ?>/rutas/rutas.php?page=orders" class="nav-item nav-link <?= $_GET["page"] === 'orders' ? 'active' : '' ?>">
                                     Pedidos
                                 </a>

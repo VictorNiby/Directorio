@@ -12,7 +12,9 @@ class CategoryModel extends Mysql{
     }
 
     public function GetAllCategory(){  
-        $query = "SELECT * FROM categoria ORDER BY nombre ASC";
+        $query = "SELECT * FROM categoria
+        WHERE estado = 'Activo' 
+        ORDER BY nombre ASC  ";
         $preparedStmt = $this->connection->prepare($query);
         $preparedStmt->execute();
         $data = $preparedStmt->fetchAll(PDO::FETCH_ASSOC);
@@ -23,7 +25,7 @@ class CategoryModel extends Mysql{
         if(!is_numeric($id)) {
             throw new Exception("¿Y entonces? Con el id inválido pa donde es que va");
         }
-        $query = "SELECT * FROM categoria WHERE id_categoria = ?";
+        $query = "SELECT * FROM categoria WHERE id_categoria = ? AND estado = 'Activo' ";
         $preparedStmt = $this->connection->prepare($query);
         $preparedStmt->execute([$id]);
         $data = $preparedStmt->fetch(PDO::FETCH_ASSOC);

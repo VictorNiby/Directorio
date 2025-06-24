@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded',()=>{
             
             if (estado === "Activo") {
                 Swal.fire({
-                    title: "¿Está seguro de eliminar este servicio?",
+                    title: "¿Está seguro de desactivar este servicio?",
                     icon: 'info',
                     confirmButtonText:"Aceptar",
                     showCancelButton:true,
@@ -81,17 +81,17 @@ document.addEventListener('DOMContentLoaded',()=>{
                         })
                         .then((res)=>{return res.json()})
                         .then((res)=>{
-                            if (res.msg) {
-                                Swal.fire({
-                                    title: "Error",
-                                    text: res.msg,
-                                    icon: 'error',
-                                    confirmButtonText:"Aceptar"
-                                })
-                            }
+                            Swal.fire({
+                                title: res.status ? 'Completado' : "Error",
+                                text: res.msg,
+                                icon: res.status ? 'success' : 'error',
+                                confirmButtonText:"Aceptar"
+                            })
 
                             if (res.status) {
-                                window.location.replace(SITE_URL + '?page=services')
+                                setTimeout(()=>{
+                                    window.location.replace(SITE_URL + '?page=services')
+                                },500)
                             }
                         })
                         .catch((err)=>{
@@ -107,17 +107,17 @@ document.addEventListener('DOMContentLoaded',()=>{
                 })
                 .then((res)=>{return res.json()})
                 .then((res)=>{
-                    if (res.msg) {
-                        Swal.fire({
-                        title: "Error",
+                    Swal.fire({
+                        title: res.status ? 'Completado' : "Error",
                         text: res.msg,
-                        icon: 'error',
+                        icon: res.status ? 'success' : 'error',
                         confirmButtonText:"Aceptar"
-                        })
-                    }
+                    })
 
                     if (res.status) {
-                        window.location.replace(SITE_URL + '?page=services')
+                        setTimeout(()=>{
+                            window.location.replace(SITE_URL + '?page=services')
+                        },500)
                     }
                 })
                 .catch((err)=>{

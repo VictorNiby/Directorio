@@ -104,7 +104,7 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
             <main class="col-lg-9 col-md-8">
                 <div class="row pb-3">
                     <!--INICIO ORDENAR POR!-->
-                    <div class="col-12 pb-1">
+                    <!-- <div class="col-12 pb-1">
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <div class="ml-2">
                                 <div class="btn-group">
@@ -125,7 +125,7 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!--FIN ORDENAR POR!-->
 
                     <!--INICIO LISTA PRODUCTOS!-->
@@ -196,7 +196,7 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                     <!--FIN LISTA PRODUCTOS!-->
                     
                     <!--INICIO PAGINACIÓN !-->
-                    <?php if (count($services) > 0) : ?>
+                    <!-- <?php if (count($services) > 0) : ?>
                         <div class="col-12">
                             <nav>
                             <ul class="pagination justify-content-center">
@@ -208,8 +208,7 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                             </ul>
                             </nav>
                         </div>
-                    <?php endif ?>
-
+                    <?php endif ?> -->
                     <!--FIN PAGINACIÓN !-->
                 </div>
             </main>

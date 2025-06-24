@@ -117,7 +117,7 @@ class serviceController {
             die();
         }
 
-        $response = ["status"=>true];
+        $response = ["status"=>true,"msg"=>"Acción completada correctamente!"];
         echo json_encode($response,JSON_UNESCAPED_UNICODE);
         die();
     }

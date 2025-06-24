@@ -1,6 +1,6 @@
 <?php
 // =========================================================================
-date_default_timezone_set('UTC');
+date_default_timezone_set('America/Bogota');
 
 // Controladores de la landing Page
 require_once(__DIR__ . '/../app/controladores/sessionController.php');
@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET"){
 
         //PAGINA PARA CADA SERVICIO
         case 'service':
-            if (!$_GET["id"]) {
+            if (!isset($_GET["id"])) {
                 header("Location: rutas.php?page=home");
                 break;
             }
@@ -108,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET"){
             break;
 
         case 'checkout':
-            $isLoggedIn && isset($_GET["service"]) ? $landingPageController->CheckOutPage() : header("Location: rutas.php?page=logIn");
+            $isLoggedIn && isset($_GET["service"]) ? $landingPageController->CheckOutPage() : header("Location: rutas.php?page=home");
             break;
 
         case 'shoppingHistory':
@@ -116,11 +116,15 @@ if ($_SERVER["REQUEST_METHOD"] === "GET"){
             break;
 
         case 'orders':
-            $isLoggedIn && $_SESSION["role"] === "proveedor" ? $landingPageController->OrdersPage() : header("Location:rutas.php?page=logIn");
+            $isLoggedIn && $_SESSION["role"] === "proveedor" ? $landingPageController->OrdersPage() : header("Location:rutas.php?page=home");
             break;
 
         case 'chat':
             $isLoggedIn ? $landingPageController->ChatPage() : header("Location:rutas.php?page=logIn");
+            break;
+
+        case 'myServices':
+            $isLoggedIn && $_SESSION["role"] === 'proveedor' ? $landingPageController->MyServicesPage() : header("Location:rutas.php?page=home");
             break;
 
         // ============================= DASHBOARD ===========================================

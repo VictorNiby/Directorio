@@ -51,7 +51,7 @@ class ServiceModel extends Mysql {
             throw new Exception("ID inválido para buscar usuario");
         }
 
-        $query = "SELECT s.id_servicio, s.titulo, s.descripcion, s.precio, s.fecha_creacion, s.direccion, u.nombre, c.nombre as categoria,
+        $query = "SELECT s.id_servicio, s.titulo, s.descripcion, s.precio, s.direccion, u.nombre, c.nombre as categoria, u.correo, u.telefono,
         c.id_categoria as id_categoria
         FROM servicio s
         INNER JOIN usuario u ON u.id_usuario = s.usuario_id_usuario
@@ -199,10 +199,24 @@ class ServiceModel extends Mysql {
     public function HasUserPurchasedService($userId,$serviceId){  
         $query = "SELECT 1
         FROM servicio_usuario
-        WHERE usuario_id = ? AND servicio_id = ? AND estado = 'Pagado'";
+        WHERE usuario_id = ? AND servicio_id = ? AND estado = 'Realizado'";
         $preparedStmt = $this->connection->prepare($query);
         $preparedStmt->execute([$userId,$serviceId]);
         $data = $preparedStmt->fetch(PDO::FETCH_ASSOC);
+        return $data;
+    }
+
+    public function GetUserServices($user_id){  
+        $query = "SELECT servicio.id_servicio,servicio.titulo,servicio_imagenes.imagen_ref as imagen,servicio.precio,servicio.fecha_creacion, servicio.estado, servicio.descripcion
+        FROM servicio
+        LEFT JOIN servicio_imagenes ON servicio_imagenes.servicio_id = servicio.id_servicio
+        WHERE servicio.usuario_id_usuario = ?
+        GROUP BY servicio.id_servicio
+        ORDER BY servicio.fecha_creacion DESC";
+
+        $preparedStmt = $this->connection->prepare($query);
+        $preparedStmt->execute([$user_id]);
+        $data = $preparedStmt->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
     //END LANDINDG PAGE
@@ -261,7 +275,7 @@ class ServiceModel extends Mysql {
     }
 
     //TRAER LOS DOS SERVICIOS MAS TOPS DEL MERCADO
-        public function getAllServiceByPopulating() {
+    public function getAllServiceByPopulating() {
             $query = "SELECT 
                 s.id_servicio,
                 s.titulo AS nombre_servicio,
@@ -281,5 +295,5 @@ class ServiceModel extends Mysql {
             $stmt = $this->connection->prepare($query);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }
+    }
 }

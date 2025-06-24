@@ -30,7 +30,7 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                                 <th>Servicio</th>
                                 <th>Total</th>
                                 <th>Fecha</th>
-                                <th>Estado</th>
+                                <th>Estado Del Pago</th>
                                 <th>Acciones</th> 
                             </tr>
                         </thead>
@@ -60,7 +60,7 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                                     </td>
 
                                     <td class="align-middle">
-                                        <?php if (!in_array($item["estado"],["Cancelado","Realizado"])) : ?>
+                                        <?php if (!in_array($item["estado"],["Cancelado","Realizado","Pagado"])) : ?>
                                             <button class="btn btn-sm btn-danger"
                                             style="margin-right: 10px;"
                                             data-service="<?= $item["id_servicio"] ?>"

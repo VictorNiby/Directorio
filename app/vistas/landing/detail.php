@@ -125,6 +125,14 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                                             <?php echo $service["nombre"]?>
                                         </li>
                                         <li class="list-group-item px-0">
+                                            <strong>Correo del Dueño:</strong> 
+                                            <?php echo $service["correo"]?>
+                                        </li>
+                                        <li class="list-group-item px-0">
+                                            <strong>Número Telefónico del Dueño:</strong> 
+                                            <?php echo $service["telefono"]?>
+                                        </li>
+                                        <li class="list-group-item px-0">
                                             <strong>Precio:</strong>
                                             <?php echo $service["precio"]?>
                                         </li>
@@ -136,11 +144,7 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                                             <strong>Categoría:</strong>
                                             <?php echo $service["categoria"]?>
                                         </li>
-                                        <li class="list-group-item px-0">
-                                            <strong>Fecha de Creación:</strong>
-                                            <?php $fecha = explode(" ",$service["fecha_creacion"])?>
-                                            <?php echo $fecha[0]?>
-                                        </li>
+                                        
                                         <li class="list-group-item px-0">
                                             <strong>Dirección: </strong>
                                             <?php echo $service["direccion"]?>
@@ -175,7 +179,7 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                                                         <?php echo $review["nombre_usuario"] ?>
                                                         <small> - 
                                                             <i>
-                                                                <?php echo date($fecha[0]) ?> <?php echo date('h:i:s',$hora)?>
+                                                                <?php echo date($fecha[0]) ?> <?php echo date('h:i a',$hora)?>
                                                             </i>
                                                         </small>
                                                     </h6>
