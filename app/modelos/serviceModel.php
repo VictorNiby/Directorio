@@ -199,7 +199,7 @@ class ServiceModel extends Mysql {
     public function HasUserPurchasedService($userId,$serviceId){  
         $query = "SELECT 1
         FROM servicio_usuario
-        WHERE usuario_id = ? AND servicio_id = ? AND estado = 'Realizado'";
+        WHERE usuario_id = ? AND servicio_id = ? AND estado = 'Realizado' OR estado = 'Pagado' ";
         $preparedStmt = $this->connection->prepare($query);
         $preparedStmt->execute([$userId,$serviceId]);
         $data = $preparedStmt->fetch(PDO::FETCH_ASSOC);

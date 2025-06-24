@@ -11,6 +11,12 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
 ?>
 
 <body>
+    <style>
+        .swiper-slide {
+            height: 400px !important; /* Ajusta según lo necesites */
+        }
+    </style>
+
     <!-- Breadcrumb Start -->
     <div class="container-fluid">
         <div class="row px-xl-5">
