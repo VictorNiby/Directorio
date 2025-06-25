@@ -9,14 +9,21 @@ if (!defined('URL_IMG')) {
 
 include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
 ?>
-
+<style>
+.swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  background-color: #f8f9fa;
+}
+.swiper-slide img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+</style>
 <body>
-    <style>
-        .swiper-slide {
-            height: 400px !important; /* Ajusta según lo necesites */
-        }
-    </style>
-
     <!-- Breadcrumb Start -->
     <div class="container-fluid">
         <div class="row px-xl-5">
@@ -40,10 +47,10 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                         <!-- Additional required wrapper -->
                         <div class="swiper-wrapper">
                             <?php foreach($service_imgs as $img) : ?>
-                                 <div class="swiper-slide">
-                                    <img class="img-fluid w-100 h-100 object-fit-cover" src="<?= URL_IMG ?>/servicios/<?= $img["imagen_ref"] ?>" alt="Imagen del servicio">
-                                 </div>
-                             <?php endforeach ?>
+                                <div class="swiper-slide">
+                                    <img src="<?= URL_IMG ?>/servicios/<?= $img["imagen_ref"] ?>" alt="Imagen del servicio">
+                                </div>
+                            <?php endforeach ?>
                         </div>
                         <!-- If we need pagination -->
                         <div class="swiper-pagination"></div>
