@@ -69,10 +69,6 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
                                                 <i class="fa fa-times"></i>
                                             </button>
                                         <?php endif ?>
-
-                                        <a href="<?= URL_BASE ?>/rutas/rutas.php?page=chat&user=<?= $item["owner_id"] ?>" class="text-dark" title="Chatear con el vendedor">
-                                            <i class="fa-solid fa-comments"></i>
-                                        </a>
                                     </td>
                                 </tr>
                            <?php endforeach ?>

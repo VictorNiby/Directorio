@@ -235,7 +235,7 @@ class LandingPageController{
         try {
             $data = $this->categoryModel->GetAllCategory();
             $services = $this->serviceModel->GetUserServices($_SESSION["id"]);
-            include_once (__DIR__.'/../vistas/landing/my_services.php');
+            include_once (__DIR__.'/../vistas/landing/myServices.php');
         } catch (\Throwable $th) {
             echo $th;
             die();
@@ -243,6 +243,13 @@ class LandingPageController{
         
     }
     //END MY SERVICES PAGE
+
+    //UPLOAD SERVICE PAGE
+    public function UploadServicePage(){
+        $data = $this->categoryModel->GetAllCategory();
+        $hoods = $this->hoodsModel->getAllHood();
+        include_once (__DIR__.'/../vistas/landing/uploadService.php');
+    }
 
     public function ChatPage(){
         // $data = $this->categoryModel->GetAllCategory();

@@ -75,4 +75,12 @@ class UserModel extends Mysql {
             return false;
         }
     }
+
+    public function MakeUserSupplier($user_id) {
+        $query = "UPDATE usuario 
+        SET rol = 'proveedor'
+        WHERE id_usuario = ? AND rol = 'cliente' ";
+        $stmt = $this->connection->prepare($query);
+        return $stmt->execute([$user_id]);
+    }
 }

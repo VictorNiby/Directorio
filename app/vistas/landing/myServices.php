@@ -150,5 +150,5 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
         </div>
     </div>
 
-<script type="module" src="<?= URL_BASE ?>/publico/js/my_services/my_services.js"></script>
+<script type="module" src="<?= URL_BASE ?>/publico/js/myServices/myServices.js"></script>
 <?php include_once (RUTA_BASE .'/app/vistas/landing/plantilla/footer.php'); ?>

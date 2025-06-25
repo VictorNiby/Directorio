@@ -189,6 +189,10 @@ if (!defined('URL_BASE')) {
 
                         <?php if(count($_SESSION) > 0) : ?>
                             <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
+                                <a href="<?= URL_BASE ?>/rutas/rutas.php?page=uploadService" class="btn px-0 text-primary" title="Subir Nuevo Servicio" style="margin-right: 10px;">
+                                    <i class="fa-solid fa-square-plus"></i>
+                                </a>
+
                                 <a href="<?= URL_BASE ?>/rutas/rutas.php?page=favorites" class="btn px-0"
                                 title="Tus Servicios Favoritos">
                                     <i class="fas fa-heart text-primary"></i>

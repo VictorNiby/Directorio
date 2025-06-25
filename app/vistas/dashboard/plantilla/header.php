@@ -56,7 +56,7 @@ if (!defined('URL_BASE')) {
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2 bg-white my-2" id="sidenav-main">
   <div class="sidenav-header">
     <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-    <a class="navbar-brand px-4 py-3 m-0 d-flex align-items-center" href="<?= URL_BASE ?>">
+    <a class="navbar-brand px-4 py-3 m-0 d-flex align-items-center" href="rutas.php?page=home">
       <div class="ms-0 d-flex align-items-center">
         <span class="h4 text-uppercase text-niby bg-title-didi px-2 pe-1">Direc</span>
         <span class="h4 text-uppercase text-dark bg-title-niby px-2 ps-1">Torio</span>

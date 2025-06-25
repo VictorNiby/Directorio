@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET"){
     //SI NO HAY SE ENCUENTRA EL PARAMETRO 'page', REVISA OTRO PARAMETRO LLAMADO 'action', SI TAMPOCO LO ENCUENTRA, REDIRECCIONA AL HOME
     if (!isset($_GET["page"])) {
         if (!isset($_GET["action"])) {
-            header("Location: rutas.php?page=home");
+            header("Location: rutas.php?page=logIn");
             die();
         }
 
@@ -116,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET"){
             break;
 
         case 'orders':
-            $isLoggedIn && $_SESSION["role"] === "proveedor" ? $landingPageController->OrdersPage() : header("Location:rutas.php?page=home");
+            $isLoggedIn && $_SESSION["role"] === "proveedor" ? $landingPageController->OrdersPage() : header("Location:rutas.php?page=logIn");
             break;
 
         case 'chat':
@@ -124,7 +124,11 @@ if ($_SERVER["REQUEST_METHOD"] === "GET"){
             break;
 
         case 'myServices':
-            $isLoggedIn && $_SESSION["role"] === 'proveedor' ? $landingPageController->MyServicesPage() : header("Location:rutas.php?page=home");
+            $isLoggedIn && $_SESSION["role"] === 'proveedor' ? $landingPageController->MyServicesPage() : header("Location:rutas.php?page=logIn");
+            break;
+
+        case 'uploadService':
+            $isLoggedIn ? $landingPageController->UploadServicePage() : header("Location:rutas.php?page=logIn");
             break;
 
         // ============================= DASHBOARD ===========================================
@@ -197,7 +201,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET"){
             break;
 
         default:
-            header("Location: rutas.php?page=home");
+            header("Location: rutas.php?page=logIn");
             break;
     }
 }
@@ -271,6 +275,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             case 'cancelService':
                 $checkOutController->CancelPurchase();
+                break;
+
+            case 'uploadService':
+                $serviceController->UploadService();
                 break;
 
             default:
