@@ -65,14 +65,16 @@ class ServiceModel extends Mysql {
     //PARA EL INDEX DEL LANDING PAGE
     public function getServicesWithImages(){
         $query = "SELECT s.id_servicio, s.titulo, s.precio, COUNT(su.servicio_id) AS total_solicitudes,
-        servicio_imagenes.imagen_ref
+       (SELECT imagen_ref 
+        FROM servicio_imagenes 
+        WHERE servicio_imagenes.servicio_id = s.id_servicio 
+        LIMIT 1) AS imagen_ref
         FROM servicio s
         INNER JOIN servicio_usuario su ON s.id_servicio = su.servicio_id
-        INNER JOIN servicio_imagenes ON servicio_imagenes.servicio_id = s.id_servicio
         WHERE s.estado = 'Activo'
-        GROUP BY s.id_servicio
+        GROUP BY s.id_servicio, s.titulo, s.precio
         ORDER BY total_solicitudes DESC
-        LIMIT 8;";
+        LIMIT 8";
         $preparedStmt = $this->connection->prepare($query);
         $preparedStmt->execute();
         $feature = $preparedStmt->fetchAll(PDO::FETCH_ASSOC);
@@ -288,7 +290,7 @@ class ServiceModel extends Mysql {
             LEFT JOIN 
                 servicio_imagenes si ON s.id_servicio = si.servicio_id
             GROUP BY 
-                s.id_servicio, s.titulo, si.imagen_ref
+                s.id_servicio, s.titulo
             ORDER BY 
                 cantidad_reservas DESC
             LIMIT 2;";

@@ -8,7 +8,7 @@ include_once RUTA_BASE . '/app/vistas/landing/plantilla/header.php';
         <div class="row px-xl-5">
             <div class="col-12">
                 <nav class="breadcrumb bg-light mb-30">
-                    <a class="breadcrumb-item text-dark" href="<?= URL_BASE ?>/rutas/rutas.php">Inicio</a>
+                    <a class="breadcrumb-item text-dark" href="<?= URL_BASE ?>/rutas/rutas.php?page=home">Inicio</a>
                     <span class="breadcrumb-item active">Subir Nuevo Servicio</span>
                 </nav>
             </div>

@@ -118,7 +118,7 @@ if (!defined('URL_BASE')) {
                 </a>
             </div>
 
-            <div class="col-lg-4 col-6 text-left">
+            <!-- <div class="col-lg-4 col-6 text-left">
                 <form action="<?= URL_BASE ?>/search.php" method="GET">
                     <div class="input-group">
                         <input type="text" class="form-control" name="q" placeholder="Buscar productos">
@@ -129,7 +129,7 @@ if (!defined('URL_BASE')) {
                         </div>
                     </div>
                 </form>
-            </div>
+            </div> -->
         </div>
     </div>
     <!-- Topbar End -->
